@@ -53,8 +53,40 @@ class VerbController extends Controller
 	 */
 	public function actionView($id)
 	{
+
+	$model = Verb::findOne($id);
+
+	switch ($model->mainword) {
+		case true:
+			//поиск всех слов группы
+			$verbs = Verb::find()->anyTagValues($model->infinitive)->all();
+
+			//добавление главного слова в начало списка
+			$verbs = array_merge([$model], $verbs);
+			break;
+		case false:
+			//поиск главных слов
+			$mainwords = Verb::find()->where(['infinitive' => json_decode($model->related)])->all();
+
+			//поиск всех слов группы
+			$verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
+
+			//добавление главных слов в начало списка
+			$verbs = array_merge($mainwords, $verbs);
+
+			//Удаление искомого слова из списка, чтобы потом вставить его в начало
+			foreach ($verbs as $key => $value) {
+				if ($value->id == $id) {unset($verbs[$key]);};
+			}
+
+			//добавление искомого слова в начало списка
+			$verbs = array_merge([$model], $verbs);
+
+			break;
+	}
+
 		return $this->render('view', [
-			'model' => $this->findModel($id),
+			'models' => $verbs,
 		]);
 	}
 
@@ -73,16 +105,16 @@ class VerbController extends Controller
 			$model->examples = json_encode($_POST['Verb']['examples']);
 			$model->meanings = json_encode($_POST['Verb']['meanings']);
 
-			 if ($model->related) {print_r($model->related);//exit;
-			 	$model->tagValues = $model->related;
-			 	$model->related = json_encode($model->related);
+			 if ($model->related) {print_r($model->related);
+				$model->tagValues = $model->related;
+				$model->related = json_encode($model->related);
 			 }
 
 			$model->save();
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 
-			$allTags = Tag1::getAllTags(true,false) ;
+			$allTags = Tag1::getAllVerbs(true,false) ;
 			return $this->render('create', [
 				'model' => $model,
 				'data' => $allTags,
@@ -120,7 +152,7 @@ class VerbController extends Controller
 			$model->meanings = json_decode($model->meanings, true);
 			$model->related = json_decode($model->related, true);
 
-			$allTags = Tag1::getAllTags(true,false);
+			$allTags = Tag1::getAllVerbs(true,false);
 			return $this->render('update', [
 				'model' => $model,
 				'data' => $allTags,
@@ -155,6 +187,11 @@ class VerbController extends Controller
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
+	}
+
+	public function actionTesting()
+	{
+		return $this->render('testing');
 	}
 
 }

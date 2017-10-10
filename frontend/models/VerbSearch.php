@@ -19,6 +19,7 @@ class VerbSearch extends Verb
     {
         return [
             [['id', 'rating'], 'integer'],
+            [['mainword'], 'boolean'],
             [['infinitive','conjunction', 'others', 'meanings', 'examples', 'related',], 'safe'],
         ];
     }

@@ -6,6 +6,12 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Verb */
 
+
+foreach ($models as $model) {
+
+
+// print_r($models);exit;
+
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -43,7 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'examples:ntext',
             'related',
             'rating',
+            'mainword',
         ],
     ]) ?>
 
 </div>
+
+<?php }

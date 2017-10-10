@@ -49,6 +49,7 @@ class Verb extends \yii\db\ActiveRecord
 			[['infinitive'], 'required'],
 			[['infinitive', 'conjunction', 'others', 'meanings', 'examples', ], 'string'],
 			[['rating'], 'integer'],
+			[['mainword'], 'boolean'],
 			[['tagValues', 'related'], 'safe'],
 		];
 	}

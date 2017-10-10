@@ -37,22 +37,37 @@ use kartik\select2\Select2;
 		]) ?>
 
 
-<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) { ?>
+	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) { ?>
+
+	<?= $form->field($model, 'mainword')->checkbox() ?>
+
+
+<?php
+$js = <<<JS
+document.getElementById('verb-mainword').onchange = function() {
+    document.getElementById('tag1').disabled = !this.checked;
+};
+JS;
+$this->registerJs($js);
+?>
+
+
 	<?= $form->field($model, 'related')->widget(Select2::classname(), [
 		'data' => $data,
+		'id' => 'tag1',
 		//'value' => ['red', 'green'],
 		'options' => [
 			'placeholder' => 'Add ...',
 			'multiple' => true,
+
 		],
 		'pluginOptions' => [
 			'allowClear' => true,
-			'tags' => true,
+		//	'tags' => true,
+
 		],
 
 	]); ?>
-
-
 
 		<div class='form-group'>
 			<?= Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

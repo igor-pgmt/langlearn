@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use frontend\models\Verb;
 /**
  * This is the model class for table "tag1".
  *
@@ -66,5 +66,15 @@ class Tag1 extends \yii\db\ActiveRecord
 
             return $allTags;
     }
+
+    public static function getAllVerbs($combine=false)
+    {
+        $allTags = Verb::find()->select('infinitive')->where(['mainword' => true])->distinct()->column();
+
+        if ($combine) $allTags = array_combine($allTags, $allTags);
+
+            return $allTags;
+    }
+
 
 }
