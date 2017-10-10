@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 ?>
 
@@ -18,26 +19,40 @@ use yii\widgets\ActiveForm;
 		]) ?>
 
 	<?= $this->render('_others.php', [
-	    'others'=>$model->others,
-	    'model'=>$model,
-	    'form'=>$form
-	    ]) ?>
+		'others'=>$model->others,
+		'model'=>$model,
+		'form'=>$form
+		]) ?>
 
 	<?= $this->render('_examples.php', [
-	    'examples'=>$model->examples,
-	    'model'=>$model,
-	    'form'=>$form
-	    ]) ?>
+		'examples'=>$model->examples,
+		'model'=>$model,
+		'form'=>$form
+		]) ?>
 
 	<?= $this->render('_meanings.php', [
-	    'meanings'=>$model->meanings,
-	    'model'=>$model,
-	    'form'=>$form
-	    ]) ?>
+		'meanings'=>$model->meanings,
+		'model'=>$model,
+		'form'=>$form
+		]) ?>
 
-	<?= $form->field($model, 'related')->textInput() ?>
 
-	<?php if (Yii::$app->controller->action->id == 'update') { ?>
+<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) { ?>
+	<?= $form->field($model, 'related')->widget(Select2::classname(), [
+		'data' => $data,
+		//'value' => ['red', 'green'],
+		'options' => [
+			'placeholder' => 'Add ...',
+			'multiple' => true,
+		],
+		'pluginOptions' => [
+			'allowClear' => true,
+			'tags' => true,
+		],
+
+	]); ?>
+
+
 
 		<div class='form-group'>
 			<?= Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

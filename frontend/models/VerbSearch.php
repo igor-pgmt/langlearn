@@ -18,8 +18,8 @@ class VerbSearch extends Verb
     public function rules()
     {
         return [
-            [['id', 'related', 'rating'], 'integer'],
-            [['infinitive','conjunction', 'others', 'meanings', 'examples'], 'safe'],
+            [['id', 'rating'], 'integer'],
+            [['infinitive','conjunction', 'others', 'meanings', 'examples', 'related',], 'safe'],
         ];
     }
 

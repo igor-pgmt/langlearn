@@ -2,23 +2,13 @@
 
 namespace frontend\models;
 
-use creocoder\taggable\TaggableQueryBehavior;
-
 /**
- * This is the ActiveQuery class for [[Verb]].
+ * This is the ActiveQuery class for [[Tag1]].
  *
- * @see Verb
+ * @see Tag1
  */
-class VerbQuery extends \yii\db\ActiveQuery
+class Tag1Query extends \yii\db\ActiveQuery
 {
-
-    public function behaviors()
-    {
-        return [
-            TaggableQueryBehavior::className(),
-        ];
-    }
-
     /*public function active()
     {
         return $this->andWhere('[[status]]=1');
@@ -26,7 +16,7 @@ class VerbQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Verb[]|array
+     * @return Tag1[]|array
      */
     public function all($db = null)
     {
@@ -35,7 +25,7 @@ class VerbQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Verb|array|null
+     * @return Tag1|array|null
      */
     public function one($db = null)
     {

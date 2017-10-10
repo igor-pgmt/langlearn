@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use creocoder\taggable\TaggableBehavior;
 
 /**
  * This is the model class for table "verb".
@@ -18,49 +19,78 @@ use Yii;
  */
 class Verb extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'verb';
-    }
+	public function behaviors()
+	{
+		return [
+			'taggable' => [
+				'class' => TaggableBehavior::className(),
+				// 'tagValuesAsArray' => false,
+				// 'tagRelation' => 'tags',
+				// 'tagValueAttribute' => 'name',
+				// 'tagFrequencyAttribute' => 'frequency',
+			],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['infinitive'], 'required'],
-            [['infinitive', 'conjunction', 'others', 'meanings', 'examples'], 'string'],
-            [['related', 'rating'], 'integer'],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return 'verb';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('frontend', 'ID'),
-            'infinitive' => Yii::t('frontend', 'Infinitive'),
-            'conjunction' => Yii::t('frontend', 'Conjunction'),
-            'others' => Yii::t('frontend', 'others'),
-            'meanings' => Yii::t('frontend', 'Meanings'),
-            'examples' => Yii::t('frontend', 'Examples'),
-            'related' => Yii::t('frontend', 'Related'),
-            'rating' => Yii::t('frontend', 'Rating'),
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+			[['infinitive'], 'required'],
+			[['infinitive', 'conjunction', 'others', 'meanings', 'examples', ], 'string'],
+			[['rating'], 'integer'],
+			[['tagValues', 'related'], 'safe'],
+		];
+	}
 
-    /**
-     * @inheritdoc
-     * @return VerbQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new VerbQuery(get_called_class());
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'id' => Yii::t('frontend', 'ID'),
+			'infinitive' => Yii::t('frontend', 'Infinitive'),
+			'conjunction' => Yii::t('frontend', 'Conjunction'),
+			'others' => Yii::t('frontend', 'others'),
+			'meanings' => Yii::t('frontend', 'Meanings'),
+			'examples' => Yii::t('frontend', 'Examples'),
+			'related' => Yii::t('frontend', 'Related'),
+			'rating' => Yii::t('frontend', 'Rating'),
+			'tagValues' => Yii::t('frontend', 'Tags1'),
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 * @return VerbQuery the active query used by this AR class.
+	 */
+	public static function find()
+	{
+		return new VerbQuery(get_called_class());
+	}
+
+	//tagging
+	public function transactions()
+	{
+		return [
+			self::SCENARIO_DEFAULT => self::OP_ALL,
+		];
+	}
+
+	public function getTags()
+	{
+		return $this->hasMany(Tag1::className(), ['id' => 'tag1_id'])
+			->viaTable('{{%verb_tag1_assn}}', ['verb_id' => 'id']);
+	}
 }

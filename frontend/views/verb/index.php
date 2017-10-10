@@ -27,11 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'related',
             'rating',
-            'conjunction:ntext',
+ //           'conjunction:ntext',
             'infinitive:ntext',
-            'others:ntext',
-            'meanings:ntext',
-            'examples:ntext',
+//            'others:ntext',
+//            'meanings:ntext',
+//            'examples:ntext',
 
 
             ['class' => 'yii\grid\ActionColumn'],
