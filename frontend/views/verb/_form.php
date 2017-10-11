@@ -45,7 +45,9 @@ use kartik\select2\Select2;
 <?php
 $js = <<<JS
 document.getElementById('verb-mainword').onchange = function() {
-    document.getElementById('tag1').disabled = !this.checked;
+	input = document.getElementsByClassName('select2-search__field')[0];
+    input.disabled = this.checked;
+    if (this.checked == true) {input.val('');}; //bug
 };
 JS;
 $this->registerJs($js);
@@ -128,9 +130,9 @@ function delRow(typeOfInsert) {
 		if (typeOfInsert == 'others') {
 			if (typeof window.othersCounter !== 'undefined' && window.othersCounter>0 ) { window.othersCounter = window.othersCounter - 1;}
 		} else if (typeOfInsert == 'examples') {
-			if (typeof window.examplesCounter !== 'undefined' && window.othersCounter>0 ) { window.examplesCounter = window.examplesCounter - 1;}
+			if (typeof window.examplesCounter !== 'undefined' && window.examplesCounter>0 ) { window.examplesCounter = window.examplesCounter - 1;}
 		} else if (typeOfInsert == 'meanings') {
-			if (typeof window.meaningsCounter !== 'undefined' && window.othersCounter>0 ) { window.meaningsCounter = window.meaningsCounter - 1;}
+			if (typeof window.meaningsCounter !== 'undefined' && window.meaningsCounter>0 ) { window.meaningsCounter = window.meaningsCounter - 1;}
 		}
 
 		var child = document.getElementById(typeOfInsert).getElementsByTagName('tbody')[0].getElementsByTagName('tr')[(x-1)];
