@@ -3,11 +3,11 @@
 namespace frontend\models;
 
 /**
- * This is the ActiveQuery class for [[Tag1]].
+ * This is the ActiveQuery class for [[Testtable]].
  *
- * @see Tag1
+ * @see Testtable
  */
-class Tag1Query extends \yii\db\ActiveQuery
+class TesttableQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class Tag1Query extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Tag1[]|array
+     * @return Testtable[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class Tag1Query extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Tag1|array|null
+     * @return Testtable|array|null
      */
     public function one($db = null)
     {

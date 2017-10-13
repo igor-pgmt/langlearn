@@ -3,22 +3,21 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Verb */
+/* @var $model frontend\models\Testtable */
 
 $this->title = Yii::t('frontend', 'Update {modelClass}: ', [
-    'modelClass' => 'Verb',
+    'modelClass' => 'Testtable',
 ]) . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Testtables'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
 ?>
-<div class="verb-update">
+<div class="testtable-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'data' => $data,
     ]) ?>
 
 </div>

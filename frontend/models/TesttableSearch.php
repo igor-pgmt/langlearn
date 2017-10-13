@@ -5,12 +5,12 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Verb;
+use frontend\models\Testtable;
 
 /**
- * VerbSearch represents the model behind the search form about `frontend\models\Verb`.
+ * TesttableSearch represents the model behind the search form about `frontend\models\Testtable`.
  */
-class VerbSearch extends Verb
+class TesttableSearch extends Testtable
 {
     /**
      * @inheritdoc
@@ -18,9 +18,8 @@ class VerbSearch extends Verb
     public function rules()
     {
         return [
-            [['id', 'rating'], 'integer'],
-            [['mainword'], 'boolean'],
-            [['infinitive','conjunction', 'others', 'meanings', 'examples', 'related',], 'safe'],
+            [['id'], 'integer'],
+            [['myfield'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class VerbSearch extends Verb
      */
     public function search($params)
     {
-        $query = Verb::find();
+        $query = Testtable::find();
 
         // add conditions that should always apply here
 
@@ -61,16 +60,9 @@ class VerbSearch extends Verb
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'related' => $this->related,
         ]);
 
-        $query->andFilterWhere(['like', 'infinitive', $this->infinitive])
-            ->andFilterWhere(['like', 'conjunction', $this->conjunction])
-            ->andFilterWhere(['like', 'others', $this->others])
-            ->andFilterWhere(['like', 'meanings', $this->meanings])
-            ->andFilterWhere(['like', 'examples', $this->examples])
-            ->andFilterWhere(['like', 'related', $this->related])
-            ->andFilterWhere(['like', 'rating', $this->rating]);
+        $query->andFilterWhere(['like', 'myfield', $this->myfield]);
 
         return $dataProvider;
     }

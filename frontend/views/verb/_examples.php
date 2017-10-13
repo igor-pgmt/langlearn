@@ -4,20 +4,6 @@ use yii\helpers\Html;
 
 ?>
 
-<style type="text/css">
-	.inp_text{
-	width:100px;
-	}
-	#examples {
-	display:inline-block;
-	width:550px;
-	overflow:hidden;
-
-	}
-	#examples td,#table2 td {
-		width:auto;
-	}
-</style>
 <table id="examples">
 	<thead>
 		<tr>
@@ -33,7 +19,7 @@ use yii\helpers\Html;
 					echo '<tr>';
 					foreach ($value as $key2 => $value2) {
 						$str='examples['.$key.']['.$key2.']';
-						echo '<td>'.$form->field($model, $str, [])->textInput(['class' => 'col-xs-8 form-control', 'style' => 'padding: 1px;'])->label(false).'<td>';
+						echo '<td>'.$form->field($model, $str, ['errorOptions' => ['tag' => null]])->textarea(['class' => 'col-xs-8 form-control', 'style' => 'padding: 1px;'])->label(false).'</td>';
 					}
 					echo '</tr>';
 				}
@@ -77,10 +63,10 @@ use yii\helpers\Html;
 		<?php
 			if ($examples) {
 				$examples = json_decode($examples, true);
-				foreach ($examples as $key => $value) {
+				foreach ($examples as $value) {
 					echo '<tr>';
-					foreach ($value as $key2 => $value2) {
-						echo '<td>'.$examples[$key][$key2].'<td>';
+					foreach ($value as $value2) {
+						echo '<td>'.$value2.'</td>';
 					}
 					echo '</tr>';
 				}

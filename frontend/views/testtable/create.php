@@ -4,19 +4,18 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Verb */
+/* @var $model frontend\models\Testtable */
 
-$this->title = Yii::t('frontend', 'Create Verb');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
+$this->title = Yii::t('frontend', 'Create Testtable');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Testtables'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="verb-create">
+<div class="testtable-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'data' => $data,
     ]) ?>
 
 </div>

@@ -4,19 +4,6 @@ use yii\helpers\Html;
 
 ?>
 
-<style type="text/css">
-	.inp_text{
-	width:100px;
-	}
-	#others {
-	display:inline-block;
-	width:550px;
-	overflow:hidden;
-	}
-	#others td,#table2 td {
-		width:auto;
-	}
-</style>
 <table id="others">
 	<thead>
 		<tr>
@@ -32,7 +19,7 @@ use yii\helpers\Html;
 					echo '<tr>';
 					foreach ($value as $key2 => $value2) {
 						$str='others['.$key.']['.$key2.']';
-						echo '<td>'.$form->field($model, $str)->textInput(['class' => 'col-xs-8 form-control', 'style' => 'padding: 1px;'])->label(false).'<td>';
+						echo '<td>'.$form->field($model, $str)->textInput(['class' => 'col-xs-8 form-control', 'style' => 'padding: 1px;'])->label(false).'</td>';
 					}
 					echo '</tr>';
 				}
@@ -79,7 +66,7 @@ use yii\helpers\Html;
 				foreach ($others as $key => $value) {
 					echo '<tr>';
 					foreach ($value as $key2 => $value2) {
-						echo '<td>'.$others[$key][$key2].'<td>';
+						echo '<td>'.$others[$key][$key2].'</td>';
 					}
 					echo '</tr>';
 				}

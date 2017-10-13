@@ -4,22 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Verb */
-
-
-foreach ($models as $model) {
-
-
-// print_r($models);exit;
+/* @var $model frontend\models\Testtable */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Testtables'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="testtable-view">
 
-<div class="verb-view">
-
-    <h1><?= Html::encode($model->infinitive) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -30,29 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-<?= $this->render('_form.php', [
-    'model'=>$model,
-
-    ]) ?>
-
-<!--
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'conjunction:ntext',
-            'others:ntext',
-            'meanings:ntext',
-            'examples:ntext',
-            'related',
-            'rating',
-            'mainword',
+            'myfield:ntext',
         ],
-    ]) ?> -->
+    ]) ?>
 
 </div>
-
-<?php }

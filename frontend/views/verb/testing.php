@@ -1,21 +1,19 @@
 <?php
+use frontend\widgets\Test\TestWidget;
+use yii\widgets\ActiveForm;
 
-use frontend\models\Verb;
+?>
 
-$id= 3 ;
-$model = Verb::findOne($id);
-switch ($model->mainword) {
-	case true:
-		//$verbs = Verb::find()->anyTagValues($model->infinitive)->asArray()->all();
-		$verbs = Verb::find()->anyTagValues($model->infinitive)->select('verb.id')->column();
-		print_r($verbs);
-		break;
-	case false:
-		//$firstTags = $model->getTagValues(true);
-		//$verbs = Verb::find()->anyTagValues($model->getTagValues(true))->asArray()->all();
-		$verbs = Verb::find()->anyTagValues($model->getTagValues(true))->select('verb.id')->column();
-		print_r($verbs);
-		break;
+<?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
-}
+	<?= $form->field($model, 'myfield')->widget(TestWidget::classname(), [
+		'pluginOptions' => [
+			'tableName' => 'myfield',
+			'columns' => 2,
+			'columnHeaders' => ['col1', 'col2' ],
+			'rows' => 3,
+			'rowHeaders' => ['row1', 'row2', 'row3'],
+		]
+	]) ?>
 
+<?php ActiveForm::end(); ?>

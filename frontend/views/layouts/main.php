@@ -36,6 +36,9 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Verb', 'url' => ['/verb']],
+        ['label' => 'Create Verb', 'url' => ['/verb/create']],
+        ['label' => 'Testing', 'url' => ['/verb/testing']],
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],

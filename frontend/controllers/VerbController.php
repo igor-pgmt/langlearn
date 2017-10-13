@@ -4,12 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Verb;
+use frontend\models\Testtable;
 use frontend\models\VerbSearch;
 use frontend\models\Tag1;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 
 /**
  * VerbController implements the CRUD actions for Verb model.
@@ -189,9 +189,46 @@ class VerbController extends Controller
 		}
 	}
 
-	public function actionTesting()
+	public function actionTestingCreate()
 	{
-		return $this->render('testing');
+		// $model = $this->findModel(5);
+$model = new Testtable();
+		if ($model->load(Yii::$app->request->post())) {
+
+			$model->myfield = isset($_POST['Verb']['myfield']) ? json_encode($_POST['Verb']['myfield']) : '' ;
+
+			$model->save();
+			//return $this->redirect(['testing']);
+		} else {
+
+		return $this->render('testing',
+			[
+				'model' => $model,
+			]);
 	}
+}
+
+	public function actionTestingView()
+	{
+		// $model = $this->findModel(5);
+$model = new Testtable();
+		if ($model->load(Yii::$app->request->post())) {
+
+			$model->myfield = isset($_POST['Verb']['myfield']) ? json_encode($_POST['Verb']['myfield']) : '' ;
+
+			$model->save();
+			return $this->redirect(['testing']);
+		} else {
+
+print_r($_POST);exit;
+
+		$model->myfield = json_decode($model->myfield, true);
+
+		return $this->render('testing',
+			[
+				'model' => $model,
+			]);
+	}
+}
 
 }
