@@ -16,6 +16,12 @@ use creocoder\taggable\TaggableBehavior;
  * @property string $examples
  * @property integer $related
  * @property integer $rating
+ * @property integer $rating2
+ * @property integer $views
+ * @property integer $important
+ * @property integer $needhelp
+ * @property integer $needtranslation
+ * @property integer $mainword
  */
 class Verb extends \yii\db\ActiveRecord
 {
@@ -48,9 +54,9 @@ class Verb extends \yii\db\ActiveRecord
 		return [
 			[['infinitive'], 'required'],
 			[['infinitive', 'conjunction', 'others', 'meanings', 'examples', ], 'string'],
-			[['rating'], 'integer'],
-			[['mainword'], 'boolean'],
-			[['tagValues', 'related'], 'safe'],
+			[['rating', 'views'], 'integer'],
+			[['mainword', 'important', 'needhelp', 'needtranslation'], 'boolean'],
+			[['tagValues', 'related', 'related2'], 'safe'],
 		];
 	}
 
@@ -68,6 +74,10 @@ class Verb extends \yii\db\ActiveRecord
 			'examples' => Yii::t('frontend', 'Examples'),
 			'related' => Yii::t('frontend', 'Related'),
 			'rating' => Yii::t('frontend', 'Rating'),
+			'views' => Yii::t('frontend', 'Views'),
+			'important' => Yii::t('frontend', 'Important'),
+			'needhelp' => Yii::t('frontend', 'Need Help'),
+			'needtranslation' => Yii::t('frontend', 'Need Translation'),
 			'tagValues' => Yii::t('frontend', 'Tags1'),
 		];
 	}

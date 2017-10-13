@@ -1,8 +1,80 @@
+
+<script>
+function oclick(paramName) {
+
+
+
+switch(paramName) {
+    case 'important':
+
+		if (typeof important == 'undefined') {
+				important='<?= $model->important; ?>';
+		}
+		if (important == true) {paramValue=0} else {paramValue=1}
+		important = !important;
+
+        break;
+    case 'needhelp':
+
+		if (typeof needhelp == 'undefined') {
+				needhelp='<?= $model->needhelp; ?>';
+		}
+		if (needhelp == true) {paramValue=0} else {paramValue=1}
+		needhelp = !needhelp;
+
+        break;
+    case 'needtranslation':
+
+		if (typeof needtranslation == 'undefined') {
+				needtranslation='<?= $model->needtranslation; ?>';
+		}
+		if (needtranslation == true) {paramValue=0} else {paramValue=1}
+		needtranslation = !needtranslation;
+
+        break;
+
+}
+
+	ajaxSend(paramName, paramValue);
+
+};
+
+
+function oclick2(paramName, paramValue) {
+alert(paramName);
+alert(paramValue);
+
+
+}
+
+function ajaxSend(paramName, paramValue) {
+
+	$.ajax({
+		url: '/verb/sex?id=' + '<?= $model->id; ?>',
+		type: 'POST',
+		data: {'param': paramName, 'paramval': paramValue},
+		success: function(res){
+		//	alert(res + '=result');
+		},
+		error: function(){
+			alert('Error!');
+		}
+	});
+
+}
+
+
+</script>
+
+
 <?php
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\switchinput\SwitchInput;
+use kartik\rating\StarRating;
+use yii\web\JsExpression;
 
 ?>
 
@@ -11,6 +83,76 @@ use kartik\select2\Select2;
 	<?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
 	<?= $form->field($model, 'infinitive')->textInput() ?>
+
+	<?= $form->field($model, 'important' )->widget(SwitchInput::classname(), [
+	'name'=>'important',
+	'pluginOptions'=>[
+		'handleWidth'=>120,
+		'onText'=> Yii::t('frontend', 'Important'),
+		'offText'=>'-',
+		'onColor' => 'danger',
+	],
+	'pluginEvents' => [
+		"switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
+	]
+		]) ?>
+
+	<?= $form->field($model, 'needtranslation')->widget(SwitchInput::classname(), [
+		'name'=>'needtranslation',
+		'pluginOptions'=>[
+			'handleWidth'=>120,
+			'onText'=> Yii::t('frontend', 'Need Translation'),
+			'offText'=>'-',
+			'onColor' => 'danger',
+		],
+	'pluginEvents' => [
+		"switchChange.bootstrapSwitch" => "function() { oclick('needtranslation'); }",
+	]
+	]) ?>
+
+	<?= $form->field($model, 'needhelp')->widget(SwitchInput::classname(), [
+	'name'=>'needhelp',
+	'pluginOptions'=>[
+		'handleWidth'=>120,
+		'onText'=> Yii::t('frontend', 'Need Help'),
+		'offText'=>'-',
+		'onColor' => 'danger',
+	],
+	'pluginEvents' => [
+		"switchChange.bootstrapSwitch" => "function() { oclick('needhelp'); }",
+	]
+		]) ?>
+
+	<?= $form->field($model, 'rating')->widget(StarRating::classname(), [
+	'name'=>'needhelp',
+	'pluginOptions'=>[
+		'theme' => 'krajee-uni',
+		'filledStar' => '<i class="glyphicon glyphicon-menu-right" style="color: blue;"></i>',
+		'emptyStar' => '<i class="glyphicon glyphicon-menu-right"></i>',
+		'step' => 1,
+		'size' => 'xs',
+		'showClear' => false,
+		//'showCaption' => false,
+		'defaultCaption' => '{rating}',
+		'starCaptions' => new JsExpression("function(val){return val ;}"),
+		'starCaptionClasses' => [
+			1 => 'text-primary',
+			2 => 'text-primary',
+			3 => 'text-primary',
+			4 => 'text-primary',
+			5 => 'text-primary',
+		],
+	],
+	'pluginEvents' => [
+		"rating.change" => "function(event, value, caption) { ajaxSend('rating', value); }",
+	]
+		]) ?>
+
+		<div class='form-group'>
+			<?= Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		</div>
+
+
 
 	<?= $this->render('_conjunctions.php', [
 		'conjunction' => $model->conjunction,
@@ -42,12 +184,16 @@ use kartik\select2\Select2;
 	<?= $form->field($model, 'mainword')->checkbox() ?>
 
 
+
+
+
+
 <?php
 $js = <<<JS
 document.getElementById('verb-mainword').onchange = function() {
 	input = document.getElementsByClassName('select2-search__field')[0];
-    input.disabled = this.checked;
-    if (this.checked == true) {input.val('');}; //bug
+	input.disabled = this.checked;
+	if (this.checked == true) {input.val('');}; //bug
 };
 JS;
 $this->registerJs($js);
@@ -141,3 +287,6 @@ function delRow(typeOfInsert) {
 }
 
 </script>
+
+
+

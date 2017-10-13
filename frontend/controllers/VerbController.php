@@ -56,6 +56,23 @@ class VerbController extends Controller
 
 	$model = Verb::findOne($id);
 
+	if(\Yii::$app->request->isAjax){
+						$data = Yii::$app->request->post();
+						$resp = $data['datam'];
+
+		$model->important = $resp; $result='bad';
+		if ($model->save()) {$result = 'good';}
+		return $model->examples;
+	}
+
+
+
+
+		if ($model->load(Yii::$app->request->post()) && $model->save())
+		{
+			$model = Verb::findOne($id);
+		}
+
 	switch ($model->mainword) {
 		case true:
 			//поиск всех слов группы
@@ -100,14 +117,14 @@ class VerbController extends Controller
 		$model = new Verb();
 
 		if ($model->load(Yii::$app->request->post()) ) {
-			$model->conjunction = json_encode($_POST['Verb']['conjunction']);
-			$model->others = json_encode($_POST['Verb']['others']);
-			$model->examples = json_encode($_POST['Verb']['examples']);
-			$model->meanings = json_encode($_POST['Verb']['meanings']);
+			$model->conjunction = json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE);
+			$model->others = json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE);
+			$model->examples = json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE);
+			$model->meanings = json_encode($_POST['Verb']['meanings'], JSON_UNESCAPED_UNICODE);
 
-			 if ($model->related) {print_r($model->related);
+			 if ($model->related) {
 				$model->tagValues = $model->related;
-				$model->related = json_encode($model->related);
+				$model->related = json_encode($model->related, JSON_UNESCAPED_UNICODE);
 			 }
 
 			$model->save();
@@ -115,6 +132,7 @@ class VerbController extends Controller
 		} else {
 
 			$allTags = Tag1::getAllVerbs(true,false) ;
+			$model->rating = 3;
 			return $this->render('create', [
 				'model' => $model,
 				'data' => $allTags,
@@ -136,12 +154,12 @@ class VerbController extends Controller
 
 			//this redord's tags
 			$model->tagValues = $model->related;
-			$model->related = json_encode($model->related);
+			$model->related = json_encode($model->related, JSON_UNESCAPED_UNICODE);
 
-			$model->conjunction = isset($_POST['Verb']['conjunction']) ? json_encode($_POST['Verb']['conjunction']) : '' ;
-			$model->others = isset($_POST['Verb']['others']) ? json_encode($_POST['Verb']['others']) : '' ;
-			$model->examples = isset($_POST['Verb']['examples']) ? json_encode($_POST['Verb']['examples']) : '' ;
-			$model->meanings = isset($_POST['Verb']['meanings']) ? json_encode($_POST['Verb']['meanings']) : '' ;
+			$model->conjunction = isset($_POST['Verb']['conjunction']) ? json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE) : '' ;
+			$model->others = isset($_POST['Verb']['others']) ? json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE) : '' ;
+			$model->examples = isset($_POST['Verb']['examples']) ? json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE) : '' ;
+			$model->meanings = isset($_POST['Verb']['meanings']) ? json_encode($_POST['Verb']['meanings'], JSON_UNESCAPED_UNICODE) : '' ;
 
 			$model->save();
 			return $this->redirect(['view', 'id' => $model->id]);
@@ -207,6 +225,49 @@ $model = new Testtable();
 			]);
 	}
 }
+
+
+
+public function actionSex($id)
+{
+	$model = $this->findModel($id);
+
+	if(\Yii::$app->request->isAjax){
+		$data = Yii::$app->request->post();
+		switch ($data['param']) {
+			case 'important':
+				$model->important = $data['paramval'];
+				break;
+			case 'needhelp':
+				$model->needhelp = $data['paramval'];
+				break;
+			case 'needtranslation':
+				$model->needtranslation = $data['paramval'];
+				break;
+			case 'rating':
+				$model->rating = $data['paramval'];
+				break;
+
+		}
+
+		// if (isset($data['important'])) $model->important = $data['important'];
+		// if (isset($data['needhelp'])) $model->needhelp = $data['needhelp'];
+		// if (isset($data['rating'])) $model->rating = $data['rating'];
+
+		 $result='bad';
+		if ($model->save()) {$result = 'good';}
+		return $model->needhelp;
+	}
+
+
+}
+
+
+
+
+
+
+
 
 	public function actionTestingView()
 	{
