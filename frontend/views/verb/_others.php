@@ -7,6 +7,7 @@ use yii\helpers\Html;
 <table id="others">
 	<thead>
 		<tr>
+			<td>Вид</td>
 			<td>Слово</td>
 			<td>Перевод</td>
 		</tr>
@@ -41,6 +42,11 @@ use yii\helpers\Html;
 	<?php } else if (Yii::$app->controller->action->id == 'create') { ?>
 	<tr id="others-row1">
 		<td>
+			<div class="field-verb-others-<?= "1" ?>-vrsta has-success">
+				<input type="text" name="Verb[others][<?= "1" ?>][vrsta]" id="verb-others-<?= "1" ?>-vrsta" class="col-xs-8 form-control" style="padding: 1px;">
+			</div>
+		</td>
+		<td>
 			<div class="field-verb-others-<?= "1" ?>-native has-success">
 				<input type="text" name="Verb[others][<?= "1" ?>][native]" id="verb-others-<?= "1" ?>-native" class="col-xs-8 form-control" style="padding: 1px;">
 			</div>
@@ -61,12 +67,12 @@ use yii\helpers\Html;
 	</tfoot>
 	<?php } else if (Yii::$app->controller->action->id == 'view') { ?>
 		<?php
-			if ($others) {
-				$others = json_decode($others, true);
-				foreach ($others as $key => $value) {
+			if (!empty($model->others)) {
+				$model->others = json_decode($model->others, true);
+				foreach ($model->others as $key => $value) {
 					echo '<tr>';
 					foreach ($value as $key2 => $value2) {
-						echo '<td>'.$others[$key][$key2].'</td>';
+						echo '<td>'.$value2.'</td>';
 					}
 					echo '</tr>';
 				}

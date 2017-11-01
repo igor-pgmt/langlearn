@@ -21,7 +21,10 @@
         "kartik-v/yii2-widget-select2": "@dev",
         "creocoder/yii2-taggable": "^2.0",
         "kartik-v/yii2-widget-switchinput": "*",
-        "kartik-v/yii2-widget-rating": "*"
+        "kartik-v/yii2-widget-rating": "*",
+        "unclead/yii2-multiple-input": "~2.0",
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-widget-depdrop": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

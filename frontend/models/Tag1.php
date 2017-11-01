@@ -2,8 +2,9 @@
 
 namespace frontend\models;
 
-use Yii;
 use frontend\models\Verb;
+use Yii;
+
 /**
  * This is the model class for table "tag1".
  *
@@ -54,7 +55,7 @@ class Tag1 extends \yii\db\ActiveRecord
         return new Tag1Query(get_called_class());
     }
 
-    public static function getAllTags($combine=false, $allOfUsed=true)
+    public static function getAllTags($combine = false, $allOfUsed = true)
     {
         if ($allOfUsed) {
             $allTags = Tag1::find()->select('name')->distinct()->column();
@@ -62,19 +63,29 @@ class Tag1 extends \yii\db\ActiveRecord
             $allTags = Tag1::find()->where(['>', 'frequency', 0])->select('name')->distinct()->column();
         }
 
-        if ($combine) $allTags = array_combine($allTags, $allTags);
+        if ($combine) {
+            $allTags = array_combine($allTags, $allTags);
+        }
 
-            return $allTags;
+        return $allTags;
     }
 
-    public static function getAllVerbs($combine=false)
+    public static function getAllVerbs($combine = false, $lang = 'sr')
     {
-        $allTags = Verb::find()->select('infinitive')->where(['mainword' => true])->distinct()->column();
+        $lang = 'infinitive_' . $lang;
 
-        if ($combine) $allTags = array_combine($allTags, $allTags);
+        $allTags = Verb::find()->select($lang)->where(['mainword' => true])->distinct()->column();
 
-            return $allTags;
+        if ($combine) {
+            $allTags = array_combine($allTags, $allTags);
+        }
+
+        foreach ($allTags as $key => $value) {
+            $allTags[$key] = preg_replace('/[\"\[\]"]/u', '', $value);
+            $allTags[$key] = preg_replace('/,/u', ', ', $allTags[$key]);
+        }
+
+        return $allTags;
     }
-
 
 }

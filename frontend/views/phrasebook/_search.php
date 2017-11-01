@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\VerbSearch */
+/* @var $model frontend\models\PhrasebookSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="verb-search">
+<div class="phrasebook-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,15 +17,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'conjunction') ?>
+    <?= $form->field($model, 'topic') ?>
 
-    <?= $form->field($model, 'others') ?>
+    <?= $form->field($model, 'phrases') ?>
 
-    <?= $form->field($model, 'meanings') ?>
-
-    <?= $form->field($model, 'examples') ?>
-
-    <?php // echo $form->field($model, 'related') ?>
+    <?= $form->field($model, 'language') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('frontend', 'Search'), ['class' => 'btn btn-primary']) ?>

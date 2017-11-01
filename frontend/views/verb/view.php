@@ -1,52 +1,65 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\rating\StarRating;
 use kartik\select2\Select2;
 use kartik\switchinput\SwitchInput;
-use kartik\rating\StarRating;
+use yii\helpers\Html;
 use yii\web\JsExpression;
-use yii\widgets\DetailView;
+use yii\widgets\ActiveForm;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Verb */
 
-
+$nameCounter = 0;
 foreach ($models as $model) {
+    $nameCounter++;
 
+    $infinitive_ru = (!null == (json_decode($model->infinitive_ru))) ? is_array($model->infinitive_ru) ? implode(', ', $model->infinitive_ru) : implode(' ', json_decode($model->infinitive_ru)) : false;
+    $infinitive_sr = (!null == (json_decode($model->infinitive_sr))) ? is_array($model->infinitive_sr) ? implode(', ', $model->infinitive_sr) : implode(' ', json_decode($model->infinitive_sr)) : false;
+    $infinitive_en = (!null == (json_decode($model->infinitive_en))) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : implode(' ', json_decode($model->infinitive_en)) : false;
 
-// print_r($models);exit;
+    // $this->title = Html::a($infinitive_sr, ['view', 'id' => $model->id], ['class' => 'btn btn-default']) . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
+    $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
+    // $this->params['breadcrumbs'][] = $this->title;
+    $this->params['breadcrumbs'][] = ['label' => $infinitive_sr, 'url' => ['/verb/view?id=' . $model->id]];
 
-$this->title = $model->infinitive;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
+    ?>
 
 <div class="verb-view">
 
-	<p>
-		<?= Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-		<?= Html::a(Yii::t('frontend', 'Delete'), ['delete', 'id' => $model->id], [
-			'class' => 'btn btn-danger',
-			'data' => [
-				'confirm' => Yii::t('frontend', 'Are you sure you want to delete this item?'),
-				'method' => 'post',
-			],
-		]) ?>
-		<?= Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success']) ?>
-	</p>
+<div class='verb-form'>
 
+      <h1><?=Html::decode($this->title)?></h1>
+        <?=Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ])?>
+	<?php $form = ActiveForm::begin(['id' => 'contact-form']);?>
+
+<?php if ($nameCounter == 1) {
+        ?>
 
 <script>
-function oclick(paramName) {
 
+function getModelId(e) {
+	id=null;
+	while (id == null){
+		e = e.parentElement;
+		id = e.getAttribute('model_id');
+	}
+	return id;
+}
 
+function oclick(e, paramName) {
+
+id = getModelId(e);
 
 switch(paramName) {
 	case 'important':
 
 		if (typeof important == 'undefined') {
-				important='<?= $model->important; ?>';
+				important='<?=$model->important;?>';
 		}
 		if (important == true) {paramValue=0} else {paramValue=1}
 		important = !important;
@@ -55,40 +68,41 @@ switch(paramName) {
 	case 'needhelp':
 
 		if (typeof needhelp == 'undefined') {
-				needhelp='<?= $model->needhelp; ?>';
+				needhelp='<?=$model->needhelp;?>';
 		}
 		if (needhelp == true) {paramValue=0} else {paramValue=1}
 		needhelp = !needhelp;
 
 		break;
-	case 'needtranslation':
+    case 'needtranslation':
 
-		if (typeof needtranslation == 'undefined') {
-				needtranslation='<?= $model->needtranslation; ?>';
+        if (typeof needtranslation == 'undefined') {
+                needtranslation='<?=$model->needtranslation;?>';
+        }
+        if (needtranslation == true) {paramValue=0} else {paramValue=1}
+        needtranslation = !needtranslation;
+
+        break;
+	case 'perfect_verb':
+
+		if (typeof perfect_verb == 'undefined') {
+				perfect_verb='<?=$model->perfect_verb;?>';
 		}
-		if (needtranslation == true) {paramValue=0} else {paramValue=1}
-		needtranslation = !needtranslation;
+		if (perfect_verb == true) {paramValue=0} else {paramValue=1}
+		perfect_verb = !perfect_verb;
 
 		break;
 
 }
 
-	ajaxSend(paramName, paramValue);
+	ajaxSend(paramName, paramValue, id);
 
 };
 
-
-function oclick2(paramName, paramValue) {
-alert(paramName);
-alert(paramValue);
-
-
-}
-
-function ajaxSend(paramName, paramValue) {
+function ajaxSend(paramName, paramValue, id) {
 
 	$.ajax({
-		url: '/verb/sex?id=' + '<?= $model->id; ?>',
+		url: '/verb/sex?id=' + id,
 		type: 'POST',
 		data: {'param': paramName, 'paramval': paramValue},
 		success: function(res){
@@ -101,238 +115,195 @@ function ajaxSend(paramName, paramValue) {
 
 }
 
-
 </script>
 
-<div class='verb-form'>
+    <?=$form->field($model, 'perfect_verb', ['options' => ['class' => 'my-switcher form-group', 'model_id' => $model->id]])->widget(SwitchInput::classname(), [
 
-	 <h1><?= Html::encode($this->title) ?></h1>
+            'pluginOptions' => [
+                //'handleWidth'=>120,
+                //'onText'=> Yii::t('frontend', 'perfect_verb'),
+                'offText' => '-',
+                'onColor' => 'primary',
+                'size' => 'mini',
+            ],
+            'pluginEvents' => [
+                "switchChange.bootstrapSwitch" => "function() {
+        oclick(this, 'perfect_verb');
+    }",
+            ],
+        ])?>
 
-	<?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+	<?=$form->field($model, 'important', ['options' => ['class' => 'my-switcher form-group', 'model_id' => $model->id]])->widget(SwitchInput::classname(), [
 
-	<?= $form->field($model, 'important' )->widget(SwitchInput::classname(), [
-		'name'=>'important',
-		'pluginOptions'=>[
-			'handleWidth'=>120,
-			'onText'=> Yii::t('frontend', 'Important'),
-			'offText'=>'-',
-			'onColor' => 'danger',
-		],
-		'pluginEvents' => [
-			"switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
-		]
-	]) ?>
+            'pluginOptions' => [
+                //'handleWidth'=>120,
+                //'onText'=> Yii::t('frontend', 'Important'),
+                'offText' => '-',
+                'onColor' => 'danger',
+                'size' => 'mini',
+            ],
+            'pluginEvents' => [
+                "switchChange.bootstrapSwitch" => "function() {
+		oclick(this, 'important');
+	}",
+            ],
+        ])?>
 
-	<?= $form->field($model, 'needtranslation')->widget(SwitchInput::classname(), [
-		'name'=>'needtranslation',
-		'pluginOptions'=>[
-			'handleWidth'=>120,
-			'onText'=> Yii::t('frontend', 'Need Translation'),
-			'offText'=>'-',
-			'onColor' => 'danger',
-		],
-		'pluginEvents' => [
-			"switchChange.bootstrapSwitch" => "function() { oclick('needtranslation'); }",
-		]
-	]) ?>
+	<?=$form->field($model, 'needtranslation', ['options' => ['class' => 'my-switcher form-group', 'model_id' => $model->id]])->widget(SwitchInput::classname(), [
+            'name' => 'needtranslation',
+            'pluginOptions' => [
+                //'handleWidth'=>120,
+                //'onText'=> Yii::t('frontend', 'Need Translation'),
+                'offText' => '-',
+                'onColor' => 'danger',
+                'size' => 'mini',
+            ],
+            'pluginEvents' => [
+                "switchChange.bootstrapSwitch" => "function() { oclick(this, 'needtranslation'); }",
+            ],
+        ])?>
 
-	<?= $form->field($model, 'needhelp')->widget(SwitchInput::classname(), [
-	'name'=>'needhelp',
-	'pluginOptions'=>[
-		'handleWidth'=>120,
-		'onText'=> Yii::t('frontend', 'Need Help'),
-		'offText'=>'-',
-		'onColor' => 'danger',
-	],
-	'pluginEvents' => [
-		"switchChange.bootstrapSwitch" => "function() { oclick('needhelp'); }",
-	]
-		]) ?>
+	<?=$form->field($model, 'needhelp', ['options' => ['class' => 'my-switcher form-group', 'model_id' => $model->id]])->widget(SwitchInput::classname(), [
+            'name' => 'needhelp',
+            'pluginOptions' => [
+                //'handleWidth'=>120,
+                //'onText'=> Yii::t('frontend', 'Need Help'),
+                'offText' => '-',
+                'onColor' => 'danger',
+                'size' => 'mini',
+            ],
+            'pluginEvents' => [
+                "switchChange.bootstrapSwitch" => "function() { oclick(this, 'needhelp'); }",
+            ],
+        ])?>
 
-	<?= $form->field($model, 'rating')->widget(StarRating::classname(), [
-	'name'=>'needhelp',
-	'pluginOptions'=>[
-		'theme' => 'krajee-uni',
-		'filledStar' => '<i class="glyphicon glyphicon-menu-right" style="color: blue;"></i>',
-		'emptyStar' => '<i class="glyphicon glyphicon-menu-right"></i>',
-		'step' => 1,
-		'size' => 'xs',
-		'showClear' => false,
-		//'showCaption' => false,
-		'defaultCaption' => '{rating}',
-		'starCaptions' => new JsExpression("function(val){return val ;}"),
-		'starCaptionClasses' => [
-			1 => 'text-primary',
-			2 => 'text-primary',
-			3 => 'text-primary',
-			4 => 'text-primary',
-			5 => 'text-primary',
-		],
-	],
-	'pluginEvents' => [
-		"rating.change" => "function(event, value, caption) { ajaxSend('rating', value); }",
-	]
-		]) ?>
+	<?=$form->field($model, 'rating', ['options' => ['model_id' => $model->id]])->widget(StarRating::classname(), [
+            'name' => 'rating',
+            'pluginOptions' => [
+                //    'theme' => 'krajee-uni',
+                'filledStar' => '<i class="glyphicon glyphicon-menu-right" style="color: blue;"></i>',
+                'emptyStar' => '<i class="glyphicon glyphicon-menu-right"></i>',
+                'step' => 1,
+                'size' => 's',
+                'showClear' => false,
+                'starCaptions' => new JsExpression("function(val){return val ;}"),
+                'starCaptionClasses' => [
+                    1 => 'text-primary',
+                    2 => 'text-primary',
+                    3 => 'text-primary',
+                    4 => 'text-primary',
+                    5 => 'text-primary',
+                ],
+            ],
+            'pluginEvents' => [
+                "rating.change" => "function(event, value, caption) { ajaxSend('rating', value, getModelId(this)); }",
+            ],
+        ])?>
+<?php }?>
+	<?=$this->render('_conjunctions.php', [
+        'conjunction' => $model->conjunction,
+        'model' => $model,
+        'form' => $form,
+    ])?>
 
-		<div class='form-group'>
-			<?= Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-		</div>
+	<?=$this->render('_others.php', [
+        'others' => $model->others,
+        'model' => $model,
+        'form' => $form,
+    ])?>
 
-
-
-	<?= $this->render('_conjunctions.php', [
-		'conjunction' => $model->conjunction,
-		'model' => $model,
-		'form'=>$form
-		]) ?>
-
-	<?= $this->render('_others.php', [
-		'others'=>$model->others,
-		'model'=>$model,
-		'form'=>$form
-		]) ?>
-
-	<?= $this->render('_examples.php', [
-		'examples'=>$model->examples,
-		'model'=>$model,
-		'form'=>$form
-		]) ?>
-
-	<?= $this->render('_meanings.php', [
-		'meanings'=>$model->meanings,
-		'model'=>$model,
-		'form'=>$form
-		]) ?>
-
-
-	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) { ?>
-
-	<?= $form->field($model, 'mainword')->checkbox() ?>
+	<?=$this->render('_examples.php', [
+        'examples' => $model->examples,
+        'model' => $model,
+        'form' => $form,
+    ])?>
 
 
+<div style="border: 1px solid #BBB; margin:10px 0px;"><strong>Комментарий:<br /></strong><?=$model->comment?></div>
+
+<?php if (!empty($relevants)) {
+        ?>
 
 
 
-
+<table class="table1">
+    <thead><td>Пример</td><td>Перевод</td></thead>
 <?php
-$js = <<<JS
-document.getElementById('verb-mainword').onchange = function() {
-	input = document.getElementsByClassName('select2-search__field')[0];
-	input.disabled = this.checked;
-	if (this.checked == true) {input.val('');}; //bug
-};
-JS;
-$this->registerJs($js);
-?>
+
+        if (isset($relevants[$model->id])) {
+
+            foreach ($relevants[$model->id] as $value) {
+                echo '<tr><td>' . $value['serbian'] . '</td><td>' . $value['russian'] . '</td></tr>';
+            }
+        }
+        ?>
+</table>
+
+<?php }?>
 
 
-	<?= $form->field($model, 'related')->widget(Select2::classname(), [
-		'data' => $data,
-		'id' => 'tag1',
-		//'value' => ['red', 'green'],
-		'options' => [
-			'placeholder' => 'Add ...',
-			'multiple' => true,
 
-		],
-		'pluginOptions' => [
-			'allowClear' => true,
-		//  'tags' => true,
 
-		],
 
-	]); ?>
+
+
+
+
+
+
+
+
+
+
+
+	<?=$this->render('_meanings.php', [
+        'meanings' => $model->meanings,
+        'model' => $model,
+        'form' => $form,
+    ])?>
+
+	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) {
+        ?>
+
+	<?=$form->field($model, 'mainword')->checkbox()?>
+
+	<?=$form->field($model, 'related')->widget(Select2::classname(), [
+            'data' => $data,
+            'id' => 'tag1',
+            //'value' => ['red', 'green'],
+            'options' => [
+                'placeholder' => 'Add ...',
+                'multiple' => true,
+
+            ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                //  'tags' => true,
+            ],
+
+        ]);?>
 
 		<div class='form-group'>
-			<?= Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+			<?=Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])?>
 		</div>
-	<?php } ?>
+	<?php }?>
 
-	<?php ActiveForm::end(); ?>
-
-<script>
-
-function addRow(typeOfInsert) {
-
-	if (typeOfInsert == 'others') {
-		if (typeof window.othersCounter !== 'undefined') { window.othersCounter = window.othersCounter + 1;} else { window.othersCounter = 2;};
-		window.i = window.othersCounter;
-	} else if (typeOfInsert == 'examples') {
-		if (typeof window.examplesCounter !== 'undefined') { window.examplesCounter = window.examplesCounter + 1;} else { window.examplesCounter = 2;};
-		window.i = window.examplesCounter;
-	} else if (typeOfInsert == 'meanings') {
-		if (typeof window.meaningsCounter !== 'undefined') { window.meaningsCounter = window.meaningsCounter + 1;} else { window.meaningsCounter = 2;};
-		window.i = window.meaningsCounter;
-	};
-
-	var table = document.getElementById(typeOfInsert).getElementsByTagName('tbody')[0];
-	var newRow   = table.insertRow(table.rows.length);
-	newRow.id = typeOfInsert+'-row' + window.i;
-	var div1 = document.createElement('div');
-	var div2 = document.createElement('div');
-	div1.className = 'field-verb-'+typeOfInsert+'-'+ i +'-native has-success';
-	div2.className = 'field-verb-'+typeOfInsert+'-'+ i +'-translated has-success';
-	var input1 = document.createElement('input');
-	var input2 = document.createElement('input');
-	input1.className = 'col-xs-8 form-control';
-	input2.className = 'col-xs-8 form-control';
-	input1.name = 'Verb['+typeOfInsert+']['+ i +'][native]';
-	input2.name = 'Verb['+typeOfInsert+']['+ i +'][translated]';
-	input1.id = 'verb-'+typeOfInsert+'-'+ i +'-native';
-	input2.id = 'verb-'+typeOfInsert+'-'+ i +'-translated';
-	input1.style.padding = '1px 1px 1px 1px';
-	input2.style.padding = '1px 1px 1px 1px';
-	input1.type = 'text;';
-	input2.type = 'text;';
-
-	var newCell0  = newRow.insertCell(0);
-	var newCell1  = newRow.insertCell(1);
-	newCell0.appendChild(div1);
-	newCell1.appendChild(div2);
-	div1.appendChild(input1);
-	div2.appendChild(input2);
-
-}
-
-function delRow(typeOfInsert) {
-
-	if (typeOfInsert == 'others') {x = window.othersCounter} else if (typeOfInsert == 'examples') {x = window.examplesCounter} else if (typeOfInsert == 'meanings') {x = window.meaningsCounter}
-
-	if (x > 0) {
-		if (typeOfInsert == 'others') {
-			if (typeof window.othersCounter !== 'undefined' && window.othersCounter>0 ) { window.othersCounter = window.othersCounter - 1;}
-		} else if (typeOfInsert == 'examples') {
-			if (typeof window.examplesCounter !== 'undefined' && window.examplesCounter>0 ) { window.examplesCounter = window.examplesCounter - 1;}
-		} else if (typeOfInsert == 'meanings') {
-			if (typeof window.meaningsCounter !== 'undefined' && window.meaningsCounter>0 ) { window.meaningsCounter = window.meaningsCounter - 1;}
-		}
-
-		var child = document.getElementById(typeOfInsert).getElementsByTagName('tbody')[0].getElementsByTagName('tr')[(x-1)];
-		child.parentNode.removeChild(child);
-	}
-}
-
-</script>
-
-
-
-
-
-<!--
-	<?= DetailView::widget([
-		'model' => $model,
-		'attributes' => [
-			'id',
-			'conjunction:ntext',
-			'others:ntext',
-			'meanings:ntext',
-			'examples:ntext',
-			'related',
-			'rating',
-			'mainword',
-		],
-	]) ?> -->
+	<?php ActiveForm::end();?>
 
 </div>
+	<p>
+		<?=Html::a(Yii::t('frontend', 'View'), ['view', 'id' => $model->id], ['class' => 'btn btn-default'])?>
+		<?=Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary'])?>
+		<?=Html::a(Yii::t('frontend', 'Delete'), ['delete', 'id' => $model->id], [
+        'class' => 'btn btn-danger',
+        'data' => [
+            'confirm' => Yii::t('frontend', 'Are you sure you want to delete this item?'),
+            'method' => 'post',
+        ],
+    ])?>
+		<?=Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success'])?>
+	</p>
+<?php }?>
 
-<?php }
+
+

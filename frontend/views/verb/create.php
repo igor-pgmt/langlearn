@@ -1,11 +1,12 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\rating\StarRating;
 use kartik\select2\Select2;
 use kartik\switchinput\SwitchInput;
-use kartik\rating\StarRating;
+use unclead\multipleinput\MultipleInput;
+use yii\helpers\Html;
 use yii\web\JsExpression;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Verb */
@@ -16,102 +17,239 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="verb-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?=Html::encode($this->title)?></h1>
 
 <div class='verb-form'>
 
-	<?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+	<?php $form = ActiveForm::begin(['id' => 'contact-form']);?>
 
-	<?= $form->field($model, 'infinitive')->textInput() ?>
+	<?=$form->field($model, 'infinitive_sr')->widget(Select2::classname(), [
+    'data' => $infinitives['sr'],
+    'options' => [
+        'placeholder' => 'Add ...',
+        'multiple' => true,
 
-	<?= $form->field($model, 'important' )->widget(SwitchInput::classname(), [
-		'name'=>'important',
-		'pluginOptions'=>[
-			//'handleWidth'=>120,
-			//'onText'=> Yii::t('frontend', 'Important'),
-			'offText'=>'-',
-			'onColor' => 'danger',
-			'size' => 'mini',
-		],
-	]) ?>
+    ],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'tags' => true,
 
-	<?= $form->field($model, 'needtranslation')->widget(SwitchInput::classname(), [
-		'name'=>'needtranslation',
-		'pluginOptions'=>[
-			//'handleWidth'=>120,
-			//'onText'=> Yii::t('frontend', 'Need Translation'),
-			'offText'=>'-',
-			'onColor' => 'danger',
-			'size' => 'mini',
+    ],
 
-		],
-	]) ?>
+]);?>
 
-	<?= $form->field($model, 'needhelp')->widget(SwitchInput::classname(), [
-		'name'=>'needhelp',
-		'pluginOptions'=>[
-			//'handleWidth'=>120,
-			//'onText'=> Yii::t('frontend', 'Need Help'),
-			'offText'=>'-',
-			'onColor' => 'danger',
-			'size' => 'mini',
-		],
-	]) ?>
+	<?=$form->field($model, 'infinitive_ru')->widget(Select2::classname(), [
+    'data' => $infinitives['ru'],
+    'options' => [
+        'placeholder' => 'Add ...',
+        'multiple' => true,
 
-	<?= $form->field($model, 'rating')->widget(StarRating::classname(), [
-		'name'=>'needhelp',
-		'pluginOptions'=>[
-			'theme' => 'krajee-uni',
-			'filledStar' => '<i class="glyphicon glyphicon-menu-right" style="color: blue;"></i>',
-			'emptyStar' => '<i class="glyphicon glyphicon-menu-right"></i>',
-			'step' => 1,
-			'size' => 'xs',
-			'showClear' => false,
-			//'showCaption' => false,
-			'defaultCaption' => '{rating}',
-			'starCaptions' => new JsExpression("function(val){return val ;}"),
-			'starCaptionClasses' => [
-				1 => 'text-primary',
-				2 => 'text-primary',
-				3 => 'text-primary',
-				4 => 'text-primary',
-				5 => 'text-primary',
-			],
-		],
-	]) ?>
+    ],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'tags' => true,
 
-	<div class='form-group'>
-		<?= Html::submitButton(Yii::t('frontend', 'Create'), ['class' => 'btn btn-success']) ?>
+    ],
+
+]);?>
+
+	<?=$form->field($model, 'infinitive_en')->widget(Select2::classname(), [
+    'data' => $infinitives['en'],
+
+    'options' => [
+        'placeholder' => 'Add ...',
+        'multiple' => true,
+
+    ],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'tags' => true,
+
+    ],
+
+]);?>
+
+
+    <?=$form->field($model, 'perfect_verb', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    'name' => 'perfect_verb',
+    'pluginOptions' => [
+        // 'handleWidth' => 120,
+        // 'onText' => Yii::t('frontend', 'p'),
+        'offText' => '-',
+        'onColor' => 'primary',
+        'size' => 'mini',
+
+    ],
+    'pluginEvents' => [
+        "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
+    ],
+])?>
+
+	<?=$form->field($model, 'important', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    'name' => 'important',
+    'pluginOptions' => [
+        //'handleWidth'=>120,
+        //'onText'=> Yii::t('frontend', 'Important'),
+        'offText' => '-',
+        'onColor' => 'danger',
+        'size' => 'mini',
+    ],
+])?>
+
+	<?=$form->field($model, 'needtranslation', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    'name' => 'needtranslation',
+    'pluginOptions' => [
+        //'handleWidth'=>120,
+        //'onText'=> Yii::t('frontend', 'Need Translation'),
+        'offText' => '-',
+        'onColor' => 'danger',
+        'size' => 'mini',
+    ],
+])?>
+
+	<?=$form->field($model, 'needhelp', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    'name' => 'needhelp',
+    'pluginOptions' => [
+        //'handleWidth'=>120,
+        //'onText'=> Yii::t('frontend', 'Need Help'),
+        'offText' => '-',
+        'onColor' => 'danger',
+        'size' => 'mini',
+    ],
+])?>
+
+	<?=$form->field($model, 'rating')->widget(StarRating::classname(), [
+    'name' => 'needhelp',
+    'pluginOptions' => [
+        'containerClass' => 'my-rating',
+        'theme' => 'krajee-uni',
+        'filledStar' => '<i class="glyphicon glyphicon-menu-right" style="color: blue;"></i>',
+        'emptyStar' => '<i class="glyphicon glyphicon-menu-right"></i>',
+        'step' => 1,
+        'size' => 's',
+        'showClear' => false,
+        'starCaptions' => new JsExpression("function(val){return val ;}"),
+        'starCaptionClasses' => [
+            1 => 'text-primary',
+            2 => 'text-primary',
+            3 => 'text-primary',
+            4 => 'text-primary',
+            5 => 'text-primary',
+        ],
+    ],
+])?>
+
+	<div class='form-group top-sbm'>
+		<?=Html::submitButton(Yii::t('frontend', 'Create'), ['class' => 'btn btn-success'])?>
 	</div>
 
-	<?= $this->render('_conjunctions.php', [
-		'conjunction' => $model->conjunction,
-		'model' => $model,
-		'form'=>$form
-		]) ?>
+	<?=$this->render('_conjunctions.php', [
+    'conjunction' => $model->conjunction,
+    'model' => $model,
+    'form' => $form,
+])?>
 
-	<?= $this->render('_others.php', [
-		'others'=>$model->others,
-		'model'=>$model,
-		'form'=>$form
-		]) ?>
+	<?=$form->field($model, 'others')->widget(MultipleInput::className(), [
+    'max' => 100,
+    'min' => 1, // should be at least 2 rows
+    'allowEmptyList' => true,
+    'enableGuessTitle' => true,
+    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'columns' => [
+        [
+            'name' => 'kind',
+            'type' => \kartik\select2\Select2::className(),
+            'options' => [
+                'data' => [
+                    "Глаголска именица" => "Глаголска именица",
+                    "Глаголски прилог прошли" => "Глаголски прилог прошли",
+                    "Глаголски прилог садашњи" => "Глаголски прилог садашњи",
+                    "Радни глаголски прилог" => "Радни глаголски прилог",
+                    "Трпни глаголски придев" => "Трпни глаголски придев",
+                    "Именица" => "Именица",
+                ],
+                'pluginOptions' => [
+                    'tags' => true,
+                ],
+                'options' => [
+                    'placeholder' => 'Add ...',
+                ],
+            ],
+            'title' => 'Вид',
+        ],
+        [
+            'name' => 'word',
+            'type' => 'textarea',
+            'title' => 'Слово',
+        ],
+        [
+            'name' => 'translation',
+            'type' => 'textarea',
+            'title' => 'Перевод',
+        ],
+    ],
+])
+->label(false);
+?>
 
-	<?= $this->render('_examples.php', [
-		'examples'=>$model->examples,
-		'model'=>$model,
-		'form'=>$form
-		]) ?>
+	<?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
+    'max' => 100,
+    'min' => 1, // should be at least 2 rows
+    'allowEmptyList' => true,
+    'enableGuessTitle' => true,
+    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'columns' => [
+        [
+            'name' => 'example',
+            'type' => 'textarea',
+            'title' => 'Пример',
+        ],
+        [
+            'name' => 'translation',
+            'type' => 'textarea',
+            'title' => 'Перевод',
+        ],
+    ],
+])
+->label(false);
+?>
 
-	<?= $this->render('_meanings.php', [
-		'meanings'=>$model->meanings,
-		'model'=>$model,
-		'form'=>$form
-		]) ?>
+     <?=$form->field($model, 'comment')->textarea()?>
+
+<!--        <?=$this->render('_meanings.php', [
+    'meanings' => $model->meanings,
+    'model' => $model,
+    'form' => $form,
+])?>-->
+
+	<?=
+$form->field($model, 'meanings')->widget(MultipleInput::className(), [
+    'max' => 100,
+    'min' => 1, // should be at least 2 rows
+    'allowEmptyList' => true,
+    'enableGuessTitle' => true,
+    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'columns' => [
+        [
+            'name' => 'meaning',
+            'type' => 'textarea',
+            'title' => 'Значение',
+        ],
+        [
+            'name' => 'translation',
+            'type' => 'textarea',
+            'title' => 'Перевод',
+        ],
+    ],
+])
+->label(false);
+?>
 
 
-	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) { ?>
+	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) {
+    ?>
 
-	<?= $form->field($model, 'mainword')->checkbox() ?>
+	<?=$form->field($model, 'mainword')->checkbox()?>
 
 
 
@@ -126,33 +264,33 @@ document.getElementById('verb-mainword').onchange = function() {
 	if (this.checked == true) {input.val('');}; //bug
 };
 JS;
-$this->registerJs($js);
-?>
+    $this->registerJs($js);
+    ?>
 
 
-	<?= $form->field($model, 'related')->widget(Select2::classname(), [
-		'data' => $data,
-		'id' => 'tag1',
-		//'value' => ['red', 'green'],
-		'options' => [
-			'placeholder' => 'Add ...',
-			'multiple' => true,
+	<?=$form->field($model, 'related')->widget(Select2::classname(), [
+        'data' => $data,
+        'id' => 'tag1',
+        //'value' => ['red', 'green'],
+        'options' => [
+            'placeholder' => 'Add ...',
+            'multiple' => true,
 
-		],
-		'pluginOptions' => [
-			'allowClear' => true,
-		//	'tags' => true,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true,
+            //    'tags' => true,
 
-		],
+        ],
 
-	]); ?>
+    ]);?>
 
 		<div class='form-group'>
-			<?= Html::submitButton(Yii::t('frontend', 'Create') , ['class' => 'btn btn-success']) ?>
+			<?=Html::submitButton(Yii::t('frontend', 'Create'), ['class' => 'btn btn-success'])?>
 		</div>
-	<?php } ?>
+	<?php }?>
 
-	<?php ActiveForm::end(); ?>
+	<?php ActiveForm::end();?>
 
 <script>
 
@@ -172,8 +310,11 @@ function addRow(typeOfInsert) {
 	var table = document.getElementById(typeOfInsert).getElementsByTagName('tbody')[0];
 	var newRow   = table.insertRow(table.rows.length);
 	newRow.id = typeOfInsert+'-row' + window.i;
+
+
 	var div1 = document.createElement('div');
 	var div2 = document.createElement('div');
+
 	div1.className = 'field-verb-'+typeOfInsert+'-'+ i +'-native has-success';
 	div2.className = 'field-verb-'+typeOfInsert+'-'+ i +'-translated has-success';
 	var input1 = document.createElement('input');

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Testtable */
+/* @var $model frontend\models\Phrasebook */
 
-$this->title = Yii::t('frontend', 'Create Testtable');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Testtables'), 'url' => ['index']];
+$this->title = Yii::t('frontend', 'Create Topic');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Phrasebook'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="testtable-create">
+<div class="phrasebook-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

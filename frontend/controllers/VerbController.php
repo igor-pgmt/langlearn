@@ -2,294 +2,353 @@
 
 namespace frontend\controllers;
 
-use Yii;
-use frontend\models\Verb;
-use frontend\models\Testtable;
-use frontend\models\VerbSearch;
+use frontend\models\Phrasebook2;
 use frontend\models\Tag1;
+use frontend\models\Verb;
+use frontend\models\VerbSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * VerbController implements the CRUD actions for Verb model.
  */
-class VerbController extends Controller
+class VerbController extends LoginController
 {
-	/**
-	 * @inheritdoc
-	 */
-	public function behaviors()
-	{
-		return [
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['POST'],
-				],
-			],
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * Lists all Verb models.
-	 * @return mixed
-	 */
-	public function actionIndex()
-	{
-		$searchModel = new VerbSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    public function beforeAction($action)
+    {
+        parent::logincheck();
+        return true;
+    }
 
-		return $this->render('index', [
-			'searchModel' => $searchModel,
-			'dataProvider' => $dataProvider,
-		]);
-	}
+    /**
+     * Lists all Verb models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new VerbSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-	/**
-	 * Displays a single Verb model.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionView($id)
-	{
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
 
-	$model = Verb::findOne($id);
+        ]);
+    }
 
-	if(\Yii::$app->request->isAjax){
-						$data = Yii::$app->request->post();
-						$resp = $data['datam'];
+    /**
+     * Displays a single Verb model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
 
-		$model->important = $resp; $result='bad';
-		if ($model->save()) {$result = 'good';}
-		return $model->examples;
-	}
+        $model = Verb::findOne($id);
 
+        if (\Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $resp = $data['datam'];
 
+            $model->important = $resp;
+            $result = 'bad';
 
+            if ($model->save()) {$result = 'good';}
 
-		if ($model->load(Yii::$app->request->post()) && $model->save())
-		{
-			$model = Verb::findOne($id);
-		}
+            return $model->examples;
+        }
+        if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
+            $model = Verb::findOne($id);
+            $model->views = $model->views + 1;
+            $model->save();
+        }
 
-	switch ($model->mainword) {
-		case true:
-			//поиск всех слов группы
-			$verbs = Verb::find()->anyTagValues($model->infinitive)->all();
+        switch ($model->mainword) {
+            case true:
+                //поиск всех слов группы
+                $verbs = Verb::find()->anyTagValues($model->infinitive_sr)->all();
 
-			//добавление главного слова в начало списка
-			$verbs = array_merge([$model], $verbs);
-			break;
-		case false:
-			//поиск главных слов
-			$mainwords = Verb::find()->where(['infinitive' => json_decode($model->related)])->all();
+                //добавление главного слова в начало списка
+                $verbs = array_merge([$model], $verbs);
+                break;
+            case false:
+                //поиск главных слов
+                $mainwords = Verb::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
 
-			//поиск всех слов группы
-			$verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
+                //поиск всех слов группы
+                $verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
 
-			//добавление главных слов в начало списка
-			$verbs = array_merge($mainwords, $verbs);
+                //добавление главных слов в начало списка
+                $verbs = array_merge($mainwords, $verbs);
 
-			//Удаление искомого слова из списка, чтобы потом вставить его в начало
-			foreach ($verbs as $key => $value) {
-				if ($value->id == $id) {unset($verbs[$key]);};
-			}
+                //Удаление искомого слова из списка, чтобы потом вставить его в начало
+                foreach ($verbs as $key => $value) {
+                    if ($value->id == $id) {unset($verbs[$key]);};
+                }
 
-			//добавление искомого слова в начало списка
-			$verbs = array_merge([$model], $verbs);
+                //добавление искомого слова в начало списка
+                $verbs = array_merge([$model], $verbs);
 
-			break;
-	}
+                break;
+        }
 
-		return $this->render('view', [
-			'models' => $verbs,
-		]);
-	}
+        $phrases = Phrasebook2::find()->select('serbian, russian')->asarray()->all();
+        $relevants = [];
+        foreach ($verbs as $verb) {
+            $variants = [];
+            if (isset($verb->conjunction)) {
+                foreach (json_decode($verb->conjunction, true) as $key => $value) {
+                    foreach ($value as $key => $value) {
+                        if (!empty($value)) {
+                            $variants[] = strtolower($value);
+                        }
 
-	/**
-	 * Creates a new Verb model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate()
-	{
-		$model = new Verb();
+                    }
+                }
+            }
+            if (isset($verb->others)) {
+                foreach (json_decode($verb->others, true) as $key => $value) {
+                    if (!empty($value)) {
+                        $variants[] = strtolower($value['word']);
+                    }
+                }
+            }
 
-		if ($model->load(Yii::$app->request->post()) ) {
-			$model->conjunction = json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE);
-			$model->others = json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE);
-			$model->examples = json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE);
-			$model->meanings = json_encode($_POST['Verb']['meanings'], JSON_UNESCAPED_UNICODE);
+            foreach (json_decode($verb->others, true) as $key => $value) {
+                $variants[] = strtolower($value['word']);
+            }
 
-			 if ($model->related) {
-				$model->tagValues = $model->related;
-				$model->related = json_encode($model->related, JSON_UNESCAPED_UNICODE);
-			 }
+            foreach ($phrases as $key => $value) {
+                $data = preg_replace('/[\"\[\]?\{\!\},\:\;]/u', '', $value['serbian']);
+                $data = preg_replace('| +|', ' ', $value['serbian']);
 
-			$model->save();
-			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
+                $datar = explode(' ', $data);
+                $datar = array_filter($datar);
 
-			$allTags = Tag1::getAllVerbs(true,false) ;
-			$model->rating = 3;
-			return $this->render('create', [
-				'model' => $model,
-				'data' => $allTags,
-			]);
-		}
-	}
+                if (!empty($datar)) {
+                    $datam = array_walk($datar, function (&$n) {
+                        $n = mb_strtolower($n);
+                    });
 
-	/**
-	 * Updates an existing Verb model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
+                    $ai = array_intersect($datar, $variants);
+                    if (!empty($ai)) {
 
-		if ($model->load(Yii::$app->request->post())) {
+                        $relevants[$verb->id][] = $phrases[$key];
+                    }
+                }
+            }
+        }
 
-			//this redord's tags
-			$model->tagValues = $model->related;
-			$model->related = json_encode($model->related, JSON_UNESCAPED_UNICODE);
+        //$model-> здесь не декодим
+        return $this->render('view', [
+            'models' => $verbs,
+            'relevants' => $relevants,
+        ]);
+    }
 
-			$model->conjunction = isset($_POST['Verb']['conjunction']) ? json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE) : '' ;
-			$model->others = isset($_POST['Verb']['others']) ? json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE) : '' ;
-			$model->examples = isset($_POST['Verb']['examples']) ? json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE) : '' ;
-			$model->meanings = isset($_POST['Verb']['meanings']) ? json_encode($_POST['Verb']['meanings'], JSON_UNESCAPED_UNICODE) : '' ;
+    /**
+     * Creates a new Verb model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Verb();
 
-			$model->save();
-			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
-			$model->conjunction = json_decode($model->conjunction, true);
-			$model->others = json_decode($model->others, true);
-			$model->examples = json_decode($model->examples, true);
-			$model->meanings = json_decode($model->meanings, true);
-			$model->related = json_decode($model->related, true);
+        if ($model->load(Yii::$app->request->post())) {
 
-			$allTags = Tag1::getAllVerbs(true,false);
-			return $this->render('update', [
-				'model' => $model,
-				'data' => $allTags,
-			]);
-		}
-	}
+            $model->infinitive_sr = json_encode($model->infinitive_sr, JSON_UNESCAPED_UNICODE);
+            $model->infinitive_ru = json_encode($model->infinitive_ru, JSON_UNESCAPED_UNICODE);
+            $model->infinitive_en = json_encode($model->infinitive_en, JSON_UNESCAPED_UNICODE);
+            $model->conjunction = json_encode($model->conjunction, JSON_UNESCAPED_UNICODE);
+            $model->others = json_encode($model->others, JSON_UNESCAPED_UNICODE);
+            $model->examples = json_encode($model->examples, JSON_UNESCAPED_UNICODE);
+            $model->meanings = json_encode($model->meanings, JSON_UNESCAPED_UNICODE);
 
-	/**
-	 * Deletes an existing Verb model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionDelete($id)
-	{
-		$this->findModel($id)->delete();
+            if ($model->related) {
+                $model->tagValues = $model->related;
+                $model->related = json_encode($model->related, JSON_UNESCAPED_UNICODE);
+            }
 
-		return $this->redirect(['index']);
-	}
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
 
-	/**
-	 * Finds the Verb model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return Verb the loaded model
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	protected function findModel($id)
-	{
-		if (($model = Verb::findOne($id)) !== null) {
-			return $model;
-		} else {
-			throw new NotFoundHttpException('The requested page does not exist.');
-		}
-	}
+            $allTags = Tag1::getAllVerbs(true, 'sr');
+            $model->rating = 3;
+            return $this->render('create', [
+                'model' => $model,
+                'data' => $allTags,
+                'infinitives' => $this->getInfinitives(),
+            ]);
+        }
+    }
 
-	public function actionTestingCreate()
-	{
-		// $model = $this->findModel(5);
-$model = new Testtable();
-		if ($model->load(Yii::$app->request->post())) {
+    /**
+     * Updates an existing Verb model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-			$model->myfield = isset($_POST['Verb']['myfield']) ? json_encode($_POST['Verb']['myfield']) : '' ;
+        if ($model->load(Yii::$app->request->post())) {
 
-			$model->save();
-			//return $this->redirect(['testing']);
-		} else {
+            //this redord's tags
+            $model->tagValues = $model->related;
+            $model->related = json_encode($model->related, JSON_UNESCAPED_UNICODE);
 
-		return $this->render('testing',
-			[
-				'model' => $model,
-			]);
-	}
-}
+            $model->infinitive_sr = json_encode($model->infinitive_sr, JSON_UNESCAPED_UNICODE);
+            $model->infinitive_ru = json_encode($model->infinitive_ru, JSON_UNESCAPED_UNICODE);
+            $model->infinitive_en = json_encode($model->infinitive_en, JSON_UNESCAPED_UNICODE);
+            $model->conjunction = isset($_POST['Verb']['conjunction']) ? json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
+            $model->others = isset($_POST['Verb']['others']) ? json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE) : '';
+            $model->examples = isset($_POST['Verb']['examples']) ? json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE) : '';
+            $model->meanings = isset($_POST['Verb']['meanings']) ? json_encode($_POST['Verb']['meanings'], JSON_UNESCAPED_UNICODE) : '';
 
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            $model->infinitive_sr = json_decode($model->infinitive_sr, true);
+            $model->infinitive_ru = json_decode($model->infinitive_ru, true);
+            $model->infinitive_en = json_decode($model->infinitive_en, true);
+            $model->conjunction = json_decode($model->conjunction, true);
+            $model->others = json_decode($model->others, true);
+            $model->examples = json_decode($model->examples, true);
+            $model->meanings = json_decode($model->meanings, true);
+            $model->related = json_decode($model->related, true);
 
+            $allTags = Tag1::getAllVerbs(true, 'sr');
+            return $this->render('update', [
+                'model' => $model,
+                'data' => $allTags,
+                'infinitives' => $this->getInfinitives(),
+            ]);
+        }
+    }
 
-public function actionSex($id)
-{
-	$model = $this->findModel($id);
+    /**
+     * Deletes an existing Verb model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
 
-	if(\Yii::$app->request->isAjax){
-		$data = Yii::$app->request->post();
-		switch ($data['param']) {
-			case 'important':
-				$model->important = $data['paramval'];
-				break;
-			case 'needhelp':
-				$model->needhelp = $data['paramval'];
-				break;
-			case 'needtranslation':
-				$model->needtranslation = $data['paramval'];
-				break;
-			case 'rating':
-				$model->rating = $data['paramval'];
-				break;
+        return $this->redirect(['index']);
+    }
 
-		}
+    /**
+     * Finds the Verb model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Verb the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Verb::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
-		// if (isset($data['important'])) $model->important = $data['important'];
-		// if (isset($data['needhelp'])) $model->needhelp = $data['needhelp'];
-		// if (isset($data['rating'])) $model->rating = $data['rating'];
+    public function actionSex($id)
+    {
+        $model = $this->findModel($id);
 
-		 $result='bad';
-		if ($model->save()) {$result = 'good';}
-		return $model->needhelp;
-	}
+        if (\Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            switch ($data['param']) {
+                case 'important':
+                    $model->important = $data['paramval'];
+                    break;
+                case 'needhelp':
+                    $model->needhelp = $data['paramval'];
+                    break;
+                case 'needtranslation':
+                    $model->needtranslation = $data['paramval'];
+                    break;
+                case 'rating':
+                    $model->rating = $data['paramval'];
+                    break;
+                case 'perfect_verb':
+                    $model->perfect_verb = $data['paramval'];
+                    break;
 
+            }
 
-}
+            if ($model->save()) {
+                return $model->needhelp;}
+        }
 
+    }
 
+    private function getInfitranses($combine = false)
+    {
+        $allTags = Verb::getInfitranses();
 
+        if ($combine) {
+            $allTags = array_combine($allTags, $allTags);
+        }
 
+        return $allTags;
+    }
 
+    private function getInfinitives()
+    {
+        $verbs = Verb::find()->select(['verb.infinitive_sr', 'verb.infinitive_ru', 'verb.infinitive_en'])->all();
+        foreach ($verbs as $verb) {
 
+            foreach ($verb as $key => $value) {
+                $v = json_decode($value);
+                if ($v) {
+                    foreach ($v as $value) {
+                        $infinitives[$key][] = $value;
+                    }
+                }
+            }
+        }
+        if (isset($infinitives)) {
+            $infinitives_sr = isset($infinitives['infinitive_sr']) ? array_combine($infinitives['infinitive_sr'], $infinitives['infinitive_sr']) : [];
+            $infinitives_ru = isset($infinitives['infinitive_ru']) ? array_combine($infinitives['infinitive_ru'], $infinitives['infinitive_ru']) : [];
+            $infinitives_en = isset($infinitives['infinitive_en']) ? array_combine($infinitives['infinitive_en'], $infinitives['infinitive_en']) : [];
+        } else {
+            $infinitives_sr = [];
+            $infinitives_ru = [];
+            $infinitives_en = [];
 
+        }
 
-	public function actionTestingView()
-	{
-		// $model = $this->findModel(5);
-$model = new Testtable();
-		if ($model->load(Yii::$app->request->post())) {
+        return ['sr' => $infinitives_sr, 'ru' => $infinitives_ru, 'en' => $infinitives_en];
 
-			$model->myfield = isset($_POST['Verb']['myfield']) ? json_encode($_POST['Verb']['myfield']) : '' ;
+    }
 
-			$model->save();
-			return $this->redirect(['testing']);
-		} else {
+    public function getConjunctions()
+    {
 
-print_r($_POST);exit;
-
-		$model->myfield = json_decode($model->myfield, true);
-
-		return $this->render('testing',
-			[
-				'model' => $model,
-			]);
-	}
-}
+    }
 
 }

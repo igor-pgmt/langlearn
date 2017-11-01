@@ -2,16 +2,16 @@
 
 namespace frontend\models;
 
-use Yii;
+use frontend\models\Verb;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Verb;
 
 /**
  * VerbSearch represents the model behind the search form about `frontend\models\Verb`.
  */
 class VerbSearch extends Verb
 {
+
     /**
      * @inheritdoc
      */
@@ -19,8 +19,8 @@ class VerbSearch extends Verb
     {
         return [
             [['id', 'rating', 'views'], 'integer'],
-            [['mainword', 'important', 'needhelp', 'needtranslation'], 'boolean'],
-            [['infinitive','conjunction', 'others', 'meanings', 'examples', 'related',], 'safe'],
+            [['perfect_verb', 'mainword', 'important', 'needhelp', 'needtranslation'], 'boolean'],
+            [['infinitive_sr', 'infinitive_ru', 'infinitive_en', 'conjunction', 'others', 'meanings', 'examples', 'comment', 'related', 'related2'], 'safe'],
         ];
     }
 
@@ -48,6 +48,7 @@ class VerbSearch extends Verb
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -55,23 +56,29 @@ class VerbSearch extends Verb
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+            //
             return $dataProvider;
         }
 
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'related' => $this->related,
+            // 'related' => $this->related,
         ]);
 
-        $query->andFilterWhere(['like', 'infinitive', $this->infinitive])
-            ->andFilterWhere(['like', 'conjunction', $this->conjunction])
-            ->andFilterWhere(['like', 'others', $this->others])
-            ->andFilterWhere(['like', 'meanings', $this->meanings])
-            ->andFilterWhere(['like', 'examples', $this->examples])
-            ->andFilterWhere(['like', 'related', $this->related])
-            ->andFilterWhere(['like', 'rating', $this->rating]);
+        $query->orFilterWhere(['like', 'infinitive_sr', $this->infinitive_sr])
+            ->orFilterWhere(['like', 'infinitive_ru', $this->infinitive_ru])
+            ->orFilterWhere(['like', 'infinitive_en', $this->infinitive_en])
+            ->orFilterWhere(['like', 'conjunction', $this->conjunction])
+            ->orFilterWhere(['like', 'others', $this->others])
+
+            ->orFilterWhere(['like', 'meanings', $this->meanings])
+            ->orFilterWhere(['like', 'examples', $this->examples])
+        //->orFilterWhere(['like', 'related', $this->related])
+            ->orFilterWhere(['like', 'rating', $this->rating])
+            ->orFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }
+
 }

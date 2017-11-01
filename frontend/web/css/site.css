@@ -1,153 +1,187 @@
 html,
 body {
-    height: 100%;
+	height: 100%;
 }
 
 .wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+	padding: 70px 15px 20px;
 }
 
 .footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+	height: 60px;
+	background-color: #f5f5f5;
+	border-top: 1px solid #ddd;
+	padding-top: 20px;
 }
 
 .jumbotron {
-    text-align: center;
-    background-color: transparent;
+	text-align: center;
+	background-color: transparent;
 }
 
 .jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
+	font-size: 21px;
+	padding: 14px 24px;
 }
 
 .not-set {
-    color: #c55;
-    font-style: italic;
+	color: #c55;
+	font-style: italic;
 }
 
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	padding-left: 5px;
 }
 
 a.asc:after {
-    content: "\e151";
+	content: "\e151";
 }
 
 a.desc:after {
-    content: "\e152";
+	content: "\e152";
 }
 
 .sort-numerical a.asc:after {
-    content: "\e153";
+	content: "\e153";
 }
 
 .sort-numerical a.desc:after {
-    content: "\e154";
+	content: "\e154";
 }
 
 .sort-ordinal a.asc:after {
-    content: "\e155";
+	content: "\e155";
 }
 
 .sort-ordinal a.desc:after {
-    content: "\e156";
+	content: "\e156";
 }
 
 .grid-view td {
-    white-space: nowrap;
+/*	white-space: nowrap;*/
 }
 
 .grid-view .filters input,
 .grid-view .filters select {
-    min-width: 50px;
+	min-width: 50px;
 }
 
 .hint-block {
-    display: block;
-    margin-top: 5px;
-    color: #999;
+	display: block;
+	margin-top: 5px;
+	color: #999;
 }
 
 .error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
+	color: #a94442;
+	background: #fdf7f7;
+	border-left: 3px solid #eed3d7;
+	padding: 10px 20px;
+	margin: 0 0 15px 0;
 }
 
 /* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
-    padding: 15px;
-    border: none;
+	padding: 15px;
+	border: none;
 }
 
 @media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 15px;
-    }
+	.nav li > form > button.logout {
+		display:block;
+		text-align: left;
+		width: 100%;
+		padding: 10px 15px;
+	}
 }
 
 .nav > li > form > button.logout:focus,
 .nav > li > form > button.logout:hover {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .nav > li > form > button.logout:focus {
-    outline: none;
+	outline: none;
 }
 .inp_text{
 	width:100px;
 }
 #table1, #table2, #others, #examples, #meanings  {
 	display: inline-block;
-    /*min-width: 530px;*/
-    overflow: hidden;
-    margin: 13px 20px 13px 0px;
-    border-collapse: collapse;
+	/*min-width: 530px;*/
+	overflow: hidden;
+	margin: 13px 20px 13px 0px;
+	border-collapse: collapse;
 	vertical-align: top;
 }
 #others, #examples, #meanings {
-        width: 100%;
-    }
+		width: 100%;
+	}
 #table1 td,#table2 td, #others td, #examples td, #meanings td {
 	border: 1px solid silver;
-    padding: 3px 5px;
+	padding: 3px 5px;
 }
 table td .form-control {
 	border:0px;
 }
 thead{
-	    font-size: 13px;
-    font-weight: 600;
+		font-size: 13px;
+	font-weight: 600;
 }
 #meanings td, #examples td, #others td {
-	    width: 1%;
+		width: 1%;
+}
+
+.my-switcher {
+	display: inline-block !important;
+	float: left;
+    margin-right: 8px;
+    text-align: center;
+}
+span.text-primary {
+	font-size:16px;
+}
+.top-sbm {
+	    clear: both;
+}
+.rating-container span.star {
+    margin: 0 1px;
 }
 /*	@media screen and (min-width: 780px) {
    #others, #examples, #meanings {
-        width: 100% !important;
-    }
+		width: 100% !important;
+	}
 }*/
+
+@media screen and (max-width: 800px) {
+  .hide-on-mobile {
+    visibility: hidden;
+    display: none;
+    width: 0px;
+    max-width: 0px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+    div.table-responsive .kv-table-wrap th, .kv-table-wrap td {
+    display: table-cell;
+  }
+    div.table-responsive .kv-table-wrap tr > td:first-child {
+        font-size: 1.2em;
+    }
+}
