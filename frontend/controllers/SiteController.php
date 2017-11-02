@@ -78,7 +78,9 @@ class SiteController extends LoginController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // return $this->render('index');
+        return $this->redirect(['phrasebook2/index']);
+
     }
 
     /**

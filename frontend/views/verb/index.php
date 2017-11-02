@@ -120,34 +120,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     return implode(', ', $datar);
                 }return '';},
         ],
-        [
-            'attribute' => 'others',
-            'format' => 'raw',
-            'value' => function ($data) {
-                $others = json_decode($data->others, true);
-                $arr = '';
-                foreach ($others as $key => $value) {
-                    $arr .= $others[$key]['word'] . '::' . $others[$key]['translation'] . '<br/>';
-                }
+        // [
+        //     'attribute' => 'others',
+        //     'format' => 'raw',
+        //     'value' => function ($data) {
+        //         $others = json_decode($data->others, true);
+        //         $arr = '';
+        //         foreach ($others as $key => $value) {
+        //             $arr .= $others[$key]['word'] . '::' . $others[$key]['translation'] . '<br/>';
+        //         }
 
-                // $others = implode('\n', $others);
-                return $arr;
-            },
-        ],
-        [
-            'attribute' => 'meanings',
-            'format' => 'raw',
-            'value' => function ($data) {
-                $meanings = json_decode($data->meanings, true);
-                $arr = '';
-                foreach ($meanings as $key => $value) {
-                    $arr .= $meanings[$key]['meaning'] . '::' . $meanings[$key]['translation'] . '<br/>';
-                }
+        //         // $others = implode('\n', $others);
+        //         return $arr;
+        //     },
+        // ],
+        // [
+        //     'attribute' => 'meanings',
+        //     'format' => 'raw',
+        //     'value' => function ($data) {
+        //         $meanings = json_decode($data->meanings, true);
+        //         $arr = '';
+        //         foreach ($meanings as $key => $value) {
+        //             $arr .= $meanings[$key]['meaning'] . '::' . $meanings[$key]['translation'] . '<br/>';
+        //         }
 
-                // $others = implode('\n', $others);
-                return $arr;
-            },
-        ],
+        //         // $others = implode('\n', $others);
+        //         return $arr;
+        //     },
+        // ],
         [
             'attribute' => 'examples',
             'format' => 'raw',

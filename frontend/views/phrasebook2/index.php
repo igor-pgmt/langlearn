@@ -279,5 +279,6 @@ var filter = document.getElementById('phrasebook2search-russian').value;
 
 }
 
-
 </script>
+
+

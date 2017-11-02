@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
 NavBar::begin([
-    'brandLabel' => 'My Company',
+    'brandLabel' => 'Lang',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar-inverse navbar-fixed-top',
@@ -37,8 +37,8 @@ NavBar::begin([
 ]);
 $menuItems = [
     ['label' => 'Phrasebook', 'url' => ['/phrasebook2']],
-    ['label' => 'create phrase', 'url' => ['/phrasebook2/create']],
-    ['label' => 'Verb', 'url' => ['/verb']],
+    ['label' => 'Create phrase', 'url' => ['/phrasebook2/create']],
+    ['label' => 'Verbs', 'url' => ['/verb']],
     ['label' => 'Create Verb', 'url' => ['/verb/create']],
     // ['label' => 'Testing', 'url' => ['/verb/testing']],
     // ['label' => 'Home', 'url' => ['/site/index']],
@@ -73,7 +73,7 @@ NavBar::end();
         <?=$content?>
     </div>
 </div>
-
+<button onclick="topFunction()" id="myScrollToTopButton" title="Go to top">Top</button>
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?=date('Y')?></p>

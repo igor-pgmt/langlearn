@@ -96,6 +96,11 @@ class Phrasebook2Controller extends LoginController
             // $model->serbian = json_encode($model->serbian, JSON_UNESCAPED_UNICODE);
             // $model->russian = json_encode($model->russian, JSON_UNESCAPED_UNICODE);
             // $model->english = json_encode($model->english, JSON_UNESCAPED_UNICODE);
+
+            if (empty($model->header)) {
+                $model->header = '[no header]';
+            }
+
             $model->save();
 
             do {
