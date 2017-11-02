@@ -206,3 +206,8 @@ span.text-primary {
     background-color: #3679B6; /* Add a dark-grey background on hover */
     color: white;
 }
+
+/* Dropdown height */
+.select2-container--krajee .select2-results > .select2-results__options {
+	max-height: 400px;
+}
