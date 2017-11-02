@@ -207,6 +207,7 @@ class Phrasebook2Controller extends LoginController
                         ->Where(['topic' => $cat_id])
                         ->all(),
                     'id', 'header');
+                asort($output);
 
                 foreach ($output as $value) {
                     // $out[] = ['id' => json_decode($value), 'name' => json_decode($value)];
@@ -214,8 +215,9 @@ class Phrasebook2Controller extends LoginController
 
                     $out[] = ['id' => $value, 'name' => $value];
                 }
+                // ksort($out);
                 $out = array_map("unserialize", array_unique(array_map("serialize", $out)));
-
+                // asort($out);
                 // the getSubCatList function will query the database based on the
                 // cat_id and return an array like below:
                 // [
@@ -236,7 +238,6 @@ class Phrasebook2Controller extends LoginController
         foreach ($phrasesLang as $phrase) {
 
             foreach ($phrase as $key => $value) {
-
                 if ($value) {
                     $phrases[$key][] = $value;
                     // $phrases[$key][] = json_decode($value);
@@ -246,6 +247,11 @@ class Phrasebook2Controller extends LoginController
         }
 
         if (isset($phrases)) {
+            asort($phrases['topic']);
+            asort($phrases['serbian']);
+            asort($phrases['russian']);
+            asort($phrases['english']);
+
             $topic = isset($phrases['topic']) ? array_combine($phrases['topic'], $phrases['topic']) : [];
             $serbian = isset($phrases['serbian']) ? array_combine($phrases['serbian'], $phrases['serbian']) : [];
             $russian = isset($phrases['russian']) ? array_combine($phrases['russian'], $phrases['russian']) : [];

@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     'action' => ['index'],
     'method' => 'get',
 ]);?>
+<?php
 
+?>
     <?=$form->field($model, 'topic')->widget(Select2::classname(['options' => ['id' => 'cat-id'], 'id' => 'cat-id']), [
     'data' => $phrases['topic'],
     'pluginOptions' => [
