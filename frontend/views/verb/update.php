@@ -158,6 +158,28 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     ],
 ])?>
 
+    <?=$form->field($model, 'reflexive_verb', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    'type' => SwitchInput::RADIO,
+    'name' => 'reflexive_verb',
+    'items' => [
+        ['label' => 'NonR', 'value' => 0],
+        ['label' => 'Ref', 'value' => 1],
+        ['label' => 'rOnly', 'value' => 2],
+    ],
+    'value' => 0,
+    'pluginOptions' => [
+// 'handleWidth' => 120,
+
+        'onColor' => 'danger',
+        'offColor' => 'default',
+        'size' => 'mini',
+
+    ],
+// 'pluginEvents' => [
+    //     "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
+    // ],
+])?>
+
 	<div class='form-group' style="clear: both;">
 		<?=Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])?>
 	</div>
