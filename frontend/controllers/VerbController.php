@@ -79,35 +79,67 @@ class VerbController extends LoginController
             $model->views = $model->views + 1;
             $model->save();
         }
+/*
+switch ($model->mainword) {
+case true:
+//поиск всех слов группы
+$verbs = Verb::find()->anyTagValues($model->infinitive_sr)->all();
 
-        switch ($model->mainword) {
-            case true:
-                //поиск всех слов группы
-                $verbs = Verb::find()->anyTagValues($model->infinitive_sr)->all();
+//добавление главного слова в начало списка
+$verbs = array_merge([$model], $verbs);
 
-                //добавление главного слова в начало списка
-                $verbs = array_merge([$model], $verbs);
-                break;
-            case false:
-                //поиск главных слов
-                $mainwords = Verb::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
+break;
+case false:
+//поиск главных слов
+$mainwords = Verb::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
 
-                //поиск всех слов группы
-                $verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
+//поиск всех слов группы
+$verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
 
-                //добавление главных слов в начало списка
-                $verbs = array_merge($mainwords, $verbs);
+//добавление главных слов в начало списка
+$verbs = array_merge($mainwords, $verbs);
 
-                //Удаление искомого слова из списка, чтобы потом вставить его в начало
-                foreach ($verbs as $key => $value) {
-                    if ($value->id == $id) {unset($verbs[$key]);};
-                }
+//Удаление искомого слова из списка, чтобы потом вставить его в начало
+foreach ($verbs as $key => $value) {
+if ($value->id == $id) {unset($verbs[$key]);};
+}
 
-                //добавление искомого слова в начало списка
-                $verbs = array_merge([$model], $verbs);
+//добавление искомого слова в начало списка
+$verbs = array_merge([$model], $verbs);
 
-                break;
+break;
+}
+ */
+
+        if ($model->mainword) {
+            //поиск всех слов группы
+            $verbs1 = Verb::find()->anyTagValues($model->infinitive_sr)->all();
         }
+
+        //поиск главных слов
+        $mainwords = Verb::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
+
+        //поиск всех слов группы
+        $verbs2 = Verb::find()->anyTagValues($model->getTagValues(true))->all();
+
+        //добавление главных слов в начало списка
+        $verbs = array_merge($mainwords, $verbs2);
+
+        //добавление слов ко всем словам группы данного главного слова, если оно такокое
+        if (isset($verbs1)) {
+            $verbs = array_merge($verbs1, $verbs);
+        }
+
+        //Удаление искомого слова из списка, чтобы потом вставить его в начало
+        foreach ($verbs as $key => $value) {
+            if ($value->id == $id) {unset($verbs[$key]);};
+        }
+
+        //добавление искомого слова в начало списка
+        $verbs = array_merge([$model], $verbs);
+
+        //удаление дубликатов из результирующего массива
+        $verbs = array_map("unserialize", array_unique(array_map("serialize", $verbs)));
 
         $phrases = Phrasebook2::find()->select('serbian, russian')->asarray()->all();
         $relevants = [];

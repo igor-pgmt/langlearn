@@ -33,7 +33,8 @@ $infinitive_en = isset($model->infinitive_en) ? is_array($model->infinitive_en) 
 // $this->title = $serbian . ' :: ' . $russian . ' :: ' . $english;
 $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/verb/view?id=' . $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
 ?>
 <div class="verb-update">

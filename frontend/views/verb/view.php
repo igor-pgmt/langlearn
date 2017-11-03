@@ -21,7 +21,10 @@ foreach ($models as $model) {
 
     // $this->title = Html::a($infinitive_sr, ['view', 'id' => $model->id], ['class' => 'btn btn-default']) . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
     $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
+    if ($nameCounter === 1) {
+        $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
+    }
+
     // $this->params['breadcrumbs'][] = $this->title;
     $this->params['breadcrumbs'][] = ['label' => $infinitive_sr, 'url' => ['/verb/view?id=' . $model->id]];
 
@@ -117,6 +120,7 @@ function ajaxSend(paramName, paramValue, id) {
 
 </script>
 
+
     <?=$form->field($model, 'perfect_verb', ['options' => ['class' => 'my-switcher form-group', 'model_id' => $model->id]])->widget(SwitchInput::classname(), [
 
             'pluginOptions' => [
@@ -200,6 +204,25 @@ function ajaxSend(paramName, paramValue, id) {
             ],
         ])?>
 <?php }?>
+
+
+
+<div style="margin: -10px 0px 10px 10px; clear: both;">
+        <?=Html::a(Yii::t('frontend', 'View'), ['view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs'])?>
+        <?=Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs'])?>
+        <?=Html::a(Yii::t('frontend', 'Delete'), ['delete', 'id' => $model->id], [
+        'class' => 'btn btn-danger btn-xs',
+        'data' => [
+            'confirm' => Yii::t('frontend', 'Are you sure you want to delete this item?'),
+            'method' => 'post',
+        ],
+    ])?>
+        <?=Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success btn-xs'])?>
+</div>
+
+
+
+
 	<?=$this->render('_conjunctions.php', [
         'conjunction' => $model->conjunction,
         'model' => $model,
@@ -291,7 +314,7 @@ function ajaxSend(paramName, paramValue, id) {
 	<?php ActiveForm::end();?>
 
 </div>
-	<p>
+<!-- 	<p>
 		<?=Html::a(Yii::t('frontend', 'View'), ['view', 'id' => $model->id], ['class' => 'btn btn-default'])?>
 		<?=Html::a(Yii::t('frontend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary'])?>
 		<?=Html::a(Yii::t('frontend', 'Delete'), ['delete', 'id' => $model->id], [
@@ -302,7 +325,8 @@ function ajaxSend(paramName, paramValue, id) {
         ],
     ])?>
 		<?=Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success'])?>
-	</p>
+	</p> -->
+    <hr>
 <?php }?>
 
 
