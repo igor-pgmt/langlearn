@@ -213,7 +213,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
 ->label(false);
 ?>
 
-		<?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
+        <?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
     'max' => 100,
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
@@ -224,6 +224,28 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
             'name' => 'example',
             'type' => 'textarea',
             'title' => 'Пример',
+        ],
+        [
+            'name' => 'translation',
+            'type' => 'textarea',
+            'title' => 'Перевод',
+        ],
+    ],
+])
+->label(false);
+?>
+
+		<?=$form->field($model, 'examples_ref')->widget(MultipleInput::className(), [
+    'max' => 100,
+    'min' => 1, // should be at least 2 rows
+    'allowEmptyList' => true,
+    'enableGuessTitle' => true,
+    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'columns' => [
+        [
+            'name' => 'example',
+            'type' => 'textarea',
+            'title' => 'Возвратный Пример',
         ],
         [
             'name' => 'translation',
