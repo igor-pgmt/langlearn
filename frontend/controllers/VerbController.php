@@ -74,42 +74,39 @@ class VerbController extends LoginController
 
             return $model->examples;
         }
-        if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
-            $model = Verb::findOne($id);
-            $model->views = $model->views + 1;
-            $model->save();
+        $model->views = $model->views + 1;
+        $model->save();
+        /*
+        switch ($model->mainword) {
+        case true:
+        //поиск всех слов группы
+        $verbs = Verb::find()->anyTagValues($model->infinitive_sr)->all();
+
+        //добавление главного слова в начало списка
+        $verbs = array_merge([$model], $verbs);
+
+        break;
+        case false:
+        //поиск главных слов
+        $mainwords = Verb::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
+
+        //поиск всех слов группы
+        $verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
+
+        //добавление главных слов в начало списка
+        $verbs = array_merge($mainwords, $verbs);
+
+        //Удаление искомого слова из списка, чтобы потом вставить его в начало
+        foreach ($verbs as $key => $value) {
+        if ($value->id == $id) {unset($verbs[$key]);};
         }
-/*
-switch ($model->mainword) {
-case true:
-//поиск всех слов группы
-$verbs = Verb::find()->anyTagValues($model->infinitive_sr)->all();
 
-//добавление главного слова в начало списка
-$verbs = array_merge([$model], $verbs);
+        //добавление искомого слова в начало списка
+        $verbs = array_merge([$model], $verbs);
 
-break;
-case false:
-//поиск главных слов
-$mainwords = Verb::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
-
-//поиск всех слов группы
-$verbs = Verb::find()->anyTagValues($model->getTagValues(true))->all();
-
-//добавление главных слов в начало списка
-$verbs = array_merge($mainwords, $verbs);
-
-//Удаление искомого слова из списка, чтобы потом вставить его в начало
-foreach ($verbs as $key => $value) {
-if ($value->id == $id) {unset($verbs[$key]);};
-}
-
-//добавление искомого слова в начало списка
-$verbs = array_merge([$model], $verbs);
-
-break;
-}
- */
+        break;
+        }
+         */
 
         if ($model->mainword) {
             //поиск всех слов группы
@@ -213,6 +210,7 @@ break;
             $model->conjunction = json_encode($model->conjunction, JSON_UNESCAPED_UNICODE);
             $model->others = json_encode($model->others, JSON_UNESCAPED_UNICODE);
             $model->examples = json_encode($model->examples, JSON_UNESCAPED_UNICODE);
+            $model->examples_ref = json_encode($model->examples_ref, JSON_UNESCAPED_UNICODE);
             $model->meanings = json_encode($model->meanings, JSON_UNESCAPED_UNICODE);
 
             if ($model->related) {
@@ -256,6 +254,7 @@ break;
             $model->conjunction = isset($_POST['Verb']['conjunction']) ? json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
             $model->others = isset($_POST['Verb']['others']) ? json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE) : '';
             $model->examples = isset($_POST['Verb']['examples']) ? json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE) : '';
+            $model->examples_ref = isset($_POST['Verb']['examples_ref']) ? json_encode($_POST['Verb']['examples_ref'], JSON_UNESCAPED_UNICODE) : '';
             $model->meanings = isset($_POST['Verb']['meanings']) ? json_encode($_POST['Verb']['meanings'], JSON_UNESCAPED_UNICODE) : '';
 
             $model->save();
@@ -267,6 +266,7 @@ break;
             $model->conjunction = json_decode($model->conjunction, true);
             $model->others = json_decode($model->others, true);
             $model->examples = json_decode($model->examples, true);
+            $model->examples_ref = json_decode($model->examples_ref, true);
             $model->meanings = json_decode($model->meanings, true);
             $model->related = json_decode($model->related, true);
 

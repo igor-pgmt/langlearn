@@ -16,6 +16,7 @@ use Yii;
  * @property string $others
  * @property string $meanings
  * @property string $examples
+ * @property string $examples_ref
  * @property string $comment
  * @property integer $related
  * @property integer $rating
@@ -26,6 +27,7 @@ use Yii;
  * @property integer $needtranslation
  * @property integer $mainword
  * @property integer $perfect_verb
+ * @property integer $reflexive_verb
  */
 class Verb extends \yii\db\ActiveRecord
 {
@@ -56,9 +58,9 @@ class Verb extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rating', 'views'], 'integer'],
+            [['rating', 'views', 'reflexive_verb'], 'integer'],
             [['perfect_verb', 'mainword', 'important', 'needhelp', 'needtranslation'], 'boolean'],
-            [['infinitive_sr', 'infinitive_ru', 'infinitive_en', 'conjunction', 'others', 'meanings', 'examples', 'comment', 'tagValues', 'related', 'related2'], 'safe'],
+            [['infinitive_sr', 'infinitive_ru', 'infinitive_en', 'conjunction', 'others', 'meanings', 'examples', 'examples_ref', 'comment', 'tagValues', 'related', 'related2'], 'safe'],
         ];
     }
 
@@ -76,6 +78,7 @@ class Verb extends \yii\db\ActiveRecord
             'others' => Yii::t('frontend', 'Others'),
             'meanings' => Yii::t('frontend', 'Meanings'),
             'examples' => Yii::t('frontend', 'Examples'),
+            'examples_ref' => Yii::t('frontend', 'Reflexive examples'),
             'comment' => Yii::t('frontend', 'Comment'),
             'related' => Yii::t('frontend', 'Related'),
             'rating' => Yii::t('frontend', 'Rating'),
@@ -85,6 +88,7 @@ class Verb extends \yii\db\ActiveRecord
             'needtranslation' => Yii::t('frontend', 'Need Transl.'),
             'mainword' => Yii::t('frontend', 'Main word'),
             'perfect_verb' => Yii::t('frontend', 'Perfect verb'),
+            'reflexive_verb' => Yii::t('frontend', 'Reflexive verb'),
             'tagValues' => Yii::t('frontend', 'Tags1'),
         ];
     }

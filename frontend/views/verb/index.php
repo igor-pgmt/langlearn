@@ -50,6 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => ['style' => 'width:30px; text-align: center;',
             ],
         ],
+        [
+            'attribute' => 'views',
+            'contentOptions' => ['style' => 'width:30px; text-align: center;',
+            ],
+        ],
 /*        [
 'class' => 'kartik\grid\ActionColumn',
 'template' => '{view}',
@@ -79,7 +84,18 @@ return $it;
                 $link = 'http://' . $_SERVER['SERVER_NAME'] . '/verb/view?id=' . $data->id;
                 if ($itDecoded) {
                     foreach ($itDecoded as $key => $value) {
-                        $itDecoded[$key] = '<a href="' . $link . '">' . $value . '</a>';
+                        switch ($data->reflexive_verb) {
+                        case 1:
+                            $reflexive = ' (се)';
+                            break;
+                        case 2:
+                            $reflexive = ' се';
+                            break;
+                        default:
+                            $reflexive = false;
+                            break;
+                        }
+                        $itDecoded[$key] = '<a href="' . $link . '">' . $value . $reflexive . '</a>';
                     }
                 }
 

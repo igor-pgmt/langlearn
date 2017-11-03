@@ -18,9 +18,9 @@ class VerbSearch extends Verb
     public function rules()
     {
         return [
-            [['id', 'rating', 'views'], 'integer'],
+            [['id', 'rating', 'views', 'reflexive_verb'], 'integer'],
             [['perfect_verb', 'mainword', 'important', 'needhelp', 'needtranslation'], 'boolean'],
-            [['infinitive_sr', 'infinitive_ru', 'infinitive_en', 'conjunction', 'others', 'meanings', 'examples', 'comment', 'related', 'related2'], 'safe'],
+            [['infinitive_sr', 'infinitive_ru', 'infinitive_en', 'conjunction', 'others', 'meanings', 'examples', 'examples_ref', 'comment', 'related', 'related2'], 'safe'],
         ];
     }
 
@@ -75,6 +75,8 @@ class VerbSearch extends Verb
 
             ->orFilterWhere(['like', 'meanings', $this->meanings])
             ->orFilterWhere(['like', 'examples', $this->examples])
+            ->orFilterWhere(['like', 'perfect_verb', $this->perfect_verb])
+            ->orFilterWhere(['like', 'reflexive_verb', $this->reflexive_verb])
         //->orFilterWhere(['like', 'related', $this->related])
             ->orFilterWhere(['like', 'rating', $this->rating])
             ->orFilterWhere(['like', 'comment', $this->comment]);

@@ -14,11 +14,22 @@ use yii\widgets\Breadcrumbs;
 $nameCounter = 0;
 foreach ($models as $model) {
     $nameCounter++;
-
+    switch ($model->reflexive_verb) {
+        case 1:
+            $reflexive = ' (се)';
+            break;
+        case 2:
+            $reflexive = ' се';
+            break;
+        default:
+            $reflexive = false;
+            break;
+    }
     $infinitive_ru = (!null == (json_decode($model->infinitive_ru))) ? is_array($model->infinitive_ru) ? implode(', ', $model->infinitive_ru) : implode(' ', json_decode($model->infinitive_ru)) : false;
     $infinitive_sr = (!null == (json_decode($model->infinitive_sr))) ? is_array($model->infinitive_sr) ? implode(', ', $model->infinitive_sr) : implode(' ', json_decode($model->infinitive_sr)) : false;
     $infinitive_en = (!null == (json_decode($model->infinitive_en))) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : implode(' ', json_decode($model->infinitive_en)) : false;
 
+    $infinitive_sr = $infinitive_sr . $reflexive;
     // $this->title = Html::a($infinitive_sr, ['view', 'id' => $model->id], ['class' => 'btn btn-default']) . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
     $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
     if ($nameCounter === 1) {
@@ -220,45 +231,54 @@ function ajaxSend(paramName, paramValue, id) {
         <?=Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success btn-xs'])?>
 </div>
 
-
-
-
-	<?=$this->render('_conjunctions.php', [
-        'conjunction' => $model->conjunction,
-        'model' => $model,
-        'form' => $form,
-    ])?>
-
-	<?=$this->render('_others.php', [
-        'others' => $model->others,
-        'model' => $model,
-        'form' => $form,
-    ])?>
-
-	<?=$this->render('_examples.php', [
-        'examples' => $model->examples,
-        'model' => $model,
-        'form' => $form,
-    ])?>
-
-
-<div style="border: 1px solid #BBB; margin:10px 0px;"><strong>Комментарий:<br /></strong><?=$model->comment?></div>
-
-<?php if (!empty($relevants)) {
+<?php if (!empty($model->conjunction)) {
         ?>
+	<?=$this->render('_conjunctions.php', [
+            'conjunction' => $model->conjunction,
+            'model' => $model,
+            'form' => $form,
+        ])?>
+<?php }?>
 
+<?php if (!empty($model->others)) {
+        ?>
+	<?=$this->render('_others.php', [
+            'others' => $model->others,
+            'model' => $model,
+            'form' => $form,
+        ])?>
+<?php }?>
 
+<?php if (!empty($model->examples)) {
+        ?>
+    <?=$this->render('_examples.php', [
+            'examples' => $model->examples,
+            'model' => $model,
+            'form' => $form,
+        ])?>
+<?php }?>
 
+<?php if (!empty($model->examples_ref)) {
+        ?>
+	<?=$this->render('_examples.php', [
+            'examples' => $model->examples_ref,
+            'model' => $model,
+            'form' => $form,
+        ])?>
+<?php }?>
+
+<?php if (!empty($model->comment)) {?>
+<div style="border: 1px solid #BBB; margin:10px 0px;"><strong>Комментарий:<br /></strong><?=$model->comment?></div>
+<?php }?>
+<?php if (isset($relevants[$model->id])) {
+        ?>
 <table class="table1">
     <thead><td>Пример</td><td>Перевод</td></thead>
 <?php
-
-        if (isset($relevants[$model->id])) {
-
-            foreach ($relevants[$model->id] as $value) {
-                echo '<tr><td>' . $value['serbian'] . '</td><td>' . $value['russian'] . '</td></tr>';
-            }
+foreach ($relevants[$model->id] as $value) {
+            echo '<tr><td>' . $value['serbian'] . '</td><td>' . $value['russian'] . '</td></tr>';
         }
+
         ?>
 </table>
 
@@ -277,13 +297,15 @@ function ajaxSend(paramName, paramValue, id) {
 
 
 
-
+<?php if (!empty($model->meanings)) {
+        ?>
 
 	<?=$this->render('_meanings.php', [
-        'meanings' => $model->meanings,
-        'model' => $model,
-        'form' => $form,
-    ])?>
+            'meanings' => $model->meanings,
+            'model' => $model,
+            'form' => $form,
+        ])?>
+<?php }?>
 
 	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) {
         ?>

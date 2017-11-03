@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ]);?>
 
-	<?=$form->field($model, 'infinitive_ru')->widget(Select2::classname(), [
+    <?=$form->field($model, 'infinitive_ru')->widget(Select2::classname(), [
     'data' => $infinitives['ru'],
     'options' => [
         'placeholder' => 'Add ...',
@@ -139,6 +139,28 @@ $this->params['breadcrumbs'][] = $this->title;
     ],
 ])?>
 
+    <?=$form->field($model, 'reflexive_verb', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    'type' => SwitchInput::RADIO,
+    'name' => 'reflexive_verb',
+    'items' => [
+        ['label' => 'NonR', 'value' => 0],
+        ['label' => 'Ref', 'value' => 1],
+        ['label' => 'rOnly', 'value' => 2],
+    ],
+    'value' => 0,
+    'pluginOptions' => [
+// 'handleWidth' => 120,
+
+        'onColor' => 'danger',
+        'offColor' => 'default',
+        'size' => 'mini',
+
+    ],
+// 'pluginEvents' => [
+    //     "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
+    // ],
+])?>
+
 	<div class='form-group top-sbm'>
 		<?=Html::submitButton(Yii::t('frontend', 'Create'), ['class' => 'btn btn-success'])?>
 	</div>
@@ -193,7 +215,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ->label(false);
 ?>
 
-	<?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
+    <?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
     'max' => 100,
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
@@ -204,6 +226,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'name' => 'example',
             'type' => 'textarea',
             'title' => 'Пример',
+        ],
+        [
+            'name' => 'translation',
+            'type' => 'textarea',
+            'title' => 'Перевод',
+        ],
+    ],
+])
+->label(false);
+?>
+
+	<?=$form->field($model, 'examples_ref')->widget(MultipleInput::className(), [
+    'max' => 100,
+    'min' => 1, // should be at least 2 rows
+    'allowEmptyList' => true,
+    'enableGuessTitle' => true,
+    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'columns' => [
+        [
+            'name' => 'example',
+            'type' => 'textarea',
+            'title' => 'Возвратный Пример',
         ],
         [
             'name' => 'translation',
