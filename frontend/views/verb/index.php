@@ -50,19 +50,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => ['style' => 'width:30px; text-align: center;',
             ],
         ],
-        [
-            'class' => 'kartik\grid\ActionColumn',
-            'template' => '{view}',
-        ],
+/*        [
+'class' => 'kartik\grid\ActionColumn',
+'template' => '{view}',
+],*/
+/*        [
+'attribute' => 'infinitive_sr',
+'format' => 'raw',
+'value' => function ($data) {
+$itDecoded = !empty($data->infinitive_sr) ? json_decode($data->infinitive_sr) : false;
+$link = 'http://' . $_SERVER['SERVER_NAME'] . '/phrasebook2?Phrasebook2Search%5Bserbian%5D=';
+if ($itDecoded) {
+foreach ($itDecoded as $key => $value) {
+$itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
+}
+}
+
+$it = ($itDecoded) ? implode(", ", $itDecoded) : false;
+// return Html::a($it, ['view', 'id' => $data->id]);
+return $it;
+},
+],*/
         [
             'attribute' => 'infinitive_sr',
             'format' => 'raw',
             'value' => function ($data) {
                 $itDecoded = !empty($data->infinitive_sr) ? json_decode($data->infinitive_sr) : false;
-                $link = 'http://' . $_SERVER['SERVER_NAME'] . '/phrasebook2?Phrasebook2Search%5Bserbian%5D=';
+                $link = 'http://' . $_SERVER['SERVER_NAME'] . '/verb/view?id=' . $data->id;
                 if ($itDecoded) {
                     foreach ($itDecoded as $key => $value) {
-                        $itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
+                        $itDecoded[$key] = '<a href="' . $link . '">' . $value . '</a>';
                     }
                 }
 
@@ -79,7 +96,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 $link = 'http://' . $_SERVER['SERVER_NAME'] . '/phrasebook2?Phrasebook2Search%5Brussian%5D=';
                 if ($itDecoded) {
                     foreach ($itDecoded as $key => $value) {
-                        $itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
+                        // $itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
+                        $itDecoded[$key] = $value;
                     }
                 }
 
@@ -88,23 +106,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $it;
             },
         ],
-        [
-            'attribute' => 'infinitive_en',
-            'format' => 'raw',
-            'value' => function ($data) {
-                $itDecoded = !empty($data->infinitive_en) ? json_decode($data->infinitive_en) : false;
-                $link = 'http://' . $_SERVER['SERVER_NAME'] . '/phrasebook2?Phrasebook2Search%5Benglish%5D=';
-                if ($itDecoded) {
-                    foreach ($itDecoded as $key => $value) {
-                        $itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
-                    }
-                }
+/*       [
+'attribute' => 'infinitive_ru',
+'format' => 'raw',
+'value' => function ($data) {
+$itDecoded = !empty($data->infinitive_ru) ? json_decode($data->infinitive_ru) : false;
+$link = 'http://' . $_SERVER['SERVER_NAME'] . '/phrasebook2?Phrasebook2Search%5Brussian%5D=';
+if ($itDecoded) {
+foreach ($itDecoded as $key => $value) {
+$itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
+}
+}
 
-                $it = ($itDecoded) ? implode(", ", $itDecoded) : false;
-                // return Html::a($it, ['view', 'id' => $data->id]);
-                return $it;
-            },
-        ],
+$it = ($itDecoded) ? implode(", ", $itDecoded) : false;
+// return Html::a($it, ['view', 'id' => $data->id]);
+return $it;
+},
+],
+[
+'attribute' => 'infinitive_en',
+'format' => 'raw',
+'value' => function ($data) {
+$itDecoded = !empty($data->infinitive_en) ? json_decode($data->infinitive_en) : false;
+$link = 'http://' . $_SERVER['SERVER_NAME'] . '/phrasebook2?Phrasebook2Search%5Benglish%5D=';
+if ($itDecoded) {
+foreach ($itDecoded as $key => $value) {
+$itDecoded[$key] = '<a href="' . $link . $value . '">' . $value . '</a>';
+}
+}
+
+$it = ($itDecoded) ? implode(", ", $itDecoded) : false;
+// return Html::a($it, ['view', 'id' => $data->id]);
+return $it;
+},
+],*/
         [
             'attribute' => 'related',
             'format' => 'raw',

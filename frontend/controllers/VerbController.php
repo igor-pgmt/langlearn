@@ -141,6 +141,7 @@ break;
         //удаление дубликатов из результирующего массива
         $verbs = array_map("unserialize", array_unique(array_map("serialize", $verbs)));
 
+        //поиск релевантных примеров из разговорника
         $phrases = Phrasebook2::find()->select('serbian, russian')->asarray()->all();
         $relevants = [];
         foreach ($verbs as $verb) {
@@ -155,6 +156,7 @@ break;
                     }
                 }
             }
+
             if (isset($verb->others)) {
                 foreach (json_decode($verb->others, true) as $key => $value) {
                     if (!empty($value)) {
@@ -181,7 +183,6 @@ break;
 
                     $ai = array_intersect($datar, $variants);
                     if (!empty($ai)) {
-
                         $relevants[$verb->id][] = $phrases[$key];
                     }
                 }
