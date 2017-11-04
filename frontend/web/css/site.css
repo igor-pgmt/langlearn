@@ -176,6 +176,10 @@ span.text-primary {
     width: 0px;
     max-width: 0px;
   }
+
+  .reflexive-verb {
+  	clear: both;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -211,4 +215,8 @@ span.text-primary {
 /* Dropdown height */
 .select2-container--krajee .select2-results > .select2-results__options {
 	max-height: 400px;
+}
+
+.my-rating{
+	margin-right: 10px;
 }
