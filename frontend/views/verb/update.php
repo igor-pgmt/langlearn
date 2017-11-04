@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     ],
 ])?>
 
-	<?=$form->field($model, 'rating', ['options' => ['class' => 'my-switcher']])->widget(StarRating::classname(), [
+    <?=$form->field($model, 'rating', ['options' => ['class' => 'my-switcher form-group my-rating']])->widget(StarRating::classname(), [
     'name' => 'needhelp',
     'pluginOptions' => [
         'containerClass' => 'my-rating ',
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     ],
 ])?>
 
-    <?=$form->field($model, 'reflexive_verb', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
+    <?=$form->field($model, 'reflexive_verb', ['options' => ['class' => 'my-switcher form-group reflexive-verb']])->widget(SwitchInput::classname(), [
     'type' => SwitchInput::RADIO,
     'name' => 'reflexive_verb',
     'items' => [
