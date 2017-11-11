@@ -291,15 +291,10 @@ $form->field($model, 'meanings')->widget(MultipleInput::className(), [
 ->label(false);
 ?>
 
-
 	<?php if (in_array(Yii::$app->controller->action->id, ['update', 'create'])) {
     ?>
 
 	<?=$form->field($model, 'mainword')->checkbox()?>
-
-
-
-
 
 
 <?php

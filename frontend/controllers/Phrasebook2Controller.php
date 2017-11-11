@@ -108,10 +108,16 @@ class Phrasebook2Controller extends LoginController
                 //В нём вы обнуляем те поля, которые не хотим видеть в форме заполненными
                 if (isset($_POST['new'])) {
 
-                    $model = new Phrasebook2();
+                    $model->serbian = '';
+                    $model->russian = '';
+                    $model->english = '';
+                    $model->comment = '';
+
+                    //$model = new Phrasebook2();
                     return $this->render('create', [
                         'model' => $model,
                         'phrases' => $this->getPhrases(),
+                        'header' => [$model->header => $model->header],
                     ]);
                     break;
                 } else {

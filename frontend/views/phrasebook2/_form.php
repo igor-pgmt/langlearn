@@ -54,6 +54,7 @@ use yii\widgets\ActiveForm;
 
     <?=$form->field($model, 'header')->widget(DepDrop::classname(), [
     'type' => DepDrop::TYPE_SELECT2,
+    'data' => $header,
     'select2Options' => [
         'pluginOptions' => [
             'allowClear' => true,
@@ -63,6 +64,7 @@ use yii\widgets\ActiveForm;
         ]],
     'options' => ['id' => 'subcat-id'],
     'pluginOptions' => [
+        'initialize' => true,
         'depends' => ['cat-id'],
         'placeholder' => 'Select...',
         'url' => Url::to(['/phrasebook2/subcat']),

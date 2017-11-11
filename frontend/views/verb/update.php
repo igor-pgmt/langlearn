@@ -12,23 +12,9 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Verb */
 
-// $this->title = Yii::t('frontend', 'Update {modelClass}: ', [
-//     'modelClass' => 'Verb',
-// ]) . implode(' ', $model->infinitive_sr);
-// $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
-// $this->params['breadcrumbs'][] = ['label' => $model->infinitive_sr, 'url' => ['view', 'id' => $model->id]];
-// $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
-
 $infinitive_ru = isset($model->infinitive_ru) ? is_array($model->infinitive_ru) ? implode(', ', $model->infinitive_ru) : json_decode($model->infinitive_ru) : false;
 $infinitive_sr = isset($model->infinitive_sr) ? is_array($model->infinitive_sr) ? implode(', ', $model->infinitive_sr) : json_decode($model->infinitive_sr) : false;
 $infinitive_en = isset($model->infinitive_en) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : json_decode($model->infinitive_en) : false;
-
-// $infinitive_ru = isset($model->infinitive_ru) ? json_decode($model->infinitive_ru, true) : false;
-// $infinitive_en = isset($model->infinitive_en) ? json_decode($model->infinitive_en, true) : false;
-
-// $serbian = is_array($infinitive_sr) ? implode(', ', $infinitive_sr) : $infinitive_sr;
-// $russian = is_array($infinitive_ru) ? implode(', ', $infinitive_ru) : $infinitive_ru;
-// $english = is_array($infinitive_en) ? implode(', ', $infinitive_en) : $infinitive_en;
 
 // $this->title = $serbian . ' :: ' . $russian . ' :: ' . $english;
 $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;

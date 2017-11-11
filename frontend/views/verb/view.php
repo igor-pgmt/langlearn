@@ -30,13 +30,11 @@ foreach ($models as $model) {
     $infinitive_en = (!null == (json_decode($model->infinitive_en))) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : implode(' ', json_decode($model->infinitive_en)) : false;
 
     $infinitive_sr = $infinitive_sr . $reflexive;
-    // $this->title = Html::a($infinitive_sr, ['view', 'id' => $model->id], ['class' => 'btn btn-default']) . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
-    $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
     if ($nameCounter === 1) {
+        $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
         $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
     }
 
-    // $this->params['breadcrumbs'][] = $this->title;
     $this->params['breadcrumbs'][] = ['label' => $infinitive_sr, 'url' => ['/verb/view?id=' . $model->id]];
 
     ?>
