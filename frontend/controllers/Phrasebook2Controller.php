@@ -131,6 +131,7 @@ class Phrasebook2Controller extends LoginController
             return $this->render('create', [
                 'model' => $model,
                 'phrases' => $this->getPhrases(),
+                'header' => null,
             ]);
         }
     }
