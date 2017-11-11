@@ -112,6 +112,7 @@ class Phrasebook2Controller extends LoginController
                     $model->russian = '';
                     $model->english = '';
                     $model->comment = '';
+                    $model->isNewRecord = true;
 
                     //$model = new Phrasebook2();
                     return $this->render('create', [
