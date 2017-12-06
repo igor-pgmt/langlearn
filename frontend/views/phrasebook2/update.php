@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     <?=$this->render('_form', [
     'model' => $model,
     'phrases' => $phrases,
+    'header' => $header,
 ])?>
 
 </div>
