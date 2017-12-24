@@ -232,6 +232,7 @@ function ajaxSend(paramName, paramValue, id) {
 
 <?php if (!empty($model->conjunction)) {
         ?>
+
 	<?=$this->render('_conjunctions.php', [
             'conjunction' => $model->conjunction,
             'model' => $model,

@@ -122,7 +122,7 @@ class VerbController extends LoginController
         //добавление главных слов в начало списка
         $verbs = array_merge($mainwords, $verbs2);
 
-        //добавление слов ко всем словам группы данного главного слова, если оно такокое
+        //добавление слов ко всем словам группы данного главного слова, если оно таковое
         if (isset($verbs1)) {
             $verbs = array_merge($verbs1, $verbs);
         }
@@ -147,7 +147,14 @@ class VerbController extends LoginController
                 foreach (json_decode($verb->conjunction, true) as $key => $value) {
                     foreach ($value as $key => $value) {
                         if (!empty($value)) {
-                            $variants[] = strtolower($value);
+                            if (is_array($value)) {
+                                foreach ($value as $key2 => $value2) {
+                                    $variants[] = strtolower($value2);
+                                }
+                            } else {
+                                $variants[] = strtolower($value);
+                            }
+
                         }
 
                     }
@@ -251,6 +258,31 @@ class VerbController extends LoginController
             $model->infinitive_sr = json_encode($model->infinitive_sr, JSON_UNESCAPED_UNICODE);
             $model->infinitive_ru = json_encode($model->infinitive_ru, JSON_UNESCAPED_UNICODE);
             $model->infinitive_en = json_encode($model->infinitive_en, JSON_UNESCAPED_UNICODE);
+
+            //removing redundant information
+            if (isset($_POST['Verb']['conjunction'])) {
+                foreach ($_POST['Verb']['conjunction'] as $key => $value) {
+                    if (is_array($value)) {
+                        $flag = true;
+                        if (empty(array_filter($_POST['Verb']['conjunction'][$key]))) {
+                            unset($_POST['Verb']['conjunction'][$key]);
+                        }
+                    } else if (empty(array_filter($value))) {
+                        unset($_POST['Verb']['conjunction'][$key]);
+                    }
+                    if (isset($flag)) {
+
+                        if ($flag) {
+                            // echo $key . ' true;';
+                            // print_r($value);
+                            if (empty(array_filter($value))) {
+                                // echo $key;
+                                unset($_POST['Verb']['conjunction'][$key]);
+                            }
+                            $flag = false;
+                        }}
+                }
+            }
             $model->conjunction = isset($_POST['Verb']['conjunction']) ? json_encode($_POST['Verb']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
             $model->others = isset($_POST['Verb']['others']) ? json_encode($_POST['Verb']['others'], JSON_UNESCAPED_UNICODE) : '';
             $model->examples = isset($_POST['Verb']['examples']) ? json_encode($_POST['Verb']['examples'], JSON_UNESCAPED_UNICODE) : '';
@@ -382,6 +414,12 @@ class VerbController extends LoginController
     public function getConjunctions()
     {
 
+    }
+
+    public function actionTest()
+    {
+
+        return $this->render('test');
     }
 
 }
