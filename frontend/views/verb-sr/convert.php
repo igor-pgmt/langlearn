@@ -1,7 +1,7 @@
 <?php
-use frontend\models\Verb;
+use frontend\models\VerbSR;
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\VerbSearch */
+/* @var $searchModel frontend\models\VerbSRSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('frontend', 'test');
@@ -9,8 +9,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="verb-index">
 </div>
-
-
 
 <?php
 
@@ -227,14 +225,14 @@ function getArray()
     return $arr;
 }
 
-$models = Verb::find()->select('id, conjunction')->asArray()->all();
+$models = VerbSR::find()->select('id, conjunction')->asArray()->all();
 foreach ($models as $model) {
     $arr = getArray();
 
     $val = json_decode($model['conjunction']);
     foreach ($val as $key1 => $value1) {
         foreach ($value1 as $key2 => $value2) {
-            if (!empty($value2) && isset($value2) && ($key2 !== 'past')) {
+            if (!empty($value2) && isset($value2) && ($key2 !== 'past') && ($key2 !== 'potencijal')) {
                 switch ($key2) {
                     case 'imperative':
                         $key2 = 'imperativ';
@@ -263,7 +261,7 @@ foreach ($models as $model) {
     echo '<br /><br /><br />';
     $arrsave = json_encode($arr, JSON_UNESCAPED_UNICODE);
     print_r($arrsave);
-    $modeltosave = Verb::findOne($model['id']);
+    $modeltosave = VerbSR::findOne($model['id']);
     $modeltosave->conjunction = $arrsave;
     $modeltosave->save();
 }

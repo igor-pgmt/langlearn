@@ -3,20 +3,20 @@
 namespace frontend\models;
 
 /**
- * This is the ActiveQuery class for [[Tag1]].
+ * This is the ActiveQuery class for [[TagSR]].
  *
- * @see Tag1
+ * @see TagSR
  */
-class Tag1Query extends \yii\db\ActiveQuery
+class TagSRQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
-        return $this->andWhere('[[status]]=1');
+    return $this->andWhere('[[status]]=1');
     }*/
 
     /**
      * @inheritdoc
-     * @return Tag1[]|array
+     * @return TagSR[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class Tag1Query extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Tag1|array|null
+     * @return TagSR|array|null
      */
     public function one($db = null)
     {

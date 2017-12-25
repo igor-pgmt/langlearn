@@ -7,19 +7,29 @@ use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Verb */
 
-$this->title = Yii::t('frontend', 'Create Verb');
+$infinitive_ru = isset($model->infinitive_ru) ? is_array($model->infinitive_ru) ? implode(', ', $model->infinitive_ru) : json_decode($model->infinitive_ru) : false;
+$infinitive_sr = isset($model->infinitive_sr) ? is_array($model->infinitive_sr) ? implode(', ', $model->infinitive_sr) : json_decode($model->infinitive_sr) : false;
+$infinitive_en = isset($model->infinitive_en) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : json_decode($model->infinitive_en) : false;
+
+// $this->title = $serbian . ' :: ' . $russian . ' :: ' . $english;
+$this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/verb/view?id=' . $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
 ?>
-<div class="verb-create">
+<div class="verbsr-update">
 
     <h1><?=Html::encode($this->title)?></h1>
-
-<div class='verb-form'>
+        <?=Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+])?>
+<div class='verbsr-form'>
 
 	<?php $form = ActiveForm::begin(['id' => 'contact-form']);?>
 
@@ -38,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ]);?>
 
-    <?=$form->field($model, 'infinitive_ru')->widget(Select2::classname(), [
+	<?=$form->field($model, 'infinitive_ru')->widget(Select2::classname(), [
     'data' => $infinitives['ru'],
     'options' => [
         'placeholder' => 'Add ...',
@@ -69,19 +79,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ]);?>
 
-
     <?=$form->field($model, 'perfect_verb', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
     'name' => 'perfect_verb',
     'pluginOptions' => [
-        // 'handleWidth' => 120,
-        // 'onText' => Yii::t('frontend', 'p'),
+        //'handleWidth'=>120,
+        //'onText'=> Yii::t('frontend', 'perfect_verb'),
         'offText' => '-',
         'onColor' => 'primary',
         'size' => 'mini',
-
-    ],
-    'pluginEvents' => [
-        "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
     ],
 ])?>
 
@@ -118,10 +123,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ],
 ])?>
 
-	<?=$form->field($model, 'rating', ['options' => ['class' => 'my-switcher form-group my-rating']])->widget(StarRating::classname(), [
+    <?=$form->field($model, 'rating', ['options' => ['class' => 'my-switcher form-group my-rating']])->widget(StarRating::classname(), [
     'name' => 'needhelp',
     'pluginOptions' => [
-        'containerClass' => 'my-rating',
+        'containerClass' => 'my-rating ',
         'theme' => 'krajee-uni',
         'filledStar' => '<i class="glyphicon glyphicon-menu-right" style="color: blue;"></i>',
         'emptyStar' => '<i class="glyphicon glyphicon-menu-right"></i>',
@@ -161,8 +166,8 @@ $this->params['breadcrumbs'][] = $this->title;
     // ],
 ])?>
 
-	<div class='form-group top-sbm'>
-		<?=Html::submitButton(Yii::t('frontend', 'Create'), ['class' => 'btn btn-success'])?>
+	<div class='form-group' style="clear: both;">
+		<?=Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])?>
 	</div>
 
 	<?=$this->render('_conjunctions.php', [
@@ -181,6 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'name' => 'kind',
             'type' => \kartik\select2\Select2::className(),
+            //'defaultValue' => 'Глаголски прилог прошли',
             'options' => [
                 'data' => [
                     "Именица" => "Именица",
@@ -216,7 +222,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ->label(false);
 ?>
 
-    <?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
+        <?=$form->field($model, 'examples')->widget(MultipleInput::className(), [
     'max' => 100,
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
@@ -238,7 +244,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ->label(false);
 ?>
 
-	<?=$form->field($model, 'examples_ref')->widget(MultipleInput::className(), [
+		<?=$form->field($model, 'examples_ref')->widget(MultipleInput::className(), [
     'max' => 100,
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
@@ -260,16 +266,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ->label(false);
 ?>
 
-     <?=$form->field($model, 'comment')->textarea()?>
 
-<!--        <?=$this->render('_meanings.php', [
+
+    <?=$form->field($model, 'comment')->textarea()?>
+<!--
+        <?=$this->render('_meanings.php', [
     'meanings' => $model->meanings,
     'model' => $model,
     'form' => $form,
-])?>-->
-
-	<?=
-$form->field($model, 'meanings')->widget(MultipleInput::className(), [
+])?>
+ -->
+	<?=$form->field($model, 'meanings')->widget(MultipleInput::className(), [
     'max' => 100,
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
@@ -296,10 +303,9 @@ $form->field($model, 'meanings')->widget(MultipleInput::className(), [
 
 	<?=$form->field($model, 'mainword')->checkbox()?>
 
-
 <?php
 $js = <<<JS
-document.getElementById('verb-mainword').onchange = function() {
+document.getElementById('verbsr-mainword').onchange = function() {
 	input = document.getElementsByClassName('select2-search__field')[0];
 	input.disabled = this.checked;
 	if (this.checked == true) {input.val('');}; //bug
@@ -311,7 +317,7 @@ JS;
 
 	<?=$form->field($model, 'related')->widget(Select2::classname(), [
         'data' => $data,
-        'id' => 'tag1',
+        'id' => 'tag_sr',
         //'value' => ['red', 'green'],
         'options' => [
             'placeholder' => 'Add ...',
@@ -327,7 +333,7 @@ JS;
     ]);?>
 
 		<div class='form-group'>
-			<?=Html::submitButton(Yii::t('frontend', 'Create'), ['class' => 'btn btn-success'])?>
+			<?=Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Create') : Yii::t('frontend', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])?>
 		</div>
 	<?php }?>
 
@@ -351,21 +357,18 @@ function addRow(typeOfInsert) {
 	var table = document.getElementById(typeOfInsert).getElementsByTagName('tbody')[0];
 	var newRow   = table.insertRow(table.rows.length);
 	newRow.id = typeOfInsert+'-row' + window.i;
-
-
 	var div1 = document.createElement('div');
 	var div2 = document.createElement('div');
-
-	div1.className = 'field-verb-'+typeOfInsert+'-'+ i +'-native has-success';
-	div2.className = 'field-verb-'+typeOfInsert+'-'+ i +'-translated has-success';
+	div1.className = 'field-verbsr-'+typeOfInsert+'-'+ i +'-native has-success';
+	div2.className = 'field-verbsr-'+typeOfInsert+'-'+ i +'-translated has-success';
 	var input1 = document.createElement('input');
 	var input2 = document.createElement('input');
 	input1.className = 'col-xs-8 form-control';
 	input2.className = 'col-xs-8 form-control';
 	input1.name = 'Verb['+typeOfInsert+']['+ i +'][native]';
 	input2.name = 'Verb['+typeOfInsert+']['+ i +'][translated]';
-	input1.id = 'verb-'+typeOfInsert+'-'+ i +'-native';
-	input2.id = 'verb-'+typeOfInsert+'-'+ i +'-translated';
+	input1.id = 'verbsr-'+typeOfInsert+'-'+ i +'-native';
+	input2.id = 'verbsr-'+typeOfInsert+'-'+ i +'-translated';
 	input1.style.padding = '1px 1px 1px 1px';
 	input2.style.padding = '1px 1px 1px 1px';
 	input1.type = 'text;';
@@ -400,6 +403,4 @@ function delRow(typeOfInsert) {
 
 </script>
 
-
-</div>
 </div>

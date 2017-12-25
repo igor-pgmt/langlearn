@@ -38,9 +38,9 @@ NavBar::begin([
 $menuItems = [
     ['label' => 'Phrasebook', 'url' => ['/phrasebook2']],
     ['label' => 'Create phrase', 'url' => ['/phrasebook2/create']],
-    ['label' => 'Verbs', 'url' => ['/verb']],
-    ['label' => 'Create Verb', 'url' => ['/verb/create']],
-    // ['label' => 'Testing', 'url' => ['/verb/testing']],
+    ['label' => 'Verbs', 'url' => ['/verb-sr']],
+    ['label' => 'Create Verb', 'url' => ['/verb-sr/create']],
+    // ['label' => 'Testing', 'url' => ['/verb-sr/testing']],
     // ['label' => 'Home', 'url' => ['/site/index']],
     // ['label' => 'About', 'url' => ['/site/about']],
     // ['label' => 'Contact', 'url' => ['/site/contact']],

@@ -40,9 +40,9 @@ foreach ($models as $model) {
 
     ?>
 
-<div class="verb-view">
+<div class="verbsr-view">
 
-<div class='verb-form'>
+<div class='verbsr-form'>
 
       <h1><?=Html::decode($this->title)?></h1>
         <?=Breadcrumbs::widget([
@@ -260,7 +260,7 @@ function ajaxSend(paramName, paramValue, id) {
 
 <?php if (!empty($model->examples_ref)) {
         ?>
-	<?=$this->render('_examples.php', [
+	<?=$this->render('_examples_ref.php', [
             'examples' => $model->examples_ref,
             'model' => $model,
             'form' => $form,
@@ -314,7 +314,7 @@ foreach ($relevants[$model->id] as $value) {
 
 	<?=$form->field($model, 'related')->widget(Select2::classname(), [
             'data' => $data,
-            'id' => 'tag1',
+            'id' => 'tag_sr',
             //'value' => ['red', 'green'],
             'options' => [
                 'placeholder' => 'Add ...',

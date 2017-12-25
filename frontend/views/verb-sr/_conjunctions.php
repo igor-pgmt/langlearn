@@ -711,6 +711,8 @@ if (Yii::$app->controller->action->id == 'view') {
 			<tr>
 				<td colspan="4">Радни глаголски придев</td>
 			</tr>
+			<?php if (isset($conjunction['rgp']) && !is_null($conjunction['rgp'])) {
+        if (!empty(array_filter($conjunction['rgp']))) {?>
 			<tr>
 				<td><span></span></td>
 				<td>мужской род</td>
@@ -719,25 +721,23 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['rgp']) && !is_null($conjunction['rgp'])) {
-        if (!empty(array_filter($conjunction['rgp']))) {?>
 			<tr>
-				<td><span>Ја</span></td>
+				<td><span><b>Ја</b></span></td>
 				<td rowspan="3">
-					<?=$conjunction['rgp']['I']['m']?>
+					<?=@$conjunction['rgp']['I']['m'] ?: false?>
 				</td>
 				<td rowspan="3">
-					<?=$conjunction['rgp']['I']['f']?>
+					<?=@$conjunction['rgp']['I']['f'] ?: false?>
 				</td>
 				<td rowspan="3">
-					<?=$conjunction['rgp']['I']['n']?>
+					<?=@$conjunction['rgp']['I']['n'] ?: false?>
 				</td>
 			</tr>
 			<tr>
-				<td><span>Ти</span></td>
+				<td><span><b>Ти</b></span></td>
 			</tr>
 			<tr>
-				<td><span>Он(а,о)</span></td>
+				<td><span><b>Он(а,о)</b></span></td>
 			</tr>
 <?php }
     }?>
@@ -748,6 +748,8 @@ if (Yii::$app->controller->action->id == 'view') {
 			<tr>
 				<td colspan="4">Радни глаголски придев</td>
 			</tr>
+						<?php if (isset($conjunction['rgp']) && !is_null($conjunction['rgp'])) {
+        if (!empty(array_filter($conjunction['rgp']))) {?>
 			<tr>
 				<td><span></span></td>
 				<td>мужской род</td>
@@ -756,25 +758,24 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['rgp']) && !is_null($conjunction['rgp'])) {
-        if (!empty(array_filter($conjunction['rgp']))) {?>
+
 			<tr>
-				<td><span>Ми</span></td>
+				<td><span><b>Ми</b></span></td>
 				<td rowspan="3">
-					<?=$conjunction['rgp']['We']['m']?>
+					<?=@$conjunction['rgp']['We']['m'] ?: false?>
 				</td>
 				<td rowspan="3">
-					<?=$conjunction['rgp']['We']['f']?>
+					<?=@$conjunction['rgp']['We']['f'] ?: false?>
 				</td>
 				<td rowspan="3">
-					<?=$conjunction['rgp']['We']['n']?>
+					<?=@$conjunction['rgp']['We']['n'] ?: false?>
 				</td>
 			</tr>
 			<tr>
-				<td><span>Ви</span></td>
+				<td><span><b>Ви</b></span></td>
 			</tr>
 			<tr>
-				<td><span>Они(е,а)</span></td>
+				<td><span><b>Они(е,а)</b></span></td>
 			</tr>
 			<?php }
     }?>
@@ -792,21 +793,21 @@ if (Yii::$app->controller->action->id == 'view') {
         if (!empty(array_filter($conjunction['present']))) {?>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['present']['I']?></td>
+				<td><?=@$conjunction['present']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['present']['We']?></td>
+				<td><?=@$conjunction['present']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['present']['Thou']?></td>
+				<td><?=@$conjunction['present']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['present']['You']?></td>
+				<td><?=@$conjunction['present']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['present']['HeSheIt']?></td>
+				<td><?=@$conjunction['present']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['present']['They']?></td>
+				<td><?=@$conjunction['present']['They'] ?: false?></td>
 			</tr>
 			<?php }
     }?>
@@ -824,21 +825,21 @@ if (Yii::$app->controller->action->id == 'view') {
         if (!empty(array_filter($conjunction['aorist']))) {?>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['aorist']['I']?></td>
+				<td><?=@$conjunction['aorist']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['aorist']['We']?></td>
+				<td><?=@$conjunction['aorist']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['aorist']['Thou']?></td>
+				<td><?=@$conjunction['aorist']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['aorist']['You']?></td>
+				<td><?=@$conjunction['aorist']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['aorist']['HeSheIt']?></td>
+				<td><?=@$conjunction['aorist']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['aorist']['They']?></td>
+				<td><?=@$conjunction['aorist']['They'] ?: false?></td>
 			</tr>
 			<?php }
     }?>
@@ -866,33 +867,33 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['perfekat']['I']['m']?></td>
-				<td><?=$conjunction['perfekat']['I']['f']?></td>
-				<td><?=$conjunction['perfekat']['I']['n']?></td>
+				<td><?=@$conjunction['perfekat']['I']['m'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['I']['f'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['I']['n'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['perfekat']['We']['m']?></td>
-				<td><?=$conjunction['perfekat']['We']['f']?></td>
-				<td><?=$conjunction['perfekat']['We']['n']?></td>
+				<td><?=@$conjunction['perfekat']['We']['m'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['We']['f'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['We']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['perfekat']['Thou']['m']?></td>
-				<td><?=$conjunction['perfekat']['Thou']['f']?></td>
-				<td><?=$conjunction['perfekat']['Thou']['n']?></td>
+				<td><?=@$conjunction['perfekat']['Thou']['m'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['Thou']['f'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['Thou']['n'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['perfekat']['You']['m']?></td>
-				<td><?=$conjunction['perfekat']['You']['f']?></td>
-				<td><?=$conjunction['perfekat']['You']['n']?></td>
+				<td><?=@$conjunction['perfekat']['You']['m'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['You']['f'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['You']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['perfekat']['HeSheIt']['m']?></td>
-				<td><?=$conjunction['perfekat']['HeSheIt']['f']?></td>
-				<td><?=$conjunction['perfekat']['HeSheIt']['n']?></td>
+				<td><?=@$conjunction['perfekat']['HeSheIt']['m'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['HeSheIt']['f'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['HeSheIt']['n'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['perfekat']['They']['m']?></td>
-				<td><?=$conjunction['perfekat']['They']['f']?></td>
-				<td><?=$conjunction['perfekat']['They']['n']?></td>
+				<td><?=@$conjunction['perfekat']['They']['m'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['They']['f'] ?: false?></td>
+				<td><?=@$conjunction['perfekat']['They']['n'] ?: false?></td>
 			</tr>
 			<?php }
     }?>
@@ -910,21 +911,21 @@ if (Yii::$app->controller->action->id == 'view') {
         if (!empty(array_filter($conjunction['imperfekat1']))) {?>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['imperfekat1']['I']?></td>
+				<td><?=@$conjunction['imperfekat1']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['imperfekat1']['We']?></td>
+				<td><?=@$conjunction['imperfekat1']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['imperfekat1']['Thou']?></td>
+				<td><?=@$conjunction['imperfekat1']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['imperfekat1']['You']?></td>
+				<td><?=@$conjunction['imperfekat1']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['imperfekat1']['HeSheIt']?></td>
+				<td><?=@$conjunction['imperfekat1']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['imperfekat1']['They']?></td>
+				<td><?=@$conjunction['imperfekat1']['They'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -943,21 +944,21 @@ if (Yii::$app->controller->action->id == 'view') {
 		<tbody>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['imperfekat2']['I']?></td>
+				<td><?=@$conjunction['imperfekat2']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['imperfekat2']['We']?></td>
+				<td><?=@$conjunction['imperfekat2']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['imperfekat2']['Thou']?></td>
+				<td><?=@$conjunction['imperfekat2']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['imperfekat2']['You']?></td>
+				<td><?=@$conjunction['imperfekat2']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['imperfekat2']['HeSheIt']?></td>
+				<td><?=@$conjunction['imperfekat2']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['imperfekat2']['They']?></td>
+				<td><?=@$conjunction['imperfekat2']['They'] ?: false?></td>
 			</tr>
 		</tbody>
 	</table>
@@ -986,33 +987,33 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['pluskvamperfekat1']['I']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['I']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['I']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['I']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['I']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['I']['n'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['pluskvamperfekat1']['We']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['We']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['We']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['We']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['We']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['We']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['pluskvamperfekat1']['Thou']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['Thou']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['Thou']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['Thou']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['Thou']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['Thou']['n'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['pluskvamperfekat1']['You']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['You']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['You']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['You']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['You']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['You']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['pluskvamperfekat1']['HeSheIt']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['HeSheIt']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['HeSheIt']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['HeSheIt']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['HeSheIt']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['HeSheIt']['n'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['pluskvamperfekat1']['They']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['They']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat1']['They']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['They']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['They']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat1']['They']['n'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1040,33 +1041,33 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['pluskvamperfekat2']['I']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['I']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['I']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['I']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['I']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['I']['n'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['pluskvamperfekat2']['We']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['We']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['We']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['We']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['We']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['We']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['pluskvamperfekat2']['Thou']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['Thou']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['Thou']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['Thou']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['Thou']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['Thou']['n'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['pluskvamperfekat2']['You']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['You']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['You']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['You']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['You']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['You']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['pluskvamperfekat2']['HeSheIt']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['HeSheIt']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['HeSheIt']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['HeSheIt']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['HeSheIt']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['HeSheIt']['n'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['pluskvamperfekat2']['They']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['They']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat2']['They']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['They']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['They']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat2']['They']['n'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1094,33 +1095,33 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['pluskvamperfekat3']['I']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['I']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['I']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['I']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['I']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['I']['n'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['pluskvamperfekat3']['We']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['We']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['We']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['We']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['We']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['We']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['pluskvamperfekat3']['Thou']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['Thou']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['Thou']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['Thou']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['Thou']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['Thou']['n'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['pluskvamperfekat3']['You']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['You']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['You']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['You']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['You']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['You']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['pluskvamperfekat3']['HeSheIt']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['HeSheIt']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['HeSheIt']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['HeSheIt']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['HeSheIt']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['HeSheIt']['n'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['pluskvamperfekat3']['They']['m']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['They']['f']?></td>
-				<td><?=$conjunction['pluskvamperfekat3']['They']['n']?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['They']['m'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['They']['f'] ?: false?></td>
+				<td><?=@$conjunction['pluskvamperfekat3']['They']['n'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1148,33 +1149,33 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['potencijal']['I']['m']?></td>
-				<td><?=$conjunction['potencijal']['I']['f']?></td>
-				<td><?=$conjunction['potencijal']['I']['n']?></td>
+				<td><?=@$conjunction['potencijal']['I']['m'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['I']['f'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['I']['n'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['potencijal']['We']['m']?></td>
-				<td><?=$conjunction['potencijal']['We']['f']?></td>
-				<td><?=$conjunction['potencijal']['We']['n']?></td>
+				<td><?=@$conjunction['potencijal']['We']['m'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['We']['f'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['We']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['potencijal']['Thou']['m']?></td>
-				<td><?=$conjunction['potencijal']['Thou']['f']?></td>
-				<td><?=$conjunction['potencijal']['Thou']['n']?></td>
+				<td><?=@$conjunction['potencijal']['Thou']['m'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['Thou']['f'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['Thou']['n'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['potencijal']['You']['m']?></td>
-				<td><?=$conjunction['potencijal']['You']['f']?></td>
-				<td><?=$conjunction['potencijal']['You']['n']?></td>
+				<td><?=@$conjunction['potencijal']['You']['m'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['You']['f'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['You']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['potencijal']['HeSheIt']['m']?></td>
-				<td><?=$conjunction['potencijal']['HeSheIt']['f']?></td>
-				<td><?=$conjunction['potencijal']['HeSheIt']['n']?></td>
+				<td><?=@$conjunction['potencijal']['HeSheIt']['m'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['HeSheIt']['f'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['HeSheIt']['n'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['potencijal']['They']['m']?></td>
-				<td><?=$conjunction['potencijal']['They']['f']?></td>
-				<td><?=$conjunction['potencijal']['They']['n']?></td>
+				<td><?=@$conjunction['potencijal']['They']['m'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['They']['f'] ?: false?></td>
+				<td><?=@$conjunction['potencijal']['They']['n'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1192,21 +1193,21 @@ if (Yii::$app->controller->action->id == 'view') {
 		<tbody>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['imperativ']['I']?></td>
+				<td><?=@$conjunction['imperativ']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['imperativ']['We']?></td>
+				<td><?=@$conjunction['imperativ']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['imperativ']['Thou']?></td>
+				<td><?=@$conjunction['imperativ']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['imperativ']['You']?></td>
+				<td><?=@$conjunction['imperativ']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['imperativ']['HeSheIt']?></td>
+				<td><?=@$conjunction['imperativ']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['imperativ']['They']?></td>
+				<td><?=@$conjunction['imperativ']['They'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1220,25 +1221,25 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['imperfekat1']) && !is_null($conjunction['imperfekat1'])) {
-        if (!empty(array_filter($conjunction['imperfekat1']))) {?>
+			<?php if (isset($conjunction['futur11']) && !is_null($conjunction['futur11'])) {
+        if (!empty(array_filter($conjunction['futur11']))) {?>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['futur11']['I']?></td>
+				<td><?=@$conjunction['futur11']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['futur11']['We']?></td>
+				<td><?=@$conjunction['futur11']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['futur11']['Thou']?></td>
+				<td><?=@$conjunction['futur11']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['futur11']['You']?></td>
+				<td><?=@$conjunction['futur11']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['futur11']['HeSheIt']?></td>
+				<td><?=@$conjunction['futur11']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['futur11']['They']?></td>
+				<td><?=@$conjunction['futur11']['They'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1252,25 +1253,25 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['imperfekat1']) && !is_null($conjunction['imperfekat1'])) {
-        if (!empty(array_filter($conjunction['imperfekat1']))) {?>
+			<?php if (isset($conjunction['futur12']) && !is_null($conjunction['futur12'])) {
+        if (!empty(array_filter($conjunction['futur12']))) {?>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['futur12']['I']?></td>
+				<td><?=@$conjunction['futur12']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['futur12']['We']?></td>
+				<td><?=@$conjunction['futur12']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['futur12']['Thou']?></td>
+				<td><?=@$conjunction['futur12']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['futur12']['You']?></td>
+				<td><?=@$conjunction['futur12']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['futur12']['HeSheIt']?></td>
+				<td><?=@$conjunction['futur12']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['futur12']['They']?></td>
+				<td><?=@$conjunction['futur12']['They'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1284,25 +1285,25 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['imperfekat1']) && !is_null($conjunction['imperfekat1'])) {
-        if (!empty(array_filter($conjunction['imperfekat1']))) {?>
+			<?php if (isset($conjunction['futur13']) && !is_null($conjunction['futur13'])) {
+        if (!empty(array_filter($conjunction['futur13']))) {?>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['futur13']['I']?></td>
+				<td><?=@$conjunction['futur13']['I'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['futur13']['We']?></td>
+				<td><?=@$conjunction['futur13']['We'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['futur13']['Thou']?></td>
+				<td><?=@$conjunction['futur13']['Thou'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['futur13']['You']?></td>
+				<td><?=@$conjunction['futur13']['You'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['futur13']['HeSheIt']?></td>
+				<td><?=@$conjunction['futur13']['HeSheIt'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['futur13']['They']?></td>
+				<td><?=@$conjunction['futur13']['They'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1316,8 +1317,8 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['imperfekat1']) && !is_null($conjunction['imperfekat1'])) {
-        if (!empty(array_filter($conjunction['imperfekat1']))) {?>
+			<?php if (isset($conjunction['futur2']) && !is_null($conjunction['futur2'])) {
+        if (!empty(array_filter($conjunction['futur2']))) {?>
 			<tr>
 				<td><span></span></td>
 				<td>Мужской</td>
@@ -1330,33 +1331,33 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 			<tr>
 				<td><span>Ја</span></td>
-				<td><?=$conjunction['futur2']['I']['m']?></td>
-				<td><?=$conjunction['futur2']['I']['f']?></td>
-				<td><?=$conjunction['futur2']['I']['n']?></td>
+				<td><?=@$conjunction['futur2']['I']['m'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['I']['f'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['I']['n'] ?: false?></td>
 				<td><span>Ми</span></td>
-				<td><?=$conjunction['futur2']['We']['m']?></td>
-				<td><?=$conjunction['futur2']['We']['f']?></td>
-				<td><?=$conjunction['futur2']['We']['n']?></td>
+				<td><?=@$conjunction['futur2']['We']['m'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['We']['f'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['We']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Ти</span></td>
-				<td><?=$conjunction['futur2']['Thou']['m']?></td>
-				<td><?=$conjunction['futur2']['Thou']['f']?></td>
-				<td><?=$conjunction['futur2']['Thou']['n']?></td>
+				<td><?=@$conjunction['futur2']['Thou']['m'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['Thou']['f'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['Thou']['n'] ?: false?></td>
 				<td><span>Ви</span></td>
-				<td><?=$conjunction['futur2']['You']['m']?></td>
-				<td><?=$conjunction['futur2']['You']['f']?></td>
-				<td><?=$conjunction['futur2']['You']['n']?></td>
+				<td><?=@$conjunction['futur2']['You']['m'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['You']['f'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['You']['n'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Он(а,о)</span></td>
-				<td><?=$conjunction['futur2']['HeSheIt']['m']?></td>
-				<td><?=$conjunction['futur2']['HeSheIt']['f']?></td>
-				<td><?=$conjunction['futur2']['HeSheIt']['n']?></td>
+				<td><?=@$conjunction['futur2']['HeSheIt']['m'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['HeSheIt']['f'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['HeSheIt']['n'] ?: false?></td>
 				<td><span>Они(е,а)</span></td>
-				<td><?=$conjunction['futur2']['They']['m']?></td>
-				<td><?=$conjunction['futur2']['They']['f']?></td>
-				<td><?=$conjunction['futur2']['They']['n']?></td>
+				<td><?=@$conjunction['futur2']['They']['m'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['They']['f'] ?: false?></td>
+				<td><?=@$conjunction['futur2']['They']['n'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1370,23 +1371,23 @@ if (Yii::$app->controller->action->id == 'view') {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (isset($conjunction['imperfekat1']) && !is_null($conjunction['imperfekat1'])) {
-        if (!empty(array_filter($conjunction['imperfekat1']))) {?>
+			<?php if (isset($conjunction['gpt']) && !is_null($conjunction['gpt'])) {
+        if (!empty(array_filter($conjunction['gpt']))) {?>
 			<tr>
 				<td><span>Он</span></td>
-				<td><?=$conjunction['gpt']['m']['singular']?></td>
+				<td><?=@$conjunction['gpt']['m']['singular'] ?: false?></td>
 				<td><span>Она</span></td>
-				<td><?=$conjunction['gpt']['f']['singular']?></td>
+				<td><?=@$conjunction['gpt']['f']['singular'] ?: false?></td>
 				<td><span>Оно</span></td>
-				<td><?=$conjunction['gpt']['n']['singular']?></td>
+				<td><?=@$conjunction['gpt']['n']['singular'] ?: false?></td>
 			</tr>
 			<tr>
 				<td><span>Они</span></td>
-				<td><?=$conjunction['gpt']['m']['plural']?></td>
+				<td><?=@$conjunction['gpt']['m']['plural'] ?: false?></td>c
 				<td><span>Оне</span></td>
-				<td><?=$conjunction['gpt']['f']['plural']?></td>
+				<td><?=@$conjunction['gpt']['f']['plural'] ?: false?></td>
 				<td><span>Она</span></td>
-				<td><?=$conjunction['gpt']['n']['plural']?></td>
+				<td><?=@$conjunction['gpt']['n']['plural'] ?: false?></td>
 			</tr>
 <?php }
     }?>
@@ -1423,189 +1424,189 @@ if (Yii::$app->controller->action->id == 'view') {
 <script>
 $(document).ready(function() {
 	rgpms = {
-		'I-m':document.getElementById('verb-conjunction-rgp-i-m'),
-		'I-f':document.getElementById('verb-conjunction-rgp-i-f'),
-		'I-n':document.getElementById('verb-conjunction-rgp-i-n'),
+		'I-m':document.getElementById('verbsr-conjunction-rgp-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-rgp-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-rgp-i-n'),
 
-		'We-m':document.getElementById('verb-conjunction-rgp-we-m'),
-		'We-f':document.getElementById('verb-conjunction-rgp-we-f'),
-		'We-n':document.getElementById('verb-conjunction-rgp-we-n'),
+		'We-m':document.getElementById('verbsr-conjunction-rgp-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-rgp-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-rgp-we-n'),
 	}
 
 	perfekat = {
-		'I-m':document.getElementById('verb-conjunction-perfekat-i-m'),
-		'I-f':document.getElementById('verb-conjunction-perfekat-i-f'),
-		'I-n':document.getElementById('verb-conjunction-perfekat-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-perfekat-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-perfekat-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-perfekat-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-perfekat-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-perfekat-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-perfekat-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-perfekat-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-perfekat-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-perfekat-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-perfekat-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-perfekat-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-perfekat-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-perfekat-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-perfekat-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-perfekat-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-perfekat-we-m'),
-		'We-f':document.getElementById('verb-conjunction-perfekat-we-f'),
-		'We-n':document.getElementById('verb-conjunction-perfekat-we-n'),
-		'You-m':document.getElementById('verb-conjunction-perfekat-you-m'),
-		'You-f':document.getElementById('verb-conjunction-perfekat-you-f'),
-		'You-n':document.getElementById('verb-conjunction-perfekat-you-n'),
-		'They-m':document.getElementById('verb-conjunction-perfekat-they-m'),
-		'They-f':document.getElementById('verb-conjunction-perfekat-they-f'),
-		'They-n':document.getElementById('verb-conjunction-perfekat-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-perfekat-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-perfekat-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-perfekat-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-perfekat-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-perfekat-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-perfekat-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-perfekat-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-perfekat-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-perfekat-they-n'),
 	}
 
 	pluskvamperfekat1 = {
-		'I-m':document.getElementById('verb-conjunction-pluskvamperfekat1-i-m'),
-		'I-f':document.getElementById('verb-conjunction-pluskvamperfekat1-i-f'),
-		'I-n':document.getElementById('verb-conjunction-pluskvamperfekat1-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-pluskvamperfekat1-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-pluskvamperfekat1-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-pluskvamperfekat1-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-pluskvamperfekat1-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-pluskvamperfekat1-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-pluskvamperfekat1-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-pluskvamperfekat1-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-pluskvamperfekat1-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-pluskvamperfekat1-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-pluskvamperfekat1-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-pluskvamperfekat1-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-pluskvamperfekat1-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-pluskvamperfekat1-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-pluskvamperfekat1-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-pluskvamperfekat1-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-pluskvamperfekat1-we-m'),
-		'We-f':document.getElementById('verb-conjunction-pluskvamperfekat1-we-f'),
-		'We-n':document.getElementById('verb-conjunction-pluskvamperfekat1-we-n'),
-		'You-m':document.getElementById('verb-conjunction-pluskvamperfekat1-you-m'),
-		'You-f':document.getElementById('verb-conjunction-pluskvamperfekat1-you-f'),
-		'You-n':document.getElementById('verb-conjunction-pluskvamperfekat1-you-n'),
-		'They-m':document.getElementById('verb-conjunction-pluskvamperfekat1-they-m'),
-		'They-f':document.getElementById('verb-conjunction-pluskvamperfekat1-they-f'),
-		'They-n':document.getElementById('verb-conjunction-pluskvamperfekat1-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-pluskvamperfekat1-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-pluskvamperfekat1-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-pluskvamperfekat1-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-pluskvamperfekat1-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-pluskvamperfekat1-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-pluskvamperfekat1-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-pluskvamperfekat1-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-pluskvamperfekat1-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-pluskvamperfekat1-they-n'),
 	}
 
 	pluskvamperfekat2 = {
-		'I-m':document.getElementById('verb-conjunction-pluskvamperfekat2-i-m'),
-		'I-f':document.getElementById('verb-conjunction-pluskvamperfekat2-i-f'),
-		'I-n':document.getElementById('verb-conjunction-pluskvamperfekat2-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-pluskvamperfekat2-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-pluskvamperfekat2-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-pluskvamperfekat2-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-pluskvamperfekat2-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-pluskvamperfekat2-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-pluskvamperfekat2-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-pluskvamperfekat2-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-pluskvamperfekat2-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-pluskvamperfekat2-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-pluskvamperfekat2-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-pluskvamperfekat2-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-pluskvamperfekat2-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-pluskvamperfekat2-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-pluskvamperfekat2-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-pluskvamperfekat2-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-pluskvamperfekat2-we-m'),
-		'We-f':document.getElementById('verb-conjunction-pluskvamperfekat2-we-f'),
-		'We-n':document.getElementById('verb-conjunction-pluskvamperfekat2-we-n'),
-		'You-m':document.getElementById('verb-conjunction-pluskvamperfekat2-you-m'),
-		'You-f':document.getElementById('verb-conjunction-pluskvamperfekat2-you-f'),
-		'You-n':document.getElementById('verb-conjunction-pluskvamperfekat2-you-n'),
-		'They-m':document.getElementById('verb-conjunction-pluskvamperfekat2-they-m'),
-		'They-f':document.getElementById('verb-conjunction-pluskvamperfekat2-they-f'),
-		'They-n':document.getElementById('verb-conjunction-pluskvamperfekat2-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-pluskvamperfekat2-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-pluskvamperfekat2-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-pluskvamperfekat2-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-pluskvamperfekat2-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-pluskvamperfekat2-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-pluskvamperfekat2-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-pluskvamperfekat2-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-pluskvamperfekat2-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-pluskvamperfekat2-they-n'),
 	}
 
 	pluskvamperfekat3 = {
-		'I-m':document.getElementById('verb-conjunction-pluskvamperfekat3-i-m'),
-		'I-f':document.getElementById('verb-conjunction-pluskvamperfekat3-i-f'),
-		'I-n':document.getElementById('verb-conjunction-pluskvamperfekat3-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-pluskvamperfekat3-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-pluskvamperfekat3-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-pluskvamperfekat3-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-pluskvamperfekat3-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-pluskvamperfekat3-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-pluskvamperfekat3-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-pluskvamperfekat3-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-pluskvamperfekat3-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-pluskvamperfekat3-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-pluskvamperfekat3-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-pluskvamperfekat3-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-pluskvamperfekat3-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-pluskvamperfekat3-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-pluskvamperfekat3-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-pluskvamperfekat3-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-pluskvamperfekat3-we-m'),
-		'We-f':document.getElementById('verb-conjunction-pluskvamperfekat3-we-f'),
-		'We-n':document.getElementById('verb-conjunction-pluskvamperfekat3-we-n'),
-		'You-m':document.getElementById('verb-conjunction-pluskvamperfekat3-you-m'),
-		'You-f':document.getElementById('verb-conjunction-pluskvamperfekat3-you-f'),
-		'You-n':document.getElementById('verb-conjunction-pluskvamperfekat3-you-n'),
-		'They-m':document.getElementById('verb-conjunction-pluskvamperfekat3-they-m'),
-		'They-f':document.getElementById('verb-conjunction-pluskvamperfekat3-they-f'),
-		'They-n':document.getElementById('verb-conjunction-pluskvamperfekat3-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-pluskvamperfekat3-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-pluskvamperfekat3-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-pluskvamperfekat3-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-pluskvamperfekat3-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-pluskvamperfekat3-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-pluskvamperfekat3-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-pluskvamperfekat3-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-pluskvamperfekat3-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-pluskvamperfekat3-they-n'),
 	}
 
 	potencijal = {
-		'I-m':document.getElementById('verb-conjunction-potencijal-i-m'),
-		'I-f':document.getElementById('verb-conjunction-potencijal-i-f'),
-		'I-n':document.getElementById('verb-conjunction-potencijal-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-potencijal-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-potencijal-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-potencijal-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-potencijal-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-potencijal-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-potencijal-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-potencijal-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-potencijal-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-potencijal-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-potencijal-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-potencijal-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-potencijal-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-potencijal-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-potencijal-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-potencijal-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-potencijal-we-m'),
-		'We-f':document.getElementById('verb-conjunction-potencijal-we-f'),
-		'We-n':document.getElementById('verb-conjunction-potencijal-we-n'),
-		'You-m':document.getElementById('verb-conjunction-potencijal-you-m'),
-		'You-f':document.getElementById('verb-conjunction-potencijal-you-f'),
-		'You-n':document.getElementById('verb-conjunction-potencijal-you-n'),
-		'They-m':document.getElementById('verb-conjunction-potencijal-they-m'),
-		'They-f':document.getElementById('verb-conjunction-potencijal-they-f'),
-		'They-n':document.getElementById('verb-conjunction-potencijal-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-potencijal-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-potencijal-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-potencijal-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-potencijal-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-potencijal-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-potencijal-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-potencijal-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-potencijal-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-potencijal-they-n'),
 	}
 
 	potencijalprosli = {
-		'I-m':document.getElementById('verb-conjunction-potencijalprosli-i-m'),
-		'I-f':document.getElementById('verb-conjunction-potencijalprosli-i-f'),
-		'I-n':document.getElementById('verb-conjunction-potencijalprosli-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-potencijalprosli-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-potencijalprosli-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-potencijalprosli-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-potencijalprosli-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-potencijalprosli-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-potencijalprosli-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-potencijalprosli-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-potencijalprosli-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-potencijalprosli-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-potencijalprosli-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-potencijalprosli-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-potencijalprosli-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-potencijalprosli-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-potencijalprosli-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-potencijalprosli-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-potencijalprosli-we-m'),
-		'We-f':document.getElementById('verb-conjunction-potencijalprosli-we-f'),
-		'We-n':document.getElementById('verb-conjunction-potencijalprosli-we-n'),
-		'You-m':document.getElementById('verb-conjunction-potencijalprosli-you-m'),
-		'You-f':document.getElementById('verb-conjunction-potencijalprosli-you-f'),
-		'You-n':document.getElementById('verb-conjunction-potencijalprosli-you-n'),
-		'They-m':document.getElementById('verb-conjunction-potencijalprosli-they-m'),
-		'They-f':document.getElementById('verb-conjunction-potencijalprosli-they-f'),
-		'They-n':document.getElementById('verb-conjunction-potencijalprosli-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-potencijalprosli-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-potencijalprosli-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-potencijalprosli-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-potencijalprosli-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-potencijalprosli-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-potencijalprosli-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-potencijalprosli-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-potencijalprosli-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-potencijalprosli-they-n'),
 	}
 
 	futur2 = {
-		'I-m':document.getElementById('verb-conjunction-futur2-i-m'),
-		'I-f':document.getElementById('verb-conjunction-futur2-i-f'),
-		'I-n':document.getElementById('verb-conjunction-futur2-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-futur2-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-futur2-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-futur2-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-futur2-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-futur2-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-futur2-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-futur2-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-futur2-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-futur2-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-futur2-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-futur2-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-futur2-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-futur2-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-futur2-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-futur2-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-futur2-we-m'),
-		'We-f':document.getElementById('verb-conjunction-futur2-we-f'),
-		'We-n':document.getElementById('verb-conjunction-futur2-we-n'),
-		'You-m':document.getElementById('verb-conjunction-futur2-you-m'),
-		'You-f':document.getElementById('verb-conjunction-futur2-you-f'),
-		'You-n':document.getElementById('verb-conjunction-futur2-you-n'),
-		'They-m':document.getElementById('verb-conjunction-futur2-they-m'),
-		'They-f':document.getElementById('verb-conjunction-futur2-they-f'),
-		'They-n':document.getElementById('verb-conjunction-futur2-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-futur2-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-futur2-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-futur2-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-futur2-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-futur2-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-futur2-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-futur2-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-futur2-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-futur2-they-n'),
 	}
 
 	aorist = {
-		'I-m':document.getElementById('verb-conjunction-futur2-i-m'),
-		'I-f':document.getElementById('verb-conjunction-futur2-i-f'),
-		'I-n':document.getElementById('verb-conjunction-futur2-i-n'),
-		'Thou-m':document.getElementById('verb-conjunction-futur2-thou-m'),
-		'Thou-f':document.getElementById('verb-conjunction-futur2-thou-f'),
-		'Thou-n':document.getElementById('verb-conjunction-futur2-thou-n'),
-		'HeSheIt-m':document.getElementById('verb-conjunction-futur2-hesheit-m'),
-		'HeSheIt-f':document.getElementById('verb-conjunction-futur2-hesheit-f'),
-		'HeSheIt-n':document.getElementById('verb-conjunction-futur2-hesheit-n'),
+		'I-m':document.getElementById('verbsr-conjunction-futur2-i-m'),
+		'I-f':document.getElementById('verbsr-conjunction-futur2-i-f'),
+		'I-n':document.getElementById('verbsr-conjunction-futur2-i-n'),
+		'Thou-m':document.getElementById('verbsr-conjunction-futur2-thou-m'),
+		'Thou-f':document.getElementById('verbsr-conjunction-futur2-thou-f'),
+		'Thou-n':document.getElementById('verbsr-conjunction-futur2-thou-n'),
+		'HeSheIt-m':document.getElementById('verbsr-conjunction-futur2-hesheit-m'),
+		'HeSheIt-f':document.getElementById('verbsr-conjunction-futur2-hesheit-f'),
+		'HeSheIt-n':document.getElementById('verbsr-conjunction-futur2-hesheit-n'),
 
-		'We-m':document.getElementById('verb-conjunction-futur2-we-m'),
-		'We-f':document.getElementById('verb-conjunction-futur2-we-f'),
-		'We-n':document.getElementById('verb-conjunction-futur2-we-n'),
-		'You-m':document.getElementById('verb-conjunction-futur2-you-m'),
-		'You-f':document.getElementById('verb-conjunction-futur2-you-f'),
-		'You-n':document.getElementById('verb-conjunction-futur2-you-n'),
-		'They-m':document.getElementById('verb-conjunction-futur2-they-m'),
-		'They-f':document.getElementById('verb-conjunction-futur2-they-f'),
-		'They-n':document.getElementById('verb-conjunction-futur2-they-n'),
+		'We-m':document.getElementById('verbsr-conjunction-futur2-we-m'),
+		'We-f':document.getElementById('verbsr-conjunction-futur2-we-f'),
+		'We-n':document.getElementById('verbsr-conjunction-futur2-we-n'),
+		'You-m':document.getElementById('verbsr-conjunction-futur2-you-m'),
+		'You-f':document.getElementById('verbsr-conjunction-futur2-you-f'),
+		'You-n':document.getElementById('verbsr-conjunction-futur2-you-n'),
+		'They-m':document.getElementById('verbsr-conjunction-futur2-they-m'),
+		'They-f':document.getElementById('verbsr-conjunction-futur2-they-f'),
+		'They-n':document.getElementById('verbsr-conjunction-futur2-they-n'),
 	}
 
 
@@ -1783,125 +1784,125 @@ function rgpf() {
 }
 
 function aorist1() {
-	osnova = document.getElementById('verb-conjunction-aorist-i').value
-	document.getElementById('verb-conjunction-aorist-i').value = osnova + 'х'
-	document.getElementById('verb-conjunction-aorist-thou').value = osnova
-	document.getElementById('verb-conjunction-aorist-hesheit').value = osnova
-	document.getElementById('verb-conjunction-aorist-we').value = osnova + 'смо'
-	document.getElementById('verb-conjunction-aorist-you').value = osnova + 'сте'
-	document.getElementById('verb-conjunction-aorist-they').value = osnova + 'ше'
+	osnova = document.getElementById('verbsr-conjunction-aorist-i').value
+	document.getElementById('verbsr-conjunction-aorist-i').value = osnova + 'х'
+	document.getElementById('verbsr-conjunction-aorist-thou').value = osnova
+	document.getElementById('verbsr-conjunction-aorist-hesheit').value = osnova
+	document.getElementById('verbsr-conjunction-aorist-we').value = osnova + 'смо'
+	document.getElementById('verbsr-conjunction-aorist-you').value = osnova + 'сте'
+	document.getElementById('verbsr-conjunction-aorist-they').value = osnova + 'ше'
 }
 
 function aorist2() {
-	osnova = document.getElementById('verb-conjunction-aorist-i').value
-	document.getElementById('verb-conjunction-aorist-i').value = osnova + 'ох'
-	document.getElementById('verb-conjunction-aorist-thou').value = osnova + 'е'
-	document.getElementById('verb-conjunction-aorist-hesheit').value = osnova + 'e'
-	document.getElementById('verb-conjunction-aorist-we').value = osnova + 'осмо'
-	document.getElementById('verb-conjunction-aorist-you').value = osnova + 'осте'
-	document.getElementById('verb-conjunction-aorist-they').value = osnova + 'оше'
+	osnova = document.getElementById('verbsr-conjunction-aorist-i').value
+	document.getElementById('verbsr-conjunction-aorist-i').value = osnova + 'ох'
+	document.getElementById('verbsr-conjunction-aorist-thou').value = osnova + 'е'
+	document.getElementById('verbsr-conjunction-aorist-hesheit').value = osnova + 'e'
+	document.getElementById('verbsr-conjunction-aorist-we').value = osnova + 'осмо'
+	document.getElementById('verbsr-conjunction-aorist-you').value = osnova + 'осте'
+	document.getElementById('verbsr-conjunction-aorist-they').value = osnova + 'оше'
 }
 
 function imperfekat1() {
-	osnova = document.getElementById('verb-conjunction-imperfekat1-i').value
-	document.getElementById('verb-conjunction-imperfekat1-i').value = osnova + 'ах'
-	document.getElementById('verb-conjunction-imperfekat1-thou').value = osnova + 'аше'
-	document.getElementById('verb-conjunction-imperfekat1-hesheit').value = osnova + 'аше'
-	document.getElementById('verb-conjunction-imperfekat1-we').value = osnova + 'асмо'
-	document.getElementById('verb-conjunction-imperfekat1-you').value = osnova + 'асте'
-	document.getElementById('verb-conjunction-imperfekat1-they').value = osnova + 'аху'
+	osnova = document.getElementById('verbsr-conjunction-imperfekat1-i').value
+	document.getElementById('verbsr-conjunction-imperfekat1-i').value = osnova + 'ах'
+	document.getElementById('verbsr-conjunction-imperfekat1-thou').value = osnova + 'аше'
+	document.getElementById('verbsr-conjunction-imperfekat1-hesheit').value = osnova + 'аше'
+	document.getElementById('verbsr-conjunction-imperfekat1-we').value = osnova + 'асмо'
+	document.getElementById('verbsr-conjunction-imperfekat1-you').value = osnova + 'асте'
+	document.getElementById('verbsr-conjunction-imperfekat1-they').value = osnova + 'аху'
 }
 
 function imperativ1() {
-	osnova = document.getElementById('verb-conjunction-imperativ-i').value
-	document.getElementById('verb-conjunction-imperativ-i').value = ''
-	document.getElementById('verb-conjunction-imperativ-thou').value = osnova + 'и'
-	document.getElementById('verb-conjunction-imperativ-hesheit').value = 'нека' + ' ' + osnova + 'и'
-	document.getElementById('verb-conjunction-imperativ-we').value = osnova + 'имо'
-	document.getElementById('verb-conjunction-imperativ-you').value = osnova + 'ите'
-	document.getElementById('verb-conjunction-imperativ-they').value = 'нека' + ' ' + osnova + 'е'
+	osnova = document.getElementById('verbsr-conjunction-imperativ-i').value
+	document.getElementById('verbsr-conjunction-imperativ-i').value = ''
+	document.getElementById('verbsr-conjunction-imperativ-thou').value = osnova + 'и'
+	document.getElementById('verbsr-conjunction-imperativ-hesheit').value = 'нека' + ' ' + osnova + 'и'
+	document.getElementById('verbsr-conjunction-imperativ-we').value = osnova + 'имо'
+	document.getElementById('verbsr-conjunction-imperativ-you').value = osnova + 'ите'
+	document.getElementById('verbsr-conjunction-imperativ-they').value = 'нека' + ' ' + osnova + 'е'
 }
 
 function imperativ2() {
-	osnova = document.getElementById('verb-conjunction-imperativ-i').value
-	document.getElementById('verb-conjunction-imperativ-i').value = ''
-	document.getElementById('verb-conjunction-imperativ-thou').value = osnova + 'ј'
-	document.getElementById('verb-conjunction-imperativ-hesheit').value = 'нека' + ' ' + osnova
-	document.getElementById('verb-conjunction-imperativ-we').value = osnova + 'јмо'
-	document.getElementById('verb-conjunction-imperativ-you').value = osnova + 'јте'
-	document.getElementById('verb-conjunction-imperativ-they').value = 'нека' + ' ' + osnova + 'ју'
+	osnova = document.getElementById('verbsr-conjunction-imperativ-i').value
+	document.getElementById('verbsr-conjunction-imperativ-i').value = ''
+	document.getElementById('verbsr-conjunction-imperativ-thou').value = osnova + 'ј'
+	document.getElementById('verbsr-conjunction-imperativ-hesheit').value = 'нека' + ' ' + osnova
+	document.getElementById('verbsr-conjunction-imperativ-we').value = osnova + 'јмо'
+	document.getElementById('verbsr-conjunction-imperativ-you').value = osnova + 'јте'
+	document.getElementById('verbsr-conjunction-imperativ-they').value = 'нека' + ' ' + osnova + 'ју'
 }
 
 function futur11() {
-	document.getElementById('verb-conjunction-futur11-i').value = 'ћу да' + ' ' + document.getElementById('verb-conjunction-present-i').value
-	document.getElementById('verb-conjunction-futur11-thou').value = 'ћеш да' + ' ' + document.getElementById('verb-conjunction-present-thou').value
-	document.getElementById('verb-conjunction-futur11-hesheit').value = 'ће да' + ' ' + document.getElementById('verb-conjunction-present-hesheit').value
-	document.getElementById('verb-conjunction-futur11-we').value = 'ћемо да' + ' ' + document.getElementById('verb-conjunction-present-we').value
-	document.getElementById('verb-conjunction-futur11-you').value = 'ћете да' + ' ' + document.getElementById('verb-conjunction-present-you').value
-	document.getElementById('verb-conjunction-futur11-they').value = 'ће да' + ' ' + document.getElementById('verb-conjunction-present-they').value
+	document.getElementById('verbsr-conjunction-futur11-i').value = 'ћу да' + ' ' + document.getElementById('verbsr-conjunction-present-i').value
+	document.getElementById('verbsr-conjunction-futur11-thou').value = 'ћеш да' + ' ' + document.getElementById('verbsr-conjunction-present-thou').value
+	document.getElementById('verbsr-conjunction-futur11-hesheit').value = 'ће да' + ' ' + document.getElementById('verbsr-conjunction-present-hesheit').value
+	document.getElementById('verbsr-conjunction-futur11-we').value = 'ћемо да' + ' ' + document.getElementById('verbsr-conjunction-present-we').value
+	document.getElementById('verbsr-conjunction-futur11-you').value = 'ћете да' + ' ' + document.getElementById('verbsr-conjunction-present-you').value
+	document.getElementById('verbsr-conjunction-futur11-they').value = 'ће да' + ' ' + document.getElementById('verbsr-conjunction-present-they').value
 }
 
 function futur12() {
 	infinitive = document.getElementsByClassName('select2-selection__choice')[0].innerText.substr(1);
-	document.getElementById('verb-conjunction-futur12-i').value = 'ћу' + ' ' + infinitive
-	document.getElementById('verb-conjunction-futur12-thou').value = 'ћеш' + ' ' + infinitive
-	document.getElementById('verb-conjunction-futur12-hesheit').value = 'ће' + ' ' + infinitive
-	document.getElementById('verb-conjunction-futur12-we').value = 'ћемо' + ' ' + infinitive
-	document.getElementById('verb-conjunction-futur12-you').value = 'ћете' + ' ' + infinitive
-	document.getElementById('verb-conjunction-futur12-they').value = 'ће' + ' ' + infinitive
+	document.getElementById('verbsr-conjunction-futur12-i').value = 'ћу' + ' ' + infinitive
+	document.getElementById('verbsr-conjunction-futur12-thou').value = 'ћеш' + ' ' + infinitive
+	document.getElementById('verbsr-conjunction-futur12-hesheit').value = 'ће' + ' ' + infinitive
+	document.getElementById('verbsr-conjunction-futur12-we').value = 'ћемо' + ' ' + infinitive
+	document.getElementById('verbsr-conjunction-futur12-you').value = 'ћете' + ' ' + infinitive
+	document.getElementById('verbsr-conjunction-futur12-they').value = 'ће' + ' ' + infinitive
 }
 
 function futur131() {
-	osnova = document.getElementById('verb-conjunction-futur13-i').value
+	osnova = document.getElementById('verbsr-conjunction-futur13-i').value
 	// infinitive = document.getElementsByClassName('select2-selection__choice')[0].innerText.substr(1);
-	document.getElementById('verb-conjunction-futur13-i').value = osnova + 'ћу'
-	document.getElementById('verb-conjunction-futur13-thou').value = osnova + 'ћеш'
-	document.getElementById('verb-conjunction-futur13-hesheit').value = osnova + 'ће'
-	document.getElementById('verb-conjunction-futur13-we').value = osnova + 'ћемо'
-	document.getElementById('verb-conjunction-futur13-you').value = osnova + 'ћете'
-	document.getElementById('verb-conjunction-futur13-they').value = osnova + 'ће'
+	document.getElementById('verbsr-conjunction-futur13-i').value = osnova + 'ћу'
+	document.getElementById('verbsr-conjunction-futur13-thou').value = osnova + 'ћеш'
+	document.getElementById('verbsr-conjunction-futur13-hesheit').value = osnova + 'ће'
+	document.getElementById('verbsr-conjunction-futur13-we').value = osnova + 'ћемо'
+	document.getElementById('verbsr-conjunction-futur13-you').value = osnova + 'ћете'
+	document.getElementById('verbsr-conjunction-futur13-they').value = osnova + 'ће'
 }
 
 function futur132() {
-	osnova = document.getElementById('verb-conjunction-futur13-i').value
+	osnova = document.getElementById('verbsr-conjunction-futur13-i').value
 	// infinitive = document.getElementsByClassName('select2-selection__choice')[0].innerText.substr(1);
-	document.getElementById('verb-conjunction-futur13-i').value = osnova + ' ' + 'ћу'
-	document.getElementById('verb-conjunction-futur13-thou').value = osnova + ' '  + 'ћеш'
-	document.getElementById('verb-conjunction-futur13-hesheit').value = osnova + ' '  + 'ће'
-	document.getElementById('verb-conjunction-futur13-we').value = osnova + ' '  + 'ћемо'
-	document.getElementById('verb-conjunction-futur13-you').value = osnova + ' '  + 'ћете'
-	document.getElementById('verb-conjunction-futur13-they').value = osnova + ' '  + 'ће'
+	document.getElementById('verbsr-conjunction-futur13-i').value = osnova + ' ' + 'ћу'
+	document.getElementById('verbsr-conjunction-futur13-thou').value = osnova + ' '  + 'ћеш'
+	document.getElementById('verbsr-conjunction-futur13-hesheit').value = osnova + ' '  + 'ће'
+	document.getElementById('verbsr-conjunction-futur13-we').value = osnova + ' '  + 'ћемо'
+	document.getElementById('verbsr-conjunction-futur13-you').value = osnova + ' '  + 'ћете'
+	document.getElementById('verbsr-conjunction-futur13-they').value = osnova + ' '  + 'ће'
 }
 
 function futur222() {
-	document.getElementById('verb-conjunction-futur2-i-m').value = 'будем' + ' ' + document.getElementById('verb-conjunction-rgp-i-m').value
-	document.getElementById('verb-conjunction-futur2-i-f').value = 'будем' + ' ' + document.getElementById('verb-conjunction-rgp-i-f').value
-	document.getElementById('verb-conjunction-futur2-i-n').value = 'будем' + ' ' + document.getElementById('verb-conjunction-rgp-i-n').value
-	document.getElementById('verb-conjunction-futur2-thou-m').value = 'будеш' + ' ' + document.getElementById('verb-conjunction-rgp-i-m').value
-	document.getElementById('verb-conjunction-futur2-thou-f').value = 'будеш' + ' ' + document.getElementById('verb-conjunction-rgp-i-f').value
-	document.getElementById('verb-conjunction-futur2-thou-n').value = 'будеш' + ' ' + document.getElementById('verb-conjunction-rgp-i-n').value
-	document.getElementById('verb-conjunction-futur2-hesheit-m').value = 'буде' + ' ' + document.getElementById('verb-conjunction-rgp-i-m').value
-	document.getElementById('verb-conjunction-futur2-hesheit-f').value = 'буде' + ' ' + document.getElementById('verb-conjunction-rgp-i-f').value
-	document.getElementById('verb-conjunction-futur2-hesheit-n').value = 'буде' + ' ' + document.getElementById('verb-conjunction-rgp-i-n').value
+	document.getElementById('verbsr-conjunction-futur2-i-m').value = 'будем' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-m').value
+	document.getElementById('verbsr-conjunction-futur2-i-f').value = 'будем' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-f').value
+	document.getElementById('verbsr-conjunction-futur2-i-n').value = 'будем' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-n').value
+	document.getElementById('verbsr-conjunction-futur2-thou-m').value = 'будеш' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-m').value
+	document.getElementById('verbsr-conjunction-futur2-thou-f').value = 'будеш' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-f').value
+	document.getElementById('verbsr-conjunction-futur2-thou-n').value = 'будеш' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-n').value
+	document.getElementById('verbsr-conjunction-futur2-hesheit-m').value = 'буде' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-m').value
+	document.getElementById('verbsr-conjunction-futur2-hesheit-f').value = 'буде' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-f').value
+	document.getElementById('verbsr-conjunction-futur2-hesheit-n').value = 'буде' + ' ' + document.getElementById('verbsr-conjunction-rgp-i-n').value
 
-	document.getElementById('verb-conjunction-futur2-we-m').value = 'будемо' + ' ' + document.getElementById('verb-conjunction-rgp-we-m').value
-	document.getElementById('verb-conjunction-futur2-we-f').value = 'будемо' + ' ' + document.getElementById('verb-conjunction-rgp-we-m').value
-	document.getElementById('verb-conjunction-futur2-we-n').value = 'будемо' + ' ' + document.getElementById('verb-conjunction-rgp-we-m').value
-	document.getElementById('verb-conjunction-futur2-you-m').value = 'будете' + ' ' + document.getElementById('verb-conjunction-rgp-we-m').value
-	document.getElementById('verb-conjunction-futur2-you-f').value = 'будете' + ' ' + document.getElementById('verb-conjunction-rgp-we-f').value
-	document.getElementById('verb-conjunction-futur2-you-n').value = 'будете' + ' ' + document.getElementById('verb-conjunction-rgp-we-n').value
-	document.getElementById('verb-conjunction-futur2-they-m').value = 'буду' + ' ' + document.getElementById('verb-conjunction-rgp-we-m').value
-	document.getElementById('verb-conjunction-futur2-they-f').value = 'буду' + ' ' + document.getElementById('verb-conjunction-rgp-we-f').value
-	document.getElementById('verb-conjunction-futur2-they-n').value = 'буду' + ' ' + document.getElementById('verb-conjunction-rgp-we-n').value
+	document.getElementById('verbsr-conjunction-futur2-we-m').value = 'будемо' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-m').value
+	document.getElementById('verbsr-conjunction-futur2-we-f').value = 'будемо' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-m').value
+	document.getElementById('verbsr-conjunction-futur2-we-n').value = 'будемо' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-m').value
+	document.getElementById('verbsr-conjunction-futur2-you-m').value = 'будете' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-m').value
+	document.getElementById('verbsr-conjunction-futur2-you-f').value = 'будете' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-f').value
+	document.getElementById('verbsr-conjunction-futur2-you-n').value = 'будете' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-n').value
+	document.getElementById('verbsr-conjunction-futur2-they-m').value = 'буду' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-m').value
+	document.getElementById('verbsr-conjunction-futur2-they-f').value = 'буду' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-f').value
+	document.getElementById('verbsr-conjunction-futur2-they-n').value = 'буду' + ' ' + document.getElementById('verbsr-conjunction-rgp-we-n').value
 }
 
 function gpt() {
-	osnova = document.getElementById('verb-conjunction-gpt-m-singular').value
-	document.getElementById('verb-conjunction-gpt-m-singular').value = osnova + 'н'
-	document.getElementById('verb-conjunction-gpt-f-singular').value = osnova + 'на'
-	document.getElementById('verb-conjunction-gpt-n-singular').value = osnova + 'но'
-	document.getElementById('verb-conjunction-gpt-m-plural').value = osnova + 'ни'
-	document.getElementById('verb-conjunction-gpt-f-plural').value = osnova + 'не'
-	document.getElementById('verb-conjunction-gpt-n-plural').value = osnova + 'на'
+	osnova = document.getElementById('verbsr-conjunction-gpt-m-singular').value
+	document.getElementById('verbsr-conjunction-gpt-m-singular').value = osnova + 'н'
+	document.getElementById('verbsr-conjunction-gpt-f-singular').value = osnova + 'на'
+	document.getElementById('verbsr-conjunction-gpt-n-singular').value = osnova + 'но'
+	document.getElementById('verbsr-conjunction-gpt-m-plural').value = osnova + 'ни'
+	document.getElementById('verbsr-conjunction-gpt-f-plural').value = osnova + 'не'
+	document.getElementById('verbsr-conjunction-gpt-n-plural').value = osnova + 'на'
 }
 </script>

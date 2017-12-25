@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use frontend\models\Verb;
+use frontend\models\VerbSR;
 use Yii;
 
 /**
@@ -12,14 +12,14 @@ use Yii;
  * @property string $name
  * @property integer $frequency
  */
-class Tag1 extends \yii\db\ActiveRecord
+class TagSR extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tag1';
+        return 'tag_sr';
     }
 
     /**
@@ -48,19 +48,19 @@ class Tag1 extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
-     * @return Tag1Query the active query used by this AR class.
+     * @return TagSRQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new Tag1Query(get_called_class());
+        return new TagSRQuery(get_called_class());
     }
 
     public static function getAllTags($combine = false, $allOfUsed = true)
     {
         if ($allOfUsed) {
-            $allTags = Tag1::find()->select('name')->distinct()->column();
+            $allTags = TagSR::find()->select('name')->distinct()->column();
         } else {
-            $allTags = Tag1::find()->where(['>', 'frequency', 0])->select('name')->distinct()->column();
+            $allTags = TagSR::find()->where(['>', 'frequency', 0])->select('name')->distinct()->column();
         }
 
         if ($combine) {
@@ -74,7 +74,7 @@ class Tag1 extends \yii\db\ActiveRecord
     {
         $lang = 'infinitive_' . $lang;
 
-        $allTags = Verb::find()->select($lang)->where(['mainword' => true])->distinct()->column();
+        $allTags = VerbSR::find()->select($lang)->where(['mainword' => true])->distinct()->column();
 
         if ($combine) {
             $allTags = array_combine($allTags, $allTags);

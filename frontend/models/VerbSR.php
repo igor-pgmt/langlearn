@@ -6,7 +6,7 @@ use creocoder\taggable\TaggableBehavior;
 use Yii;
 
 /**
- * This is the model class for table "verb".
+ * This is the model class for table "verbSR".
  *
  * @property integer $id
  * @property string $infinitive_sr
@@ -29,7 +29,7 @@ use Yii;
  * @property integer $perfect_verb
  * @property integer $reflexive_verb
  */
-class Verb extends \yii\db\ActiveRecord
+class VerbSR extends \yii\db\ActiveRecord
 {
     public function behaviors()
     {
@@ -49,7 +49,7 @@ class Verb extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'verb';
+        return 'verb_sr';
     }
 
     /**
@@ -95,11 +95,11 @@ class Verb extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
-     * @return VerbQuery the active query used by this AR class.
+     * @return VerbSRQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new VerbQuery(get_called_class());
+        return new VerbSRQuery(get_called_class());
     }
 
     //tagging
@@ -112,13 +112,13 @@ class Verb extends \yii\db\ActiveRecord
 
     public function getTags()
     {
-        return $this->hasMany(Tag1::className(), ['id' => 'tag1_id'])
-            ->viaTable('{{%verb_tag1_assn}}', ['verb_id' => 'id']);
+        return $this->hasMany(TagSR::className(), ['id' => 'tag_sr_id'])
+            ->viaTable('{{%verb_sr_tag_sr_assn}}', ['verb_id' => 'id']);
     }
 
     public static function getInfitranses()
     {
-        $rwt = Verb::find()
+        $rwt = VerbSR::find()
             ->select('infitranslation')
             ->where(['not', ['infitranslation' => '']])
             ->column();

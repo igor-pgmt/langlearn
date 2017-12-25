@@ -5,11 +5,11 @@ namespace frontend\models;
 use creocoder\taggable\TaggableQueryBehavior;
 
 /**
- * This is the ActiveQuery class for [[Verb]].
+ * This is the ActiveQuery class for [[VerbSR]].
  *
- * @see Verb
+ * @see VerbSR
  */
-class VerbQuery extends \yii\db\ActiveQuery
+class VerbSRQuery extends \yii\db\ActiveQuery
 {
 
     public function behaviors()
@@ -21,12 +21,12 @@ class VerbQuery extends \yii\db\ActiveQuery
 
     /*public function active()
     {
-        return $this->andWhere('[[status]]=1');
+    return $this->andWhere('[[status]]=1');
     }*/
 
     /**
      * @inheritdoc
-     * @return Verb[]|array
+     * @return VerbSR[]|array
      */
     public function all($db = null)
     {
@@ -35,7 +35,7 @@ class VerbQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Verb|array|null
+     * @return VerbSR|array|null
      */
     public function one($db = null)
     {

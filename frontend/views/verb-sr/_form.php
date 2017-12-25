@@ -214,7 +214,7 @@ JS;
 
 	<?=$form->field($model, 'related')->widget(Select2::classname(), [
         'data' => $data,
-        'id' => 'tag1',
+        'id' => 'tag_sr',
         //'value' => ['red', 'green'],
         'options' => [
             'placeholder' => 'Add ...',

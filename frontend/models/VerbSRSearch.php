@@ -2,14 +2,14 @@
 
 namespace frontend\models;
 
-use frontend\models\Verb;
+use frontend\models\VerbSR;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * VerbSearch represents the model behind the search form about `frontend\models\Verb`.
+ * VerbSRSearch represents the model behind the search form about `frontend\models\VerbSR`.
  */
-class VerbSearch extends Verb
+class VerbSRSearch extends VerbSR
 {
 
     /**
@@ -42,7 +42,7 @@ class VerbSearch extends Verb
      */
     public function search($params)
     {
-        $query = Verb::find();
+        $query = VerbSR::find();
 
         // add conditions that should always apply here
 
