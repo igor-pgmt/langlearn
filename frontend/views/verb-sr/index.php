@@ -81,7 +81,7 @@ return $it;
             'format' => 'raw',
             'value' => function ($data) {
                 $itDecoded = !empty($data->infinitive_sr) ? json_decode($data->infinitive_sr) : false;
-                $link = 'http://' . $_SERVER['SERVER_NAME'] . '/verb/view?id=' . $data->id;
+                $link = 'http://' . $_SERVER['SERVER_NAME'] . '/verb-sr/view?id=' . $data->id;
                 if ($itDecoded) {
                     foreach ($itDecoded as $key => $value) {
                         switch ($data->reflexive_verb) {
