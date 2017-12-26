@@ -67,7 +67,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="5">Презент <?=Html::button('Generate→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf();', 'style' => 'height: 16px;']);?>b</td>
+				<td colspan="5">Презент <?=Html::button('Generate→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf();', 'style' => 'height: 16px;']);?><?=Html::button('Generate and del→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf(); presentDel();', 'style' => 'height: 16px;']);?></td>
 			</tr>
 		</thead>
 		<tbody>

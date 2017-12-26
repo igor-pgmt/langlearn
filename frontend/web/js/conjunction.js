@@ -482,3 +482,12 @@ function gpt() {
 	document.getElementById('verbsr-conjunction-gpt-f-plural').value = osnova + 'не'
 	document.getElementById('verbsr-conjunction-gpt-n-plural').value = osnova + 'на'
 }
+
+function presentDel() {
+	document.getElementById('verbsr-conjunction-present-i').value = '';
+	document.getElementById('verbsr-conjunction-present-thou').value = '';
+	document.getElementById('verbsr-conjunction-present-hesheit').value = '';
+	document.getElementById('verbsr-conjunction-present-we').value = '';
+	document.getElementById('verbsr-conjunction-present-you').value = '';
+	document.getElementById('verbsr-conjunction-present-they').value = '';
+}
