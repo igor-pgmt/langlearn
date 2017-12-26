@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 ?>
 
-<table id="examples">
+<table class="examples">
 	<thead>
 		<tr>
 			<td>Пример</td>

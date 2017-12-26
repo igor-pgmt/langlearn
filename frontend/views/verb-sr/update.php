@@ -16,11 +16,9 @@ $infinitive_ru = isset($model->infinitive_ru) ? is_array($model->infinitive_ru) 
 $infinitive_sr = isset($model->infinitive_sr) ? is_array($model->infinitive_sr) ? implode(', ', $model->infinitive_sr) : json_decode($model->infinitive_sr) : false;
 $infinitive_en = isset($model->infinitive_en) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : json_decode($model->infinitive_en) : false;
 
-// $this->title = $serbian . ' :: ' . $russian . ' :: ' . $english;
 $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/verb/view?id=' . $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/verb-sr/view?id=' . $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
 ?>
 <div class="verbsr-update">

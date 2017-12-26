@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="phrasebook2-index">
 
     <h1><?=Html::encode($this->title)?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?=Html::a(Yii::t('frontend', 'Create Phrase'), ['create'], ['class' => 'btn btn-success'])?>
@@ -135,21 +134,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $it;
             },
         ],
-/*        ['class' => 'kartik\grid\SerialColumn',
-'contentOptions' => ['style' => 'color: #DDDDDD; width:20px; text-align: center;',
-],
-],
-[
-'attribute' => 'topic',
-'format' => 'raw',
-// 'value' => function ($data) {return json_decode($data->topic);},
-],
-[
-'attribute' => 'header',
-'format' => 'raw',
-// 'value' => function ($data) {return json_decode($data->header);},
-],
- */
         [
             'contentOptions' => ['style' => 'white-space: pre-wrap !important; '],
 
@@ -158,26 +142,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'value' => function ($data) {
                 if ($data->russian) {
 
-                    // $itDecoded = explode(' ', json_decode($data->russian));
                     $itDecoded = explode(' ', $data->russian);
                     $pattern = '/[,!\.?{}:;]|i/';
 
                     foreach ($itDecoded as $key => $value) {
                         $value_clean = preg_replace($pattern, '', $value);
                         $link = 'http://' . $_SERVER['SERVER_NAME'] .
-                        '/verb?VerbSearch%5Binfinitive_sr%5D=' . $value_clean .
-                        '&VerbSearch%5Binfinitive_ru%5D=' . $value_clean .
-                        '&VerbSearch%5Binfinitive_en%5D=' . $value_clean .
-                        '&VerbSearch%5Brelated%5D=' . $value_clean .
-                        '&VerbSearch%5Bothers%5D=' . $value_clean .
-                        '&VerbSearch%5Bmeanings%5D=' . $value_clean .
-                        '&VerbSearch%5Bexamples%5D=' . $value_clean;;
+                        '/verb-sr?VerbSRSearch%5Binfinitive_sr%5D=' . $value_clean .
+                        '&VerbSRSearch%5Binfinitive_ru%5D=' . $value_clean .
+                        '&VerbSRSearch%5Binfinitive_en%5D=' . $value_clean .
+                        '&VerbSRSearch%5Brelated%5D=' . $value_clean .
+                        '&VerbSRSearch%5Bothers%5D=' . $value_clean .
+                        '&VerbSRSearch%5Bmeanings%5D=' . $value_clean .
+                        '&VerbSRSearch%5Bexamples%5D=' . $value_clean;;
                         $itDecoded[$key] = '<a href="' . $link . '">' . $value . '</a>';
                     }
                 }
 
                 $it = isset($itDecoded) ? implode(" ", $itDecoded) : false;
-                // return Html::a($it, ['view', 'id' => $data->id]);
 
                 return $it;
             },
@@ -188,64 +170,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'serbian',
             'format' => 'raw',
             'value' => function ($data) {
-                // $link = 'http://' . $_SERVER['SERVER_NAME'] . '/verb?VerbSearch%5Binfinitive_sr%5D=';
                 if ($data->serbian) {
 
-                    // $itDecoded = explode(' ', json_decode($data->serbian));
                     $itDecoded = explode(' ', $data->serbian);
                     $pattern = '/[,!\.?{}:;]|i/';
 
                     foreach ($itDecoded as $key => $value) {
                         $value_clean = preg_replace($pattern, '', $value);
                         $link = 'http://' . $_SERVER['SERVER_NAME'] .
-                        '/verb?VerbSearch%5Binfinitive_sr%5D=' . $value_clean .
-                        '&VerbSearch%5Binfinitive_ru%5D=' . $value_clean .
-                        '&VerbSearch%5Binfinitive_en%5D=' . $value_clean .
-                        '&VerbSearch%5Brelated%5D=' . $value_clean .
-                        '&VerbSearch%5Bothers%5D=' . $value_clean .
-                        '&VerbSearch%5Bmeanings%5D=' . $value_clean .
-                        '&VerbSearch%5Bexamples%5D=' . $value_clean;;
+                        '/verb-sr?VerbSRSearch%5Binfinitive_sr%5D=' . $value_clean .
+                        '&VerbSRSearch%5Binfinitive_ru%5D=' . $value_clean .
+                        '&VerbSRSearch%5Binfinitive_en%5D=' . $value_clean .
+                        '&VerbSRSearch%5Brelated%5D=' . $value_clean .
+                        '&VerbSRSearch%5Bothers%5D=' . $value_clean .
+                        '&VerbSRSearch%5Bmeanings%5D=' . $value_clean .
+                        '&VerbSRSearch%5Bexamples%5D=' . $value_clean;;
                         $itDecoded[$key] = '<a href="' . $link . '">' . $value . '</a>';
                     }
                 }
 
                 $it = isset($itDecoded) ? implode(" ", $itDecoded) : false;
-                // return Html::a($it, ['view', 'id' => $data->id]);
 
                 return $it;
             },
         ],
-        // [
-        //     'attribute' => 'english',
-        //     'contentOptions' => ['style' => 'white-space: pre-wrap !important; '],
-
-        //     'format' => 'raw',
-        //     'value' => function ($data) {
-        //         if ($data->english) {
-
-        //             $itDecoded = explode(' ', $data->english);
-        //             $pattern = '/[,!\.?{}:;]|i/';
-
-        //             foreach ($itDecoded as $key => $value) {
-        //                 $value_clean = preg_replace($pattern, '', $value);
-        //                 $link = 'http://' . $_SERVER['SERVER_NAME'] .
-        //                 '/verb?VerbSearch%5Binfinitive_sr%5D=' . $value_clean .
-        //                 '&VerbSearch%5Binfinitive_ru%5D=' . $value_clean .
-        //                 '&VerbSearch%5Binfinitive_en%5D=' . $value_clean .
-        //                 '&VerbSearch%5Brelated%5D=' . $value_clean .
-        //                 '&VerbSearch%5Bothers%5D=' . $value_clean .
-        //                 '&VerbSearch%5Bmeanings%5D=' . $value_clean .
-        //                 '&VerbSearch%5Bexamples%5D=' . $value_clean;;
-        //                 $itDecoded[$key] = '<a href="' . $link . '">' . $value . '</a>';
-        //             }
-        //         }
-
-        //         $it = isset($itDecoded) ? implode(" ", $itDecoded) : false;
-        //         // return Html::a($it, ['view', 'id' => $data->id]);
-
-        //         return $it;
-        //     },
-        // ],
         ['attribute' => 'comment',
             'contentOptions' => ['style' => 'white-space: pre-wrap !important;  '],
         ],
@@ -264,15 +212,11 @@ function filter() {
 
 var filter = document.getElementById('phrasebook2search-russian').value;
     $.ajax({
-        // url: '/phrasebook2/index',
         url: '/phrasebook2/index?Phrasebook2Search%5Brussian%5D='.filter,
         type: 'POST',
         data: {'filter': filter},
         success: function(res){
-          //alert(res + '=result');
            $.pjax.reload({container: '#pfilter'});
-           //return false;
-
         },
         error: function(){
             alert(filter+'Error!');

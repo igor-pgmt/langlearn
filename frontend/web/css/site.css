@@ -121,30 +121,46 @@ a.desc:after {
 .inp_text{
 	width:100px;
 }
-#table1, #table2, #others, #examples, #meanings  {
+
+.table1, .table2, .others, .examples, .meanings  {
 	display: inline-block;
 	/*min-width: 530px;*/
 	overflow: hidden;
 	margin: 13px 20px 13px 0px;
 	border-collapse: collapse;
 	vertical-align: top;
+	font-size: 12px;
 }
-#others, #examples, #meanings {
+
+.others, .examples, .meanings {
 		width: 100%;
+		margin: 13px 0px 0px 0px;
 	}
-#table1 td,#table2 td, #others td, #examples td, #meanings td {
+
+.table1 td, .table2 td, .others td, .examples td, .meanings td {
 	border: 1px solid silver;
 	padding: 3px 5px;
 }
+
 table td .form-control {
 	border:0px;
 }
+
 thead{
 		font-size: 13px;
 	font-weight: 600;
 }
-#meanings td, #examples td, #others td {
+
+.meanings td, .examples td, .others td {
 		width: 1%;
+}
+
+.rod {
+	color: grey;
+}
+
+.face {
+	color: grey;
 }
 
 .my-switcher {

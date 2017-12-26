@@ -48,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
-
     ],
 
 ]);?>
@@ -59,12 +58,10 @@ $this->params['breadcrumbs'][] = $this->title;
     'options' => [
         'placeholder' => 'Add ...',
         'multiple' => true,
-
     ],
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
-
     ],
 
 ]);?>
@@ -78,11 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'offText' => '-',
         'onColor' => 'primary',
         'size' => 'mini',
+    ],
 
-    ],
-    'pluginEvents' => [
-        "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
-    ],
 ])?>
 
 	<?=$form->field($model, 'important', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
@@ -156,9 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'size' => 'mini',
 
     ],
-// 'pluginEvents' => [
-    //     "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
-    // ],
+
 ])?>
 
 	<div class='form-group top-sbm'>
@@ -261,12 +253,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
      <?=$form->field($model, 'comment')->textarea()?>
-
-<!--        <?=$this->render('_meanings.php', [
-    'meanings' => $model->meanings,
-    'model' => $model,
-    'form' => $form,
-])?>-->
 
 	<?=
 $form->field($model, 'meanings')->widget(MultipleInput::className(), [

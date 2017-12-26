@@ -1,4 +1,3 @@
-
 <script>
 function oclick(paramName) {
 
@@ -30,7 +29,15 @@ switch(paramName) {
 		needtranslation = !needtranslation;
 
         break;
+    case 'perfect_verb':
 
+        if (typeof perfect_verb == 'undefined') {
+                perfect_verb='<?=$model->perfect_verb;?>';
+        }
+        if (perfect_verb == true) {paramValue=0} else {paramValue=1}
+        perfect_verb = !perfect_verb;
+
+        break;
 }
 
 	ajaxSend(paramName, paramValue);
@@ -48,7 +55,7 @@ alert(paramValue);
 function ajaxSend(paramName, paramValue) {
 
 	$.ajax({
-		url: '/verb/sex?id=' + '<?=$model->id;?>',
+		url: '/verb-sr/sex?id=' + '<?=$model->id;?>',
 		type: 'POST',
 		data: {'param': paramName, 'paramval': paramValue},
 		success: function(res){
@@ -89,12 +96,12 @@ use yii\widgets\ActiveForm;
     'name' => 'perfect_verb',
     'pluginOptions' => [
         'handleWidth' => 120,
-        'onText' => Yii::t('frontend', 'perfect_verb'),
+        'onText' => Yii::t('frontend', 'Perfect_verb'),
         'offText' => '-',
         'onColor' => 'default',
     ],
     'pluginEvents' => [
-        "switchChange.bootstrapSwitch" => "function() { oclick('important'); }",
+        "switchChange.bootstrapSwitch" => "function() { oclick('perfect_verb'); }",
     ],
 ])?>
 	<?=$form->field($model, 'important')->widget(SwitchInput::classname(), [
@@ -202,7 +209,7 @@ use yii\widgets\ActiveForm;
 
 <?php
 $js = <<<JS
-document.getElementById('verb-mainword').onchange = function() {
+document.getElementById('verbsr-mainword').onchange = function() {
 	input = document.getElementsByClassName('select2-search__field')[0];
 	input.disabled = this.checked;
 	if (this.checked == true) {input.val('');}; //bug
