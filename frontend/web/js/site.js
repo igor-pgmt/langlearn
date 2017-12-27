@@ -14,3 +14,22 @@ function topFunction() {
     document.body.scrollTop = 0; // For Chrome, Safari and Opera
     document.documentElement.scrollTop = 0; // For IE and Firefox
 }
+function bottomFunction() {
+	// window.scrollTo(0, document.body.scrollHeight);
+	var objDiv = document.getElementsByClassName("wrap")[0];
+	document.body.scrollTop = objDiv.scrollHeight;
+	document.documentElement.scrollTop = objDiv.scrollHeight;
+}
+
+function downToExamples() {
+    document.getElementById("verbsr-examples-0-example").focus();
+}
+
+function downToExamples2() {
+    document.getElementsByName("examples")[0].scrollIntoView(true);
+}
+
+function scrollTo(hash) {
+    location.hash = "#" + hash;
+}
+

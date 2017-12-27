@@ -483,6 +483,47 @@ function gpt() {
 	document.getElementById('verbsr-conjunction-gpt-n-plural').value = osnova + 'на'
 }
 
+function rgpGen() {
+	var osnova = document.getElementById('verbsr-conjunction-rgp-i-m').value;
+	document.getElementById('verbsr-conjunction-rgp-i-m').value = osnova + 'о';
+	document.getElementById('verbsr-conjunction-rgp-i-f').value = osnova + 'ла';
+	document.getElementById('verbsr-conjunction-rgp-i-n').value = osnova + 'ло';
+	document.getElementById('verbsr-conjunction-rgp-we-m').value = osnova + 'ли';
+	document.getElementById('verbsr-conjunction-rgp-we-f').value = osnova + 'ле';
+	document.getElementById('verbsr-conjunction-rgp-we-n').value = osnova + 'ла';
+	document.getElementById('verbsr-conjunction-futur13-i').value = osnova;
+}
+
+function presentGen1() {
+	var osnova = document.getElementById('verbsr-conjunction-present-i').value;
+	document.getElementById('verbsr-conjunction-present-i').value = osnova + 'им';
+	document.getElementById('verbsr-conjunction-present-thou').value = osnova + 'иш';
+	document.getElementById('verbsr-conjunction-present-hesheit').value = osnova + 'и';
+	document.getElementById('verbsr-conjunction-present-we').value = osnova + 'имо';
+	document.getElementById('verbsr-conjunction-present-you').value = osnova + 'ите';
+	document.getElementById('verbsr-conjunction-present-they').value = osnova + 'е';
+}
+
+function presentGen2() {
+	var osnova = document.getElementById('verbsr-conjunction-present-i').value;
+	document.getElementById('verbsr-conjunction-present-i').value = osnova + 'ем';
+	document.getElementById('verbsr-conjunction-present-thou').value = osnova + 'еш';
+	document.getElementById('verbsr-conjunction-present-hesheit').value = osnova + 'е';
+	document.getElementById('verbsr-conjunction-present-we').value = osnova + 'емо';
+	document.getElementById('verbsr-conjunction-present-you').value = osnova + 'ете';
+	document.getElementById('verbsr-conjunction-present-they').value = osnova + 'у';
+}
+
+function presentGen3() {
+	var osnova = document.getElementById('verbsr-conjunction-present-i').value;
+	document.getElementById('verbsr-conjunction-present-i').value = osnova + 'ам';
+	document.getElementById('verbsr-conjunction-present-thou').value = osnova + 'аш';
+	document.getElementById('verbsr-conjunction-present-hesheit').value = osnova + 'а';
+	document.getElementById('verbsr-conjunction-present-we').value = osnova + 'амо';
+	document.getElementById('verbsr-conjunction-present-you').value = osnova + 'ате';
+	document.getElementById('verbsr-conjunction-present-they').value = osnova + 'ају';
+}
+
 function presentDel() {
 	document.getElementById('verbsr-conjunction-present-i').value = '';
 	document.getElementById('verbsr-conjunction-present-thou').value = '';

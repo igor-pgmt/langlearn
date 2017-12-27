@@ -70,6 +70,11 @@ NavBar::end();
     // 'links' => isset($this->params['breadcrumbs']) ? implode(' ', $this->params['breadcrumbs']) : [],
 ])?>
         <?=Alert::widget()?>
+
+    <?=$this->render('../verb-sr/_bookmarks.php')?>
+
+
+
         <?=$content?>
     </div>
 </div>

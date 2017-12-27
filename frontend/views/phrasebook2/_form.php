@@ -121,7 +121,7 @@ use yii\widgets\ActiveForm;
 ])?>
 
     <div class="form-group">
-        <?=Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Save') : Yii::t('frontend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])?>
+        <?=Html::submitButton($model->isNewRecord ? Yii::t('frontend', 'Save') : Yii::t('frontend', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])?>
         <?php
 if ($model->isNewRecord) {
     echo Html::submitButton(Yii::t('frontend', 'Save and Create'), ['class' => 'btn btn-success', 'name' => 'new']);

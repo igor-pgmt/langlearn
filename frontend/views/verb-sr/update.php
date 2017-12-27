@@ -36,12 +36,11 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     'options' => [
         'placeholder' => 'Add ...',
         'multiple' => true,
-
     ],
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
-
+        'maximumSelectionLength' => 1,
     ],
 
 ]);?>

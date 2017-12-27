@@ -236,3 +236,9 @@ span.text-primary {
 .my-rating{
 	margin-right: 10px;
 }
+
+.vertical-button {
+	height: 16px;
+	float: left;
+	margin-right:10px;
+}

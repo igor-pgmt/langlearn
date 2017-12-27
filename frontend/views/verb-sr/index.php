@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'filterRowOptions' => ['class' => 'kartik-sheet-style'],
-    'headerRowOptions' => ['class' => 'kartik-sheet-style '],
+    'headerRowOptions' => ['class' => 'kartik-sheet-style', 'style' => 'width: 4%;'],
     'bootstrap' => true,
     'striped' => true,
     'responsive' => true,
@@ -53,6 +53,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'views',
             'contentOptions' => ['style' => 'width:30px; text-align: center;',
             ],
+        ],
+        [
+            'header' => 'Edit',
+            'class' => 'kartik\grid\ActionColumn',
+            'template' => '{update}',
+            'width' => '20px',
+            'buttons' => [
+                'update' => function ($url, $model) {
+                    return Html::a('<div style="width: Auto; min-height: Auto; height: 100%; line-height:40px; margin: -8px;"> <span class="glyphicon glyphicon-pencil"></span></div>', $url, [
+                        'title' => Yii::t('yii', 'update'),
+                    ]);
+
+                },
+            ],
+
         ],
 /*        [
 'class' => 'kartik\grid\ActionColumn',

@@ -13,7 +13,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="8" onclick="rgpf();">Радни глаголски придев</td>
+				<td colspan="8">Радни глаголски придев <?=Html::button('Generate Present→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpGen();', 'style' => 'height: 16px;']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,7 +67,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="5">Презент <?=Html::button('Generate→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf();', 'style' => 'height: 16px;']);?><?=Html::button('Generate and del→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf(); presentDel();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Презент <?=Html::button('Им', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'presentGen1();', 'style' => 'height: 16px;']);?><?=Html::button('Ем', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'presentGen2();', 'style' => 'height: 16px;']);?><?=Html::button('Ам', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'presentGen3();', 'style' => 'height: 16px;']);?><?=Html::button('Generate→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf();', 'style' => 'height: 16px;']);?><?=Html::button('Generate and del→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf(); presentDel();', 'style' => 'height: 16px;']);?></td>
 			</tr>
 		</thead>
 		<tbody>

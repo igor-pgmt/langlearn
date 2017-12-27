@@ -15,6 +15,9 @@ $this->title = Yii::t('frontend', 'Create Verb');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+
 <div class="verbsr-create">
 
     <h1><?=Html::encode($this->title)?></h1>
@@ -28,12 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
     'options' => [
         'placeholder' => 'Add ...',
         'multiple' => true,
-
     ],
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
-
+        'maximumSelectionLength' => 1,
     ],
 
 ]);?>

@@ -111,7 +111,14 @@ class VerbSrController extends LoginController
         $phrases = Phrasebook2::find()->select('serbian, russian')->asarray()->all();
         $relevants = [];
         foreach ($verbs as $verb) {
+
             $variants = [];
+
+            //infinitive
+            if (!null == (json_decode($verb->infinitive_sr, true))) {
+                $variants[] = json_decode($verb->infinitive_sr, true)[0];
+            }
+
             // if (isset($verb->conjunction)) {
             if (!null == (json_decode($verb->conjunction, true))) {
                 foreach (json_decode($verb->conjunction, true) as $key => $value) {
@@ -145,6 +152,7 @@ class VerbSrController extends LoginController
             foreach ($phrases as $key => $value) {
                 $data = preg_replace('/[\"\[\]?\{\!\},\:\;]/u', '', $value['serbian']);
                 $data = preg_replace('| +|', ' ', $value['serbian']);
+                $data = preg_replace('/[\.\,]/u', ' ', $value['serbian']);
 
                 $datar = explode(' ', $data);
                 $datar = array_filter($datar);
