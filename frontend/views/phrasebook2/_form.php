@@ -82,7 +82,9 @@ use yii\widgets\ActiveForm;
         'placeholder' => 'Add ...',
     ],
 ]);?>
-
+<br />
+<br />
+<br />
     <?=$form->field($model, 'russian')->widget(Select2::classname(), [
     'data' => $phrases['ru'],
     'pluginOptions' => [

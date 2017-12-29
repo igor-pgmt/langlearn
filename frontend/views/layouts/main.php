@@ -70,12 +70,10 @@ NavBar::end();
 ])?>
         <?=Alert::widget()?>
 
-    <?php if (Yii::$app->controller->id == 'verb-sr') {
-    echo $this->render('../verb-sr/_editside.php');
-}?>
-
+    <?php if (Yii::$app->controller->id == 'verb-sr') {?>
+    <?=$this->render('../verb-sr/_editside.php')?>
     <?=$this->render('../verb-sr/_bookmarks.php')?>
-
+<?php }?>
         <?=$content?>
     </div>
 </div>
