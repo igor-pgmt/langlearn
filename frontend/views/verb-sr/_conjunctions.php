@@ -13,7 +13,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="8">Радни глаголски придев <?=Html::button('Generate Present→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpGen();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="8">Радни глаголски придев <?=Html::button('Generate Present→', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'rgpGen();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,7 +67,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="5">Презент <?=Html::button('Им', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'presentGen1();', 'style' => 'height: 16px;']);?><?=Html::button('Ем', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'presentGen2();', 'style' => 'height: 16px;']);?><?=Html::button('Ам', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'presentGen3();', 'style' => 'height: 16px;']);?><?=Html::button('Generate→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf();', 'style' => 'height: 16px;']);?><?=Html::button('Generate and del→', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'rgpf(); presentDel();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Презент <?=Html::button('Им', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'presentGen1();']);?><?=Html::button('Ем', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'presentGen2();']);?><?=Html::button('Ам', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'presentGen3();']);?><?=Html::button('Generate→', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'rgpf();']);?><?=Html::button('Generate and del→', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'rgpf(); presentDel();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -97,7 +97,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="5">Аорист <?=Html::button('Generate 1 ', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'aorist1();', 'style' => 'height: 16px;']);?><?=Html::button('Generate 2 ', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'aorist2();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Аорист <?=Html::button('Generate 1 ', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'aorist1();']);?><?=Html::button('Generate 2 ', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'aorist2();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -178,7 +178,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="5">Имперфекат <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'imperfekat1();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Имперфекат <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'imperfekat1();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -491,7 +491,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="5">Императив <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'imperativ1();', 'style' => 'height: 16px;']);?><?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'imperativ2();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Императив <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'imperativ1();']);?><?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'imperativ2();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -520,7 +520,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="5">Футур I (v1) <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'futur11();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Футур I (v1) <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'futur11();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -549,7 +549,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="5">Футур I (v2) <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'futur12();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Футур I (v2) <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'futur12();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -578,7 +578,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="5">Футур I (v3) <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'futur131();', 'style' => 'height: 16px;']);?><?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'futur132();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="5">Футур I (v3) <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'futur131();']);?><?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'futur132();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -607,7 +607,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="8">Футур II <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'futur222();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="8">Футур II <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'futur222();']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -658,7 +658,7 @@ if (Yii::$app->controller->action->id == 'view') {
 <div class="table1">
 	<table>		<thead>
 			<tr>
-				<td colspan="6">Глаголски придев трпни <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs', 'onclick' => 'gpt();', 'style' => 'height: 16px;']);?></td>
+				<td colspan="6">Глаголски придев трпни <?=Html::button('Generate', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'gpt();']);?></td>
 			</tr>
 		</thead>
 		<tbody>

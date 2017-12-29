@@ -2,7 +2,6 @@
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\VerbSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-use frontend\models\VerbConjunctionSR;
 
 $this->title = Yii::t('frontend', 'test');
 $this->params['breadcrumbs'][] = $this->title;
@@ -12,14 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?php
-$vc = new VerbConjunctionSR;
 
-$vc->rgp = "asd";
-$vc->present = "zxc";
-
-$s = $vc->save();
-$vd = new VerbConjunctionSR;
-
-$vd->fill($s);
-
+$vc = Yii::$app->runAction('verb-sr/sex2', ['glagol' => 'назвати']);
+print_r($vc);
 exit;

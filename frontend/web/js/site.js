@@ -22,11 +22,14 @@ function bottomFunction() {
 }
 
 function downToExamples() {
+    document.getElementById("verbsr-examples-0-example").scrollIntoView(true);
+    window.scrollBy(0, -100);
     document.getElementById("verbsr-examples-0-example").focus();
 }
 
 function downToExamples2() {
     document.getElementsByName("examples")[0].scrollIntoView(true);
+    window.scrollBy(0, -100);
 }
 
 function scrollTo(hash) {

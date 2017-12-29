@@ -64,16 +64,17 @@ echo Nav::widget([
 ]);
 NavBar::end();
 ?>
-
     <div class="container">
         <?=Breadcrumbs::widget([
     // 'links' => isset($this->params['breadcrumbs']) ? implode(' ', $this->params['breadcrumbs']) : [],
 ])?>
         <?=Alert::widget()?>
 
+    <?php if (Yii::$app->controller->id == 'verb-sr') {
+    echo $this->render('../verb-sr/_editside.php');
+}?>
+
     <?=$this->render('../verb-sr/_bookmarks.php')?>
-
-
 
         <?=$content?>
     </div>

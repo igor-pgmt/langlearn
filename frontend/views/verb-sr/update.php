@@ -178,7 +178,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'kind',
@@ -224,7 +224,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'example',
@@ -246,7 +246,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'example',
@@ -278,7 +278,7 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'meaning',

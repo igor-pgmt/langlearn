@@ -46,9 +46,12 @@ class VerbSrController extends LoginController
         $searchModel = new VerbSRSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $infinitives = $this->getInfinitives();
+        $this->view->params['infinitives']['sr'] = $infinitives['sr'];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'infinitives' => $infinitives,
 
         ]);
     }
@@ -170,10 +173,13 @@ class VerbSrController extends LoginController
             }
         }
 
+        $infinitives = $this->getInfinitives();
+        $this->view->params['infinitives']['sr'] = $infinitives['sr'];
         //$model-> здесь не декодим
         return $this->render('view', [
             'models' => $verbs,
             'relevants' => $relevants,
+            'infinitives' => $infinitives,
         ]);
     }
 
@@ -182,7 +188,7 @@ class VerbSrController extends LoginController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($infinitive_sr = false)
     {
         $model = new VerbSR();
 
@@ -209,13 +215,19 @@ class VerbSrController extends LoginController
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $infinitives = $this->getInfinitives();
+            if ($infinitive_sr !== false) {
+                $model->infinitive_sr = [0 => $infinitive_sr];
+                $infinitives['sr'][$infinitive_sr] = $infinitive_sr;
+            }
 
             $allTags = TagSR::getAllVerbs(true, 'sr');
             $model->rating = 3;
+            $this->view->params['infinitives']['sr'] = $infinitives['sr'];
             return $this->render('create', [
                 'model' => $model,
                 'data' => $allTags,
-                'infinitives' => $this->getInfinitives(),
+                'infinitives' => $infinitives,
             ]);
         }
     }
@@ -252,6 +264,7 @@ class VerbSrController extends LoginController
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
             $model->infinitive_sr = json_decode($model->infinitive_sr, true);
             $model->infinitive_ru = json_decode($model->infinitive_ru, true);
             $model->infinitive_en = json_decode($model->infinitive_en, true);
@@ -263,10 +276,13 @@ class VerbSrController extends LoginController
             $model->related = json_decode($model->related, true);
 
             $allTags = TagSR::getAllVerbs(true, 'sr');
+
+            $infinitives = $this->getInfinitives();
+            $this->view->params['infinitives']['sr'] = $infinitives['sr'];
             return $this->render('update', [
                 'model' => $model,
                 'data' => $allTags,
-                'infinitives' => $this->getInfinitives(),
+                'infinitives' => $infinitives,
             ]);
         }
     }
@@ -326,6 +342,19 @@ class VerbSrController extends LoginController
 
             if ($model->save()) {
                 return $model->needhelp;}
+        }
+
+    }
+
+    public function actionSex2($glagol)
+    {
+        $model = VerbSR::find()->select('id')->where(['like', 'infinitive_sr', $glagol])->column();
+
+        return $model[0];
+
+        if (\Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+
         }
 
     }

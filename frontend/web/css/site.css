@@ -238,7 +238,19 @@ span.text-primary {
 }
 
 .vertical-button {
+	height: 80px;
+	max-width: 18px;
+	vertical-align: center;
+	text-align: center;
+	writing-mode: sideways-lr;
+	margin-bottom: 5px;
+	padding: 0px;
+}
+
+.conjunction-button {
 	height: 16px;
-	float: left;
-	margin-right:10px;
+	padding: 0px;
+	margin-right: 1px;
+	vertical-align: center;
+	text-align: center;
 }

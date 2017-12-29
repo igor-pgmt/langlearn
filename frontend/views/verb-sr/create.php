@@ -16,8 +16,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-
 <div class="verbsr-create">
 
     <h1><?=Html::encode($this->title)?></h1>
@@ -170,7 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'kind',
@@ -215,7 +213,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'example',
@@ -237,7 +235,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'example',
@@ -262,7 +260,7 @@ $form->field($model, 'meanings')->widget(MultipleInput::className(), [
     'min' => 1, // should be at least 2 rows
     'allowEmptyList' => true,
     'enableGuessTitle' => true,
-    'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
     'columns' => [
         [
             'name' => 'meaning',
