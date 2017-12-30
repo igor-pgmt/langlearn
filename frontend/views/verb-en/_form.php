@@ -55,7 +55,7 @@ alert(paramValue);
 function ajaxSend(paramName, paramValue) {
 
 	$.ajax({
-		url: '/verb-sr/editswitch?id=' + '<?=$model->id;?>',
+		url: '/verb-en/editswitch?id=' + '<?=$model->id;?>',
 		type: 'POST',
 		data: {'param': paramName, 'paramval': paramValue},
 		success: function(res){
@@ -209,7 +209,7 @@ use yii\widgets\ActiveForm;
 
 <?php
 $js = <<<JS
-document.getElementById('verbsr-mainword').onchange = function() {
+document.getElementById('verben-mainword').onchange = function() {
 	input = document.getElementsByClassName('select2-search__field')[0];
 	input.disabled = this.checked;
 	if (this.checked == true) {input.val('');}; //bug
@@ -221,7 +221,7 @@ JS;
 
 	<?=$form->field($model, 'related')->widget(Select2::classname(), [
         'data' => $data,
-        'id' => 'tag_sr',
+        'id' => 'tag_en',
         //'value' => ['red', 'green'],
         'options' => [
             'placeholder' => 'Add ...',

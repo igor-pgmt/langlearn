@@ -3,15 +3,15 @@
 namespace frontend\models;
 
 /**
- * This is the ActiveQuery class for [[TagSR]].
+ * This is the ActiveQuery class for [[TagEN]].
  *
- * @see TagSR
+ * @see TagEN
  */
-class TagSRQuery extends \yii\db\ActiveQuery
+class TagENQuery extends \yii\db\ActiveQuery
 {
     /**
      * @inheritdoc
-     * @return TagSR[]|array
+     * @return TagEN[]|array
      */
     public function all($db = null)
     {
@@ -20,7 +20,7 @@ class TagSRQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return TagSR|array|null
+     * @return TagEN|array|null
      */
     public function one($db = null)
     {

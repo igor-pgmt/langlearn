@@ -2,19 +2,19 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Phrasebook2;
-use frontend\models\TagSR;
-use frontend\models\VerbSR;
-use frontend\models\VerbSRSearch;
+use frontend\models\PhrasebookEN;
+use frontend\models\TagEN;
+use frontend\models\VerbEN;
+use frontend\models\VerbENSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
- * VerbController implements the CRUD actions for VerbSR model.
+ * VerbEnController implements the CRUD actions for VerbEN model.
  */
-class VerbSrController extends LoginController
+class VerbEnController extends LoginController
 {
     /**
      * @inheritdoc
@@ -38,12 +38,12 @@ class VerbSrController extends LoginController
     }
 
     /**
-     * Lists all VerbSR models.
+     * Lists all VerbEN models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VerbSRSearch();
+        $searchModel = new VerbENSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $infinitives = $this->getInfinitives();
@@ -57,14 +57,14 @@ class VerbSrController extends LoginController
     }
 
     /**
-     * Displays a single VerbSR model.
+     * Displays a single VerbEN model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
 
-        $model = VerbSR::findOne($id);
+        $model = VerbEN::findOne($id);
 
         if (\Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
@@ -82,14 +82,14 @@ class VerbSrController extends LoginController
 
         if ($model->mainword) {
             //поиск всех слов группы
-            $verbs1 = VerbSR::find()->anyTagValues($model->infinitive_sr)->all();
+            $verbs1 = VerbEN::find()->anyTagValues($model->infinitive_sr)->all();
         }
 
         //поиск главных слов
-        $mainwords = VerbSR::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
+        $mainwords = VerbEN::find()->where(['infinitive_sr' => json_decode($model->related, true)])->all();
 
         //поиск всех слов группы
-        $verbs2 = VerbSR::find()->anyTagValues($model->getTagValues(true))->all();
+        $verbs2 = VerbEN::find()->anyTagValues($model->getTagValues(true))->all();
 
         //добавление главных слов в начало списка
         $verbs = array_merge($mainwords, $verbs2);
@@ -111,7 +111,7 @@ class VerbSrController extends LoginController
         $verbs = array_map("unserialize", array_unique(array_map("serialize", $verbs)));
 
         //поиск релевантных примеров из разговорника
-        $phrases = Phrasebook2::find()->select('serbian, russian')->asarray()->all();
+        $phrases = PhrasebookEN::find()->select('serbian, russian')->asarray()->all();
         $relevants = [];
         foreach ($verbs as $verb) {
 
@@ -184,13 +184,13 @@ class VerbSrController extends LoginController
     }
 
     /**
-     * Creates a new Verb model.
+     * Creates a new VerbEN model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate($infinitive_sr = false)
     {
-        $model = new VerbSR();
+        $model = new VerbEN();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -200,7 +200,7 @@ class VerbSrController extends LoginController
             //removing redundant information
             $this->removeRedundant();
 
-            $model->conjunction = isset($_POST['VerbSR']['conjunction']) ? json_encode($_POST['VerbSR']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
+            $model->conjunction = isset($_POST['VerbEN']['conjunction']) ? json_encode($_POST['VerbEN']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
             // $model->conjunction = json_encode($model->conjunction, JSON_UNESCAPED_UNICODE);
             $model->others = json_encode($model->others, JSON_UNESCAPED_UNICODE);
             $model->examples = json_encode($model->examples, JSON_UNESCAPED_UNICODE);
@@ -221,7 +221,7 @@ class VerbSrController extends LoginController
                 $infinitives['sr'][$infinitive_sr] = $infinitive_sr;
             }
 
-            $allTags = TagSR::getAllVerbs(true, 'sr');
+            $allTags = TagEN::getAllVerbs(true, 'sr');
             $model->rating = 3;
             $this->view->params['infinitives']['sr'] = $infinitives['sr'];
             return $this->render('create', [
@@ -233,7 +233,7 @@ class VerbSrController extends LoginController
     }
 
     /**
-     * Updates an existing VerbSR model.
+     * Updates an existing VerbEN model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -255,11 +255,11 @@ class VerbSrController extends LoginController
             //removing redundant information
             $this->removeRedundant();
 
-            $model->conjunction = isset($_POST['VerbSR']['conjunction']) ? json_encode($_POST['VerbSR']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
-            $model->others = isset($_POST['VerbSR']['others']) ? json_encode($_POST['VerbSR']['others'], JSON_UNESCAPED_UNICODE) : '';
-            $model->examples = isset($_POST['VerbSR']['examples']) ? json_encode($_POST['VerbSR']['examples'], JSON_UNESCAPED_UNICODE) : '';
-            $model->examples_ref = isset($_POST['VerbSR']['examples_ref']) ? json_encode($_POST['VerbSR']['examples_ref'], JSON_UNESCAPED_UNICODE) : '';
-            $model->meanings = isset($_POST['VerbSR']['meanings']) ? json_encode($_POST['VerbSR']['meanings'], JSON_UNESCAPED_UNICODE) : '';
+            $model->conjunction = isset($_POST['VerbEN']['conjunction']) ? json_encode($_POST['VerbEN']['conjunction'], JSON_UNESCAPED_UNICODE) : '';
+            $model->others = isset($_POST['VerbEN']['others']) ? json_encode($_POST['VerbEN']['others'], JSON_UNESCAPED_UNICODE) : '';
+            $model->examples = isset($_POST['VerbEN']['examples']) ? json_encode($_POST['VerbEN']['examples'], JSON_UNESCAPED_UNICODE) : '';
+            $model->examples_ref = isset($_POST['VerbEN']['examples_ref']) ? json_encode($_POST['VerbEN']['examples_ref'], JSON_UNESCAPED_UNICODE) : '';
+            $model->meanings = isset($_POST['VerbEN']['meanings']) ? json_encode($_POST['VerbEN']['meanings'], JSON_UNESCAPED_UNICODE) : '';
 
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -275,7 +275,7 @@ class VerbSrController extends LoginController
             $model->meanings = json_decode($model->meanings, true);
             $model->related = json_decode($model->related, true);
 
-            $allTags = TagSR::getAllVerbs(true, 'sr');
+            $allTags = TagEN::getAllVerbs(true, 'sr');
 
             $infinitives = $this->getInfinitives();
             $this->view->params['infinitives']['sr'] = $infinitives['sr'];
@@ -288,7 +288,7 @@ class VerbSrController extends LoginController
     }
 
     /**
-     * Deletes an existing VerbSR model.
+     * Deletes an existing VerbEN model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -301,15 +301,15 @@ class VerbSrController extends LoginController
     }
 
     /**
-     * Finds the VerbSR model based on its primary key value.
+     * Finds the VerbEN model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VerbSR the loaded model
+     * @return VerbEN the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = VerbSR::findOne($id)) !== null) {
+        if (($model = VerbEN::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -343,27 +343,25 @@ class VerbSrController extends LoginController
             if ($model->save()) {
                 return $model->needhelp;}
         }
+
     }
 
     public function actionEditadd($glagol)
     {
-        $verbs = VerbSR::find()->where(['like', 'infinitive_sr', $glagol])->all();
-        if (!empty($verbs)) {
-            foreach ($verbs as $verb) {
-                foreach (json_decode($verb->infinitive_sr) as $value) {
-                    if ($value == $glagol) {
-                        return $verb->id;
-                    }
-                }
-            }
+        $model = VerbEN::find()->select('id')->where(['like', 'infinitive_sr', $glagol])->column();
+
+        return $model[0];
+
+        if (\Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+
         }
 
-        return 'noverb';
     }
 
     private function getInfitranses($combine = false)
     {
-        $allTags = VerbSR::getInfitranses();
+        $allTags = VerbEN::getInfitranses();
 
         if ($combine) {
             $allTags = array_combine($allTags, $allTags);
@@ -374,8 +372,9 @@ class VerbSrController extends LoginController
 
     private function getInfinitives()
     {
-        $verbs = VerbSR::find()->select(['verb_sr.infinitive_sr', 'verb_sr.infinitive_ru', 'verb_sr.infinitive_en'])->all();
+        $verbs = VerbEN::find()->select(['verb_en.infinitive_sr', 'verb_en.infinitive_ru', 'verb_en.infinitive_en'])->all();
         foreach ($verbs as $verb) {
+
             foreach ($verb as $key => $value) {
                 $v = json_decode($value);
                 if ($v) {
@@ -418,32 +417,32 @@ class VerbSrController extends LoginController
 
     private function removeRedundant()
     {
-        if (isset($_POST['VerbSR']['conjunction'])) {
-            foreach ($_POST['VerbSR']['conjunction'] as $key => $value) {
+        if (isset($_POST['VerbEN']['conjunction'])) {
+            foreach ($_POST['VerbEN']['conjunction'] as $key => $value) {
                 foreach ($value as $key2 => $value2) {
                     if (is_array($value2)) {
-                        if (empty(array_filter($_POST['VerbSR']['conjunction'][$key][$key2]))) {
-                            unset($_POST['VerbSR']['conjunction'][$key][$key2]);
+                        if (empty(array_filter($_POST['VerbEN']['conjunction'][$key][$key2]))) {
+                            unset($_POST['VerbEN']['conjunction'][$key][$key2]);
                         }
                     } else {
-                        if (empty($_POST['VerbSR']['conjunction'][$key][$key2])) {
-                            unset($_POST['VerbSR']['conjunction'][$key][$key2]);
+                        if (empty($_POST['VerbEN']['conjunction'][$key][$key2])) {
+                            unset($_POST['VerbEN']['conjunction'][$key][$key2]);
                         }
                     }
                 }
-                if (empty(array_filter($_POST['VerbSR']['conjunction'][$key]))) {
-                    unset($_POST['VerbSR']['conjunction'][$key]);
+                if (empty(array_filter($_POST['VerbEN']['conjunction'][$key]))) {
+                    unset($_POST['VerbEN']['conjunction'][$key]);
                 }
             }
         }
 
-        foreach ($_POST['VerbSR']['conjunction'] as $key => $value) {
-            if (empty(array_filter($_POST['VerbSR']['conjunction'][$key]))) {
-                unset($_POST['VerbSR']['conjunction'][$key]);
+        foreach ($_POST['VerbEN']['conjunction'] as $key => $value) {
+            if (empty(array_filter($_POST['VerbEN']['conjunction'][$key]))) {
+                unset($_POST['VerbEN']['conjunction'][$key]);
             }
         }
-        if (empty(array_filter($_POST['VerbSR']['conjunction']))) {
-            unset($_POST['VerbSR']['conjunction']);
+        if (empty(array_filter($_POST['VerbEN']['conjunction']))) {
+            unset($_POST['VerbEN']['conjunction']);
         }
     }
 }

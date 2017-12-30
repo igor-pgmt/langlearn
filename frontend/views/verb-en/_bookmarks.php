@@ -5,7 +5,10 @@
     z-index: 101;
     max-width: 20px;
     margin-top: 25px;
+    /*margin-right: 120px;*/
     margin-left: -30px;
+    /*margin-bottom: 120px;*/
+    /*float:left;*/
 }
 </style>
 

@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\VerbSR */
+/* @var $model frontend\models\VerbEN */
 
 $nameFlag = true;
 foreach ($models as $model) {
@@ -35,13 +35,13 @@ foreach ($models as $model) {
         $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
     }
 
-    $this->params['breadcrumbs'][] = ['label' => $verbTitle, 'url' => ['/verb-sr/view?id=' . $model->id]];
+    $this->params['breadcrumbs'][] = ['label' => $verbTitle, 'url' => ['/verb-en/view?id=' . $model->id]];
 
     ?>
 
-<div class="verbsr-view">
+<div class="verben-view">
 
-<div class='verbsr-form'>
+<div class='verben-form'>
 
       <h1><?=Html::decode($verbTitle)?></h1>
         <?=Breadcrumbs::widget([
@@ -114,7 +114,7 @@ switch(paramName) {
 function ajaxSend(paramName, paramValue, id) {
 
     $.ajax({
-        url: '/verb-sr/editswitch?id=' + id,
+        url: '/verb-en/editswitch?id=' + id,
         type: 'POST',
         data: {'param': paramName, 'paramval': paramValue},
         success: function(res){
@@ -133,8 +133,6 @@ function ajaxSend(paramName, paramValue, id) {
     <?=$form->field($model, 'perfect_verb', ['options' => ['class' => 'my-switcher form-group', 'model_id' => $model->id]])->widget(SwitchInput::classname(), [
 
             'pluginOptions' => [
-                //'handleWidth'=>120,
-                //'onText'=> Yii::t('frontend', 'perfect_verb'),
                 'offText' => '-',
                 'onColor' => 'primary',
                 'size' => 'mini',
@@ -300,7 +298,7 @@ foreach ($relevants[$model->id] as $value) {
 
     <?=$form->field($model, 'related')->widget(Select2::classname(), [
             'data' => $data,
-            'id' => 'tag_sr',
+            'id' => 'tag_en',
             //'value' => ['red', 'green'],
             'options' => [
                 'placeholder' => 'Add ...',

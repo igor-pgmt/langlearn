@@ -33,18 +33,18 @@ echo Select2::widget([
 	 verb = a[0].value;
 
 		$.ajax({
-		url: '/verb-sr/editadd?glagol=' + verb,
+		url: '/verb-en/editadd?glagol=' + verb,
 		type: 'POST',
 		data: {'param': 'verb', 'paramval': verb},
 		success: function(id){
-            if (id !== 'noverb') {
-                window.location.href = '/verb-sr/update?id='+id;
-            } else {
-                window.location.href = '/verb-sr/create?infinitive_sr='+verb;
+			if (id !== 'noverb') {
+				window.location.href = '/verb-en/update?id='+id;
+			} else {
+                window.location.href = '/verb-en/create?infinitive_sr='+verb;
             }
 		},
-		error: function(){
-			window.location.href = '/verb-sr/create?infinitive_sr='+verb;
+		error: function(err){
+			alert(err);
 		}
 	});
 }
