@@ -5,14 +5,15 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
-use Yii;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
+
 ?>
+
 <?php $this->beginPage()?>
 <!DOCTYPE html>
 <html lang="<?=Yii::$app->language?>">
@@ -78,7 +79,6 @@ NavBar::end();
 $cookies = Yii::$app->request->cookies;
     $conjothersCookie = $cookies->getValue('conjothers', 'true');
     $conjothers = $conjothersCookie === 'true' ? true : false;
-
     ?>
     <?=$this->render('../verb-sr/_editside.php', [
         'conjothers' => $conjothers,
