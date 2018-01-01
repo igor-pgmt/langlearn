@@ -28,8 +28,8 @@ foreach ($models as $model) {
     $infinitive_sr = (!null == (json_decode($model->infinitive_sr))) ? is_array($model->infinitive_sr) ? implode(', ', $model->infinitive_sr) : implode(', ', json_decode($model->infinitive_sr)) : false;
     $infinitive_en = (!null == (json_decode($model->infinitive_en))) ? is_array($model->infinitive_en) ? implode(', ', $model->infinitive_en) : implode(', ', json_decode($model->infinitive_en)) : false;
 
-    $verbTitle = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
     $infinitive_sr = $infinitive_sr . $reflexive;
+    $verbTitle = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
     if ($nameFlag) {
         $this->title = $infinitive_sr . ' :: ' . $infinitive_ru . ' :: ' . $infinitive_en;
         $this->params['breadcrumbs'][] = ['label' => Yii::t('frontend', 'Verbs'), 'url' => ['index']];
