@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
-        'maximumSelectionLength' => 1,
     ],
 
 ]);?>
@@ -65,7 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ],
 
 ]);?>
-
 
     <?=$form->field($model, 'perfect_verb', ['options' => ['class' => 'my-switcher form-group']])->widget(SwitchInput::classname(), [
     'name' => 'perfect_verb',

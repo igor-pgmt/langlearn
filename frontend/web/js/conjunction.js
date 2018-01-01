@@ -483,9 +483,11 @@ function gpt() {
 	document.getElementById('verbsr-conjunction-gpt-n-plural').value = osnova + 'на'
 }
 
-function rgpGen() {
+function rgpGen(a) {
+
 	var osnova = document.getElementById('verbsr-conjunction-rgp-i-m').value;
-	document.getElementById('verbsr-conjunction-rgp-i-m').value = osnova + 'о';
+	if (a == 1) {a = 'о'} else if (a == 2) {a = 'ао'}
+	document.getElementById('verbsr-conjunction-rgp-i-m').value = osnova + a;
 	document.getElementById('verbsr-conjunction-rgp-i-f').value = osnova + 'ла';
 	document.getElementById('verbsr-conjunction-rgp-i-n').value = osnova + 'ло';
 	document.getElementById('verbsr-conjunction-rgp-we-m').value = osnova + 'ли';

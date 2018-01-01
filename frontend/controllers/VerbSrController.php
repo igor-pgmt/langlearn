@@ -175,11 +175,16 @@ class VerbSrController extends LoginController
 
         $infinitives = $this->getInfinitives();
         $this->view->params['infinitives']['sr'] = $infinitives['sr'];
+
+        $cookies = Yii::$app->request->cookies;
+        $conjothersCookie = $cookies->getValue('conjothers', 'true');
+        $conjothers = $conjothersCookie === 'true' ? true : false;
         //$model-> здесь не декодим
         return $this->render('view', [
             'models' => $verbs,
             'relevants' => $relevants,
             'infinitives' => $infinitives,
+            'conjothers' => $conjothers,
         ]);
     }
 
@@ -374,7 +379,11 @@ class VerbSrController extends LoginController
 
     private function getInfinitives()
     {
-        $verbs = VerbSR::find()->select(['verb_sr.infinitive_sr', 'verb_sr.infinitive_ru', 'verb_sr.infinitive_en'])->all();
+        $verbs = VerbSR::find()
+            ->select(['verb_sr.infinitive_sr', 'verb_sr.infinitive_ru', 'verb_sr.infinitive_en'])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+
         foreach ($verbs as $verb) {
             foreach ($verb as $key => $value) {
                 $v = json_decode($value);
@@ -445,5 +454,26 @@ class VerbSrController extends LoginController
         if (empty(array_filter($_POST['VerbSR']['conjunction']))) {
             unset($_POST['VerbSR']['conjunction']);
         }
+    }
+
+    public function actionGetCookies()
+    {
+        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $cookies = Yii::$app->request->cookies;
+        $conjothers = $cookies->getValue('conjothers', 'notset');
+        // return $response;
+        return $conjothers;
+    }
+
+    public function actionSetCookies($state)
+    {
+        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $cookies = Yii::$app->response->cookies;
+        $cookies->add(new \yii\web\Cookie([
+            'name' => 'conjothers',
+            'value' => $state,
+        ]));
+        // return $response;
+        return $conjothers = $cookies->getValue('conjothers', 'notset');
     }
 }

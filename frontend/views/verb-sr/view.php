@@ -228,8 +228,25 @@ function ajaxSend(paramName, paramValue, id) {
     ])?>
         <?=Html::a(Yii::t('frontend', 'Create Verb'), ['create'], ['class' => 'btn btn-success btn-xs'])?>
 </div>
+<?php
 
-<?php if (!empty($model->conjunction)) {
+    $cookies = Yii::$app->request->cookies;
+    $conjothersCookie = $cookies->getValue('conjothers', 'true');
+    $conjothers = $conjothersCookie === 'true' ? true : false;
+    switch ($conjothers) {
+        case true:
+            $class = 'conjothers-true';
+            break;
+        case false:
+            $class = 'conjothers-false';
+            break;
+    }
+
+    ?>
+
+<div name="conjunctions-others" class=<?=$class?>>
+
+    <?php if (!empty($model->conjunction)) {
         ?>
 
     <?=$this->render('_conjunctions.php', [
@@ -237,16 +254,18 @@ function ajaxSend(paramName, paramValue, id) {
             'model' => $model,
             'form' => $form,
         ])?>
-<?php }?>
+    <?php }?>
 
-<?php if (!empty($model->others)) {
+    <?php if (!empty($model->others)) {
         ?>
-    <?=$this->render('_others.php', [
+        <?=$this->render('_others.php', [
             'others' => $model->others,
             'model' => $model,
             'form' => $form,
         ])?>
-<?php }?>
+    <?php }?>
+
+</div>
 
 <?php if (!empty($model->examples)) {
         ?>

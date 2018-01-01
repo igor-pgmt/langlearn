@@ -13,7 +13,7 @@ if (Yii::$app->controller->action->id == 'view') {
 	<table>
 		<thead>
 			<tr>
-				<td colspan="8">Радни глаголски придев <?=Html::button('Generate Present→', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'rgpGen();']);?></td>
+				<td colspan="8">Радни глаголски придев <?=Html::button('Generate Present→', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'rgpGen(1);']);?><?=Html::button('Generate Present→', ['class' => 'btn btn-primary btn-xs conjunction-button', 'onclick' => 'rgpGen(2);']);?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,7 +30,7 @@ if (Yii::$app->controller->action->id == 'view') {
 			<tr>
 				<td class="face"><span>Ја</span></td>
 				<td rowspan="3">
-					<?=$form->field($model, 'conjunction[rgp][I][m]', ['errorOptions' => ['tag' => null]])->textInput(['class' => 'col-xs-12 form-control', 'style' => 'padding: 0px;', 'placeholder' => '-о'])->label(false)?>
+					<?=$form->field($model, 'conjunction[rgp][I][m]', ['errorOptions' => ['tag' => null]])->textInput(['class' => 'col-xs-12 form-control', 'style' => 'padding: 0px;', 'placeholder' => '-о; -ао'])->label(false)?>
 				</td>
 				<td rowspan="3">
 					<?=$form->field($model, 'conjunction[rgp][I][f]', ['errorOptions' => ['tag' => null]])->textInput(['class' => 'col-xs-12 form-control', 'style' => 'padding: 0px;', 'placeholder' => '-ла'])->label(false)?>

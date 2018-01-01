@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = Yii::t('frontend', 'Update');
     'pluginOptions' => [
         'allowClear' => true,
         'tags' => true,
-        'maximumSelectionLength' => 1,
     ],
 
 ]);?>

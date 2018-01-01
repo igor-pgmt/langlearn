@@ -254,3 +254,13 @@ span.text-primary {
 	vertical-align: center;
 	text-align: center;
 }
+
+.conjothers-true {
+	visibility: visible;
+	display: block;
+}
+
+.conjothers-false {
+	visibility: hidden;
+	display: none;
+}

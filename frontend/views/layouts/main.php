@@ -5,6 +5,7 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
+use Yii;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
@@ -70,8 +71,18 @@ NavBar::end();
 ])?>
         <?=Alert::widget()?>
 
-    <?php if (Yii::$app->controller->id == 'verb-sr') {?>
-    <?=$this->render('../verb-sr/_editside.php')?>
+    <?php if (Yii::$app->controller->id == 'verb-sr') {
+    ?>
+
+    <?php
+$cookies = Yii::$app->request->cookies;
+    $conjothersCookie = $cookies->getValue('conjothers', 'true');
+    $conjothers = $conjothersCookie === 'true' ? true : false;
+
+    ?>
+    <?=$this->render('../verb-sr/_editside.php', [
+        'conjothers' => $conjothers,
+    ])?>
     <?=$this->render('../verb-sr/_bookmarks.php')?>
 <?php }?>
         <?=$content?>
