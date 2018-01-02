@@ -40,7 +40,7 @@ echo Select2::widget([
         'multiple' => false,
     ],
     'pluginEvents' => [
-        "select2:select" => "function() { side($(this).children(':selected'), 'view'); }",
+        "select2:select" => "function() { editside($(this).children(':selected'), 'view'); }",
     ],
 ]);
 ?>
@@ -86,7 +86,7 @@ echo SwitchInput::widget([
 ?>
 
 <script>
- function side(a, b)
+ function editside(a, b)
 {
 	 verb = a[0].value;
 
